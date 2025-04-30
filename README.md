@@ -81,6 +81,26 @@ Projekt stanowi odpowiedź na zidentyfikowane wyzwania, takie jak monotonia trad
 
 ## Struktura Projektu
 
+WyscigPoZaliczenie/
+│
+├── src/                     # Główny folder z kodem źródłowym gry
+│   ├── main.py              # Punkt startowy aplikacji, główna pętla gry
+│   └── ...                  # Inne moduły Pythona (.py)
+│
+├── assets/                  # Zasoby gry
+│   ├── images/              # Pliki graficzne (.png, .jpg)
+│   ├── fonts/               # Pliki czcionek (.ttf, .otf)
+│   ├── sounds/              # Pliki dźwiękowe (.wav, .ogg)
+│   └── data/                # Pliki danych (np. pytania .json, .csv)
+│
+├── docs/                    # Dokumentacja projektowa
+│   ├── DOKUMENTACJA PROJEKTOWA.pdf
+│   └── BRAND BOOK.pdf
+│
+├── .gitignore               # Plik ignorowania dla Git
+├── LICENSE                  # Plik licencji
+├── README.md                # Ten plik
+└── requirements.txt         # Zależności Python 
 
 ## Dokumentacja Projektowa
 
