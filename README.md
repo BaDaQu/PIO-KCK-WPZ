@@ -80,7 +80,7 @@ Projekt stanowi odpowiedź na zidentyfikowane wyzwania, takie jak monotonia trad
 *(Legenda: [X] - Częściowo/W pełni zaimplementowane, [ ] - Do zaimplementowania)*
 
 ## Struktura Projektu
-
+```plaintext
 WyscigPoZaliczenie/
 ├── src/                     # Główny folder z kodem źródłowym gry
 │   ├── main.py              # Punkt startowy aplikacji, główna pętla gry
@@ -101,7 +101,7 @@ WyscigPoZaliczenie/
 ├── README.md                # Ten plik
 └── requirements.txt         # Zależności Python
 └── requirements.txt         # Zależności Python 
-
+```
 ## Dokumentacja Projektowa
 
 Szczegółowa dokumentacja koncepcyjna, analiza potrzeb oraz księga tożsamości wizualnej (Brand Book) znajdują się w folderze `/docs`.
