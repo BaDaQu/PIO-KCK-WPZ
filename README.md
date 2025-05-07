@@ -94,7 +94,7 @@ WyscigPoZaliczenie/
 │
 ├── docs/                    # Dokumentacja projektowa
 │   ├── DOKUMENTACJA_PROJEKTOWA.pdf  # Specyfikacja
-│   └── BRAND_BOOK.pdf            # Księga Marki
+│   └── BRAND_BOOK.pdf               # BRAND BOOK
 │
 ├── .gitignore               # Plik ignorowania dla Git
 ├── LICENSE                  # Plik licencji
