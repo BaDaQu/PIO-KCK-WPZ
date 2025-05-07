@@ -100,7 +100,6 @@ WyscigPoZaliczenie/
 ├── LICENSE                  # Plik licencji
 ├── README.md                # Ten plik
 └── requirements.txt         # Zależności Python
-└── requirements.txt         # Zależności Python 
 ```
 ## Dokumentacja Projektowa
 
