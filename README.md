@@ -56,7 +56,7 @@ Projekt stanowi odpowiedź na zidentyfikowane wyzwania, takie jak monotonia trad
 
 ## Technologie
 
-*   **Język programowania:** Python 3.13.3
+*   **Język programowania:** Python 3.13
 *   **Główna biblioteka graficzna i gry:** Pygame
 *   **(Potencjalnie w przyszłości):** Bazy danych (np. SQLite), narzędzia do budowania interfejsu, obsługa sieci.
 
