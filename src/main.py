@@ -4,6 +4,7 @@ import sys
 import menu_screen
 import gameplay_screen
 from pawn import PlayerPawn, ProfessorPawn
+from dice import Dice  # <-- DODANY IMPORT
 
 pygame.init()
 
@@ -18,6 +19,9 @@ current_screen_height = INITIAL_SCREEN_HEIGHT
 
 pygame.display.set_caption(SCREEN_TITLE)
 screen = pygame.display.set_mode((current_screen_width, current_screen_height))
+
+# Stworzenie instancji kostki do gry
+player1_dice = Dice(x=90, y=400)  # <-- NOWA LINIA: INICJALIZACJA KOSTKI
 
 FONT_PATH = "../assets/fonts/PTSerif-Regular.ttf"
 MENU_BG_PATH = "../assets/images/MENU_GLOWNE.png"
@@ -51,6 +55,7 @@ test_move_turn_counter = 0
 clock = pygame.time.Clock()
 FPS = 60
 game_state = "MENU_GLOWNE"
+current_player_turn = 1  # <-- NOWA LINIA: ZARZĄDZANIE TURĄ
 
 
 def set_screen_mode(width, height):
@@ -73,7 +78,7 @@ def set_screen_mode(width, height):
 
 def initialize_pawns():
     global player_pawns_group, professor_pawn_group, all_sprites_group, pawns_on_fields_map, all_pawn_objects
-    global player1_next_move_amount, player2_next_move_amount, test_move_turn_counter  # Resetuj też te zmienne
+    global player1_next_move_amount, player2_next_move_amount, test_move_turn_counter
 
     player_pawns_group.empty()
     professor_pawn_group.empty()
@@ -81,7 +86,6 @@ def initialize_pawns():
     pawns_on_fields_map.clear()
     all_pawn_objects.clear()
 
-    # Reset zmiennych testowego ruchu
     player1_next_move_amount = 2
     player2_next_move_amount = 1
     test_move_turn_counter = 0
@@ -89,7 +93,7 @@ def initialize_pawns():
     if gameplay_screen.game_board_instance:
         try:
             player1_start_field = 0
-            player1 = PlayerPawn(player_id=1,
+            player1 = PlayerPawn(player_id="player_1",  # Zmieniono na string dla spójności
                                  image_path=PLAYER_PAWN_IMAGE_PATH,
                                  initial_board_field_index=player1_start_field,
                                  board_ref=gameplay_screen.game_board_instance)
@@ -99,7 +103,7 @@ def initialize_pawns():
             all_sprites_group.add(player1)
 
             player2_start_field = 0
-            player2 = PlayerPawn(player_id=2,
+            player2 = PlayerPawn(player_id="player_2",  # Zmieniono na string dla spójności
                                  image_path=PLAYER2_PAWN_IMAGE_PATH,
                                  initial_board_field_index=player2_start_field,
                                  board_ref=gameplay_screen.game_board_instance)
@@ -168,8 +172,7 @@ def move_pawn_logic(pawn_to_move_id, new_field_index):
 
 
 running = True
-move_timer = 0
-move_interval = 2000
+# Usunięto 'move_timer' i 'move_interval', bo nie są już potrzebne
 
 while running:
     dt = clock.tick(FPS)
@@ -190,12 +193,8 @@ while running:
                         gameplay_screen.load_gameplay_resources(current_screen_width, current_screen_height, FONT_PATH,
                                                                 LEFT_PANEL_BG_PATH)
                         gameplay_screen.setup_gameplay_ui_elements(current_screen_height)
-                        initialize_pawns()  # Upewnij się, że pionki są inicjalizowane
-                    # Resetuj zmienne testowego ruchu przy starcie/restarcie gameplay
-                    player1_next_move_amount = 2
-                    player2_next_move_amount = 1
-                    test_move_turn_counter = 0
-                    move_timer = 0
+                        initialize_pawns()
+                    current_player_turn = 1  # Reset tury przy starcie gry
                 elif action == "INSTRUCTIONS":
                     game_state = "INSTRUCTIONS"
                     if current_screen_width != INITIAL_SCREEN_WIDTH or current_screen_height != INITIAL_SCREEN_HEIGHT:
@@ -205,6 +204,27 @@ while running:
 
         elif game_state == "GAMEPLAY":
             action_gp = gameplay_screen.handle_gameplay_input(event, mouse_pos)
+
+            # <-- NOWY KOD: OBSŁUGA RZUTU KOSTKĄ I RUCHU PIONKA -->
+            if player1_dice.handle_event(event):
+                roll_value = player1_dice.current_roll
+                print(f"Gracz {current_player_turn} wyrzucił {roll_value}")
+
+                pawn_to_move = None
+                if current_player_turn == 1:
+                    pawn_to_move = next((p for p in all_pawn_objects if p.pawn_id == "player_1"), None)
+                    current_player_turn = 2
+                elif current_player_turn == 2:
+                    pawn_to_move = next((p for p in all_pawn_objects if p.pawn_id == "player_2"), None)
+                    current_player_turn = 1
+
+                if pawn_to_move and gameplay_screen.game_board_instance:
+                    total_fields = gameplay_screen.game_board_instance.get_total_fields()
+                    if total_fields > 0:
+                        new_index = (pawn_to_move.board_field_index + roll_value) % total_fields
+                        move_pawn_logic(pawn_to_move.pawn_id, new_index)
+            # <-- KONIEC NOWEGO KODU OBSŁUGI KOSTKI -->
+
             if action_gp == "BACK_TO_MENU":
                 game_state = "MENU_GLOWNE"
                 if current_screen_width != INITIAL_SCREEN_WIDTH or current_screen_height != INITIAL_SCREEN_HEIGHT:
@@ -217,38 +237,11 @@ while running:
                     if current_screen_width != INITIAL_SCREEN_WIDTH or current_screen_height != INITIAL_SCREEN_HEIGHT:
                         set_screen_mode(INITIAL_SCREEN_WIDTH, INITIAL_SCREEN_HEIGHT)
 
+    # <-- ZMIENIONY BLOK: USUNIĘTO AUTOMATYCZNY RUCH, ZOSTAŁA AKTUALIZACJA -->
     if game_state == "GAMEPLAY":
         all_sprites_group.update()
         gameplay_screen.update_gameplay_state()
-
-        move_timer += dt
-        if move_timer >= move_interval:
-            move_timer = 0
-            test_move_turn_counter += 1
-
-            if gameplay_screen.game_board_instance:
-                total_fields = gameplay_screen.game_board_instance.get_total_fields()
-                if total_fields > 0:
-
-                    player1 = next((p for p in all_pawn_objects if p.pawn_id == "player_1"), None)
-                    if player1:
-                        new_idx_p1 = (player1.board_field_index + player1_next_move_amount) % total_fields
-                        move_pawn_logic(player1.pawn_id, new_idx_p1)
-                        player1_next_move_amount = 1 if player1_next_move_amount == 2 else 2
-
-                    player2 = next((p for p in all_pawn_objects if p.pawn_id == "player_2"), None)
-                    if player2:
-                        new_idx_p2 = (player2.board_field_index + player2_next_move_amount) % total_fields
-                        move_pawn_logic(player2.pawn_id, new_idx_p2)
-                        player2_next_move_amount = 2 if player2_next_move_amount == 1 else 1
-
-                    if test_move_turn_counter > 1:
-                        professor = next((p for p in all_pawn_objects if p.pawn_id == "professor"), None)
-                        if professor:
-                            new_idx_prof = (professor.board_field_index + 1) % total_fields
-                            move_pawn_logic(professor.pawn_id, new_idx_prof)
-
-                    # print(f"Test: Tura ruchu {test_move_turn_counter}. Pionki przesunięte.")
+        player1_dice.update(dt)
 
     default_bg_color = menu_screen.BLACK if hasattr(menu_screen, 'BLACK') and menu_screen.BLACK else (0, 0, 0)
     screen.fill(default_bg_color)
@@ -258,6 +251,7 @@ while running:
     elif game_state == "GAMEPLAY":
         gameplay_screen.draw_gameplay_screen(screen, mouse_pos)
         all_sprites_group.draw(screen)
+        player1_dice.draw(screen)  # <-- NOWA LINIA: RYSOWANIE KOSTKI
     elif game_state == "INSTRUCTIONS":
         instr_white = menu_screen.WHITE if hasattr(menu_screen, 'WHITE') and menu_screen.WHITE else (255, 255, 255)
         if hasattr(menu_screen, 'TITLE_FONT') and menu_screen.TITLE_FONT:
