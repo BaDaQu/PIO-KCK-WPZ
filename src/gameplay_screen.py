@@ -1,117 +1,107 @@
 # src/gameplay_screen.py
 import pygame
 from board_screen import Board
-from button import Button # Zakładamy, że klasa Button jest w button.py
-
-# Stałe dla tego modułu (można je też przenieść do globalnego pliku settings.py)
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-LEFT_PANEL_FALLBACK_COLOR = (40, 40, 40)
-BOARD_FALLBACK_COLOR = (30, 30, 30)
-
-# Kolory przycisków i tekstów (można zaimportować z menu_screen lub settings)
-# Dla uproszczenia, zdefiniujemy je tutaj, ale lepiej mieć je w jednym miejscu
-BUTTON_BASE_COLOR = (218, 112, 32) # Twój pomarańczowy
-BUTTON_HOVER_COLOR = (238, 132, 52)
-BUTTON_TEXT_COLOR = (255, 255, 255) # Biały tekst na pomarańczowym
+from button import Button
+import settings
 
 game_board_instance = None
+
 left_panel_background_img = None
-gameplay_buttons_list = []
-BUTTON_FONT_GAMEPLAY = None # Czcionka dla przycisków w gameplay
+info_font = None
+button_font_gameplay = None
+dice_button_panel = None
+exit_to_menu_button_panel = None
 
-# Wymiary panelu i planszy wewnątrz ekranu rozgrywki
-LEFT_PANEL_WIDTH = 412
-BOARD_RENDER_WIDTH = 1024 # Plansza renderowana jako 1024x1024
 
-def load_gameplay_resources(screen_width, screen_height, font_path, left_panel_img_path):
-    global game_board_instance, left_panel_background_img, BUTTON_FONT_GAMEPLAY
+def load_gameplay_resources(screen_width, screen_height):
+    global game_board_instance, left_panel_background_img, info_font, button_font_gameplay
 
-    # Inicjalizuj/Przeładuj planszę
-    # Klasa Board sama zajmie się pozycjonowaniem planszy 1024x1024 na ekranie o podanej szerokości
-    if game_board_instance is None or \
-       game_board_instance.display_surface_width != screen_width or \
-       game_board_instance.display_surface_height != screen_height:
-        game_board_instance = Board(screen_width, screen_height) # Przekazujemy pełne wymiary ekranu rozgrywki
+    game_board_instance = Board(screen_width, screen_height)
 
-    # Załaduj tło lewego panelu
     try:
-        if left_panel_img_path:
-            left_panel_background_img = pygame.image.load(left_panel_img_path).convert()
-            # Oczekujemy, że obrazek panelu ma już poprawne wymiary (412 x wysokość ekranu)
-            # Jeśli nie, można dodać skalowanie, ale lepiej przygotować zasób.
-            if left_panel_background_img.get_width() != LEFT_PANEL_WIDTH or \
-               left_panel_background_img.get_height() != screen_height:
-                print(f"OSTRZEŻENIE: Lewy panel ma wymiary {left_panel_background_img.get_size()}, oczekiwano {LEFT_PANEL_WIDTH}x{screen_height}. Skalowanie...")
-                left_panel_background_img = pygame.transform.scale(left_panel_background_img, (LEFT_PANEL_WIDTH, screen_height))
-        print("Lewy panel załadowany.")
+        left_panel_background_img = pygame.image.load(settings.IMAGE_PATH_GAMEPLAY_LEFT_PANEL_BG).convert()
+        left_panel_background_img = pygame.transform.scale(left_panel_background_img,
+                                                           (settings.LEFT_PANEL_WIDTH, screen_height))
     except Exception as e:
-        print(f"Błąd ładowania obrazka lewego panelu: {e}")
+        print(f"Błąd ładowania tła lewego panelu: {e}")
         left_panel_background_img = None
 
-    # Załaduj czcionkę dla przycisków gameplay (jeśli inna niż w menu)
     try:
-        BUTTON_FONT_GAMEPLAY = pygame.font.Font(font_path, 30) # Mniejsza czcionka dla przycisku na panelu
+        info_font = pygame.font.Font(settings.FONT_PATH_PT_SERIF_REGULAR, settings.GAMEPLAY_PANEL_INFO_FONT_SIZE)
+        button_font_gameplay = pygame.font.Font(settings.FONT_PATH_PT_SERIF_REGULAR,
+                                                settings.GAMEPLAY_PANEL_BUTTON_FONT_SIZE)
     except Exception as e:
-        print(f"Błąd ładowania czcionki dla gameplay: {e}")
-        BUTTON_FONT_GAMEPLAY = pygame.font.SysFont(None, 35)
+        print(f"Błąd ładowania czcionki dla panelu gameplay: {e}")
+        info_font = pygame.font.SysFont(None, settings.GAMEPLAY_PANEL_INFO_FONT_SIZE + 2)
+        button_font_gameplay = pygame.font.SysFont(None, settings.GAMEPLAY_PANEL_BUTTON_FONT_SIZE + 2)
 
 
-def setup_gameplay_ui_elements(screen_height): # screen_width lewego panelu jest stały (412)
-    global gameplay_buttons_list
+def setup_gameplay_ui_elements(screen_height_param):
+    global dice_button_panel, exit_to_menu_button_panel, button_font_gameplay
 
-    gameplay_buttons_list = [] # Czyścimy listę
+    btn_width = settings.GAMEPLAY_PANEL_BUTTON_WIDTH
+    btn_height = settings.GAMEPLAY_PANEL_BUTTON_HEIGHT
+    btn_spacing_panel = settings.GAMEPLAY_PANEL_BUTTON_SPACING
 
-    btn_width = 300
-    btn_height = 70
-    # Wycentrowany na lewym panelu (szerokość panelu LEFT_PANEL_WIDTH)
-    btn_x = (LEFT_PANEL_WIDTH - btn_width) // 2
-    btn_y = screen_height - btn_height - 50 # Na dole panelu z marginesem
-
-    quit_game_btn = Button(
-        x=btn_x, y=btn_y,
+    dice_button_panel = Button(
+        x=(settings.LEFT_PANEL_WIDTH - btn_width) // 2,
+        y=screen_height_param - (btn_height * 2) - btn_spacing_panel - 50,
         width=btn_width, height=btn_height,
-        text="Zakończ Grę", font=BUTTON_FONT_GAMEPLAY,
-        base_color=BUTTON_BASE_COLOR, hover_color=BUTTON_HOVER_COLOR, text_color=BUTTON_TEXT_COLOR,
-        action="BACK_TO_MENU"
+        text="Rzuć Kostką", font=button_font_gameplay,
+        base_color=settings.PANEL_BUTTON_BASE_COLOR,
+        hover_color=settings.PANEL_BUTTON_HOVER_COLOR,
+        text_color=settings.PANEL_BUTTON_TEXT_COLOR,
+        action="ROLL_DICE_PANEL", border_radius=10
     )
-    gameplay_buttons_list.append(quit_game_btn)
-    # TODO: Dodaj inne przyciski dla ekranu rozgrywki (np. "Rzuć Kostką")
+
+    exit_to_menu_button_panel = Button(
+        x=(settings.LEFT_PANEL_WIDTH - btn_width) // 2,
+        y=dice_button_panel.rect.bottom + btn_spacing_panel,
+        width=btn_width, height=btn_height,
+        text="Powrót do Menu", font=button_font_gameplay,
+        base_color=settings.PANEL_BUTTON_BASE_COLOR,
+        hover_color=settings.PANEL_BUTTON_HOVER_COLOR,
+        text_color=settings.PANEL_BUTTON_TEXT_COLOR,
+        action="BACK_TO_MENU", border_radius=10
+    )
 
 
 def handle_gameplay_input(event, mouse_pos):
-    for btn in gameplay_buttons_list:
-        action = btn.handle_event(event, mouse_pos)
-        if action:
-            return action
-    # TODO: Obsługa innych zdarzeń specyficznych dla rozgrywki (np. kliknięcie na pole)
+    global dice_button_panel, exit_to_menu_button_panel
+    if exit_to_menu_button_panel:
+        action_exit = exit_to_menu_button_panel.handle_event(event, mouse_pos)
+        if action_exit: return action_exit
+    if dice_button_panel:
+        action_dice = dice_button_panel.handle_event(event, mouse_pos)
+        if action_dice: return action_dice
     return None
 
 
 def update_gameplay_state():
-    # TODO: Logika aktualizacji stanu gry (ruch pionków, AI profesora, sprawdzanie warunków itp.)
-    pass
+    if game_board_instance: pass
 
 
-def draw_gameplay_screen(surface, mouse_pos):
-    # Rysowanie lewego panelu
+def draw_gameplay_screen(surface, mouse_pos, dice_instance_to_draw):
+    global dice_button_panel, exit_to_menu_button_panel
+    surface.fill(settings.DEFAULT_BG_COLOR)  # Użyj domyślnego tła
+
     if left_panel_background_img:
         surface.blit(left_panel_background_img, (0, 0))
     else:
-        pygame.draw.rect(surface, LEFT_PANEL_FALLBACK_COLOR, (0, 0, LEFT_PANEL_WIDTH, surface.get_height()))
+        pygame.draw.rect(surface, settings.PANEL_BG_COLOR, (0, 0, settings.LEFT_PANEL_WIDTH, surface.get_height()))
 
-    # Rysowanie planszy (klasa Board sama zarządza swoim offsetem)
     if game_board_instance:
         game_board_instance.draw(surface)
-    else:
-        # Awaryjne rysowanie, jeśli plansza nie istnieje
-        board_placeholder_x = surface.get_width() - BOARD_RENDER_WIDTH
-        board_placeholder_y = (surface.get_height() - BOARD_RENDER_WIDTH) // 2 # BOARD_RENDER_WIDTH bo kwadrat
-        pygame.draw.rect(surface, BOARD_FALLBACK_COLOR, (board_placeholder_x, board_placeholder_y, BOARD_RENDER_WIDTH, BOARD_RENDER_WIDTH))
 
-    # Rysowanie przycisków na ekranie rozgrywki
-    for btn in gameplay_buttons_list:
-        btn.update_hover(mouse_pos)
-        btn.draw(surface)
+    if dice_button_panel:
+        dice_button_panel.update_hover(mouse_pos)
+        dice_button_panel.draw(surface)
 
-    # TODO: Rysowanie pionków, kostki, HUD z informacjami o graczach, aktualnego pytania itp.
+    if exit_to_menu_button_panel:
+        exit_to_menu_button_panel.update_hover(mouse_pos)
+        exit_to_menu_button_panel.draw(surface)
+
+    if dice_instance_to_draw and dice_button_panel:
+        dice_instance_to_draw.dice_display_rect.centerx = dice_button_panel.rect.centerx
+        dice_instance_to_draw.dice_display_rect.bottom = dice_button_panel.rect.top - 15
+        dice_instance_to_draw.draw(surface)
