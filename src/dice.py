@@ -7,14 +7,14 @@ import settings
 class Dice:
     def __init__(self, initial_x_center, initial_y_bottom_of_image,
                  dice_images_base_path=settings.DICE_IMAGES_BASE_PATH,
-                 font_path=settings.FONT_PATH_PT_SERIF_REGULAR,
-                 font_size=settings.DICE_BUTTON_FONT_SIZE):
+                 # Usunięto font_path i font_size, bo przycisk jest teraz w gameplay_screen
+                 ):
         self.current_roll = 1
         self.is_animating = False
-        self.animation_timer = 0
-        self.animation_duration = settings.DICE_ANIMATION_DURATION_MS
-        self.frame_timer = 0
-        self.frame_duration = settings.DICE_ANIMATION_FRAME_DURATION_MS
+        self.animation_timer = 0.0 # Używamy float dla sekund
+        self.animation_duration = settings.DICE_ANIMATION_DURATION_SECONDS # W sekundach
+        self.frame_timer = 0.0 # Używamy float dla sekund
+        self.frame_duration = settings.DICE_ANIMATION_FRAME_DURATION_SECONDS   # W sekundach
         self.animation_display_roll = 1
 
         self.dice_images = {}
@@ -34,13 +34,13 @@ class Dice:
         self.dice_display_rect = self.dice_images[1].get_rect()
         self.dice_display_rect.centerx = initial_x_center
         self.dice_display_rect.bottom = initial_y_bottom_of_image
-        # Usunięto przycisk z tej klasy, bo jest w gameplay_screen
+        # print(f"Kostka zainicjalizowana, pozycja obrazka: {self.dice_display_rect}") # Można odkomentować do debugu
 
     def start_animation_and_roll(self):
         if not self.is_animating:
             self.is_animating = True
-            self.animation_timer = 0
-            self.frame_timer = 0
+            self.animation_timer = 0.0 # Resetuj timer
+            self.frame_timer = 0.0   # Resetuj timer
             print("Kostka: Rozpoczęto animację rzutu.")
 
     def get_final_roll_result(self):
@@ -48,16 +48,20 @@ class Dice:
         print(f"Kostka: Wyrzucono ostatecznie: {self.current_roll}")
         return self.current_roll
 
-    def update(self, dt):
+    def update(self, dt_seconds): # dt jest teraz dt_seconds
         if self.is_animating:
-            self.animation_timer += dt
-            self.frame_timer += dt
+            self.animation_timer += dt_seconds
+            self.frame_timer += dt_seconds
+            # print(f"Dice Update: dt_s={dt_seconds:.4f}, anim_timer={self.animation_timer:.2f}/{self.animation_duration:.2f}, frame_timer={self.frame_timer:.2f}, display_roll={self.animation_display_roll}")
+
+
             if self.frame_timer >= self.frame_duration:
-                self.frame_timer = 0
+                self.frame_timer -= self.frame_duration # Poprawne resetowanie timera klatki
                 self.animation_display_roll = random.randint(1, 6)
+
             if self.animation_timer >= self.animation_duration:
                 self.is_animating = False
-                print("Kostka: Animacja zakończona.")
+                print("Kostka: Animacja ZAKOŃCZONA (is_animating = False)")
 
     def draw(self, screen):
         image_to_draw = self.dice_images[self.animation_display_roll if self.is_animating else self.current_roll]
