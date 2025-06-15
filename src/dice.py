@@ -34,7 +34,7 @@ class Dice:
         self.dice_display_rect = self.dice_images[1].get_rect()
         self.dice_display_rect.centerx = initial_x_center
         self.dice_display_rect.bottom = initial_y_bottom_of_image
-        # print(f"Kostka zainicjalizowana, pozycja obrazka: {self.dice_display_rect}") # Można odkomentować do debugu
+
 
     def start_animation_and_roll(self):
         if not self.is_animating:
