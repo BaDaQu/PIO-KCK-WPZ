@@ -4,20 +4,18 @@ import settings
 import gameplay_screen
 import menu_screen
 from pawn import PlayerPawn, ProfessorPawn
-import question_manager
 
-# --- Stałe dla Logiki Gry ---
-SPECIAL_FIELDS = ["START", "STYPENDIUM", "EGZAMIN", "POPRAWKA"]
+# question_manager i name_input_screen będą importowane wewnątrz funkcji, by uniknąć cyklicznych zależności
 
 # --- Zmienne Stanu Aplikacji ---
 game_state = "MENU_GLOWNE"
 current_screen_width = settings.INITIAL_SCREEN_WIDTH
 current_screen_height = settings.INITIAL_SCREEN_HEIGHT
-screen = None
+screen = None  # Instancja ekranu będzie przekazywana z main.py
 
 # --- Zmienne Logiki Gry ---
 all_sprites_group = pygame.sprite.Group()
-pawns_on_fields_map = {}
+pawns_on_fields_map = {}  # Klucz: field_index, Wartość: lista obiektów Pawn
 all_pawn_objects = []
 current_player_id = "player_1"
 turn_phase = 'WAITING_FOR_ROLL'
@@ -33,11 +31,16 @@ def set_main_screen(main_screen_surface):
 
 def change_game_state(new_state):
     """Centralna funkcja do zmiany stanu gry."""
-    global game_state
+    global game_state, current_screen_width, current_screen_height
+
+    # Jeśli nic się nie zmienia, nie rób nic
+    if game_state == new_state:
+        return
+
     print(f"Zmiana stanu gry z '{game_state}' na '{new_state}'")
     game_state = new_state
 
-    # Sprawdź, czy potrzebna jest zmiana trybu ekranu
+    # Sprawdź, czy potrzebna jest zmiana trybu ekranu i wywołaj ją
     if new_state == "GAMEPLAY" and (
             current_screen_width != settings.GAMEPLAY_SCREEN_WIDTH or current_screen_height != settings.GAMEPLAY_SCREEN_HEIGHT):
         set_screen_mode(settings.GAMEPLAY_SCREEN_WIDTH, settings.GAMEPLAY_SCREEN_HEIGHT)
@@ -78,10 +81,6 @@ def initialize_gameplay():
     """Przygotowuje wszystko do rozpoczęcia nowej gry, używając imion."""
     global final_player_names
     print("Rozpoczynam inicjalizację rozgrywki...")
-
-    # Zresetuj pulę pytań na nową grę
-    question_manager.reset_available_questions()
-
     gameplay_screen.load_gameplay_resources(current_screen_width, current_screen_height)
     gameplay_screen.setup_gameplay_ui_elements(current_screen_height, final_player_names)
     initialize_game_logic_and_pawns()
@@ -90,6 +89,7 @@ def initialize_gameplay():
 def start_new_game(player_names_from_input):
     """Przetwarza imiona i uruchamia grę."""
     global final_player_names
+    # Użyj imion z inputu lub domyślnych, jeśli puste
     final_player_names = [
         name.strip() if name.strip() else f"Gracz {i + 1}"
         for i, name in enumerate(player_names_from_input)
@@ -98,13 +98,15 @@ def start_new_game(player_names_from_input):
     change_game_state("GAMEPLAY")
 
 
-# --- Istniejące funkcje logiki gry ---
 def update_active_pawn_indicator():
+    """Ustawia flagę `is_active_turn` dla wszystkich pionków."""
     for pawn in all_pawn_objects:
+        # Podświetlaj tylko pionki graczy, nie profesora
         pawn.set_active(pawn.pawn_id.startswith("player_") and pawn.pawn_id == current_player_id)
 
 
 def initialize_game_logic_and_pawns():
+    """Resetuje logikę gry i inicjalizuje pionki."""
     global all_sprites_group, pawns_on_fields_map, all_pawn_objects, current_player_id, turn_phase, pawn_that_was_moving
     all_sprites_group.empty();
     pawns_on_fields_map.clear();
@@ -112,6 +114,7 @@ def initialize_game_logic_and_pawns():
     current_player_id = "player_1";
     turn_phase = 'WAITING_FOR_ROLL';
     pawn_that_was_moving = None
+
     if gameplay_screen.game_board_instance:
         try:
             player1 = PlayerPawn(1, settings.IMAGE_PATH_PLAYER1_PAWN, 0, gameplay_screen.game_board_instance)
@@ -126,6 +129,7 @@ def initialize_game_logic_and_pawns():
             add_pawn_to_field_map(professor, 0);
             all_sprites_group.add(professor);
             all_pawn_objects.append(professor)
+
             start_pawns_repositioning_on_field(0);
             update_active_pawn_indicator()
             print("Logika gry i pionki zainicjalizowane.")
@@ -147,7 +151,8 @@ def remove_pawn_from_field_map(pawn_obj_to_remove, field_index):
         if not pawns_on_fields_map[field_index]: del pawns_on_fields_map[field_index]
 
 
-def get_pawn_objects_on_field(field_index): return pawns_on_fields_map.get(field_index, [])
+def get_pawn_objects_on_field(field_index):
+    return pawns_on_fields_map.get(field_index, [])
 
 
 def start_pawns_repositioning_on_field(field_index):
@@ -160,16 +165,22 @@ def start_pawns_repositioning_on_field(field_index):
 def start_pawn_move(roll_value):
     global turn_phase, pawn_that_was_moving
     pawn_to_move = next((p for p in all_pawn_objects if p.pawn_id == current_player_id), None)
-    if not pawn_to_move or not gameplay_screen.game_board_instance: switch_turn(); return
+    if not pawn_to_move or not gameplay_screen.game_board_instance:
+        switch_turn()
+        return
     total_fields = gameplay_screen.game_board_instance.get_total_fields()
-    if total_fields == 0 or roll_value == 0: switch_turn(); return
+    if total_fields == 0 or roll_value == 0:
+        switch_turn()
+        return
     path_indices = []
-    start_idx = pawn_to_move.board_field_index;
+    start_idx = pawn_to_move.board_field_index
     current_idx_in_path = start_idx
     for _ in range(roll_value):
-        current_idx_in_path = (current_idx_in_path + 1) % total_fields;
+        current_idx_in_path = (current_idx_in_path + 1) % total_fields
         path_indices.append(current_idx_in_path)
-    if not path_indices: switch_turn(); return
+    if not path_indices:
+        switch_turn()
+        return
     pawn_that_was_moving = pawn_to_move
     pawn_that_was_moving.start_move_animation(path_indices)
     turn_phase = 'PAWN_MOVING'
@@ -184,47 +195,18 @@ def switch_turn():
         current_player_id = "player_1"
     print(f"--- Następna tura: Gracz {current_player_id} ---")
     turn_phase = 'WAITING_FOR_ROLL'
-    update_active_pawn_indicator()
+    update_active_pawn_indicator()  # Zaktualizuj, który pionek jest podświetlony
 
 
 def handle_field_action():
-    """Obsługuje akcję po wylądowaniu na polu (np. zadaje pytanie)."""
-    # Znajdź pionka, który właśnie zakończył ruch (używamy current_player_id, bo on się jeszcze nie zmienił)
-    active_pawn = next((p for p in all_pawn_objects if p.pawn_id == current_player_id), None)
-
-    if active_pawn and gameplay_screen.game_board_instance:
-        current_field_index = active_pawn.board_field_index
-        field_data = gameplay_screen.game_board_instance.get_field_data(current_field_index)
-
-        if field_data:
-            subject_name = field_data["label"]
-
-            # Sprawdzamy, czy pole NIE jest specjalne
-            if subject_name.upper() not in SPECIAL_FIELDS:
-                question = question_manager.get_random_question_for_subject(subject_name)
-                if question:
-                    print(f"POLE Z PYTANIEM! Przedmiot: {subject_name}")
-                    print(f"Pytanie: {question['question_text']}")
-                    # TODO: Zmień stan na 'SHOWING_QUESTION' i przekaż 'question' do wyświetlenia
-                else:
-                    print(f"Brak dostępnych (nowych) pytań dla przedmiotu: {subject_name}.")
-            else:
-                # To jest pole specjalne, więc nic nie robimy z pytaniami
-                print(f"Wylądowano na polu specjalnym: {subject_name}. Brak pytania.")
-                # TODO: W przyszłości tutaj będzie logika dla pól specjalnych (np. dodaj/odejmij punkty)
-        else:
-            print(f"Brak danych dla pola o indeksie {current_field_index}")
-    else:
-        print(f"Nie można znaleźć pionka {current_player_id} lub planszy do wykonania akcji pola.")
-
-    # Po wykonaniu akcji (lub jej braku), przełączamy turę
+    # Funkcja, która będzie rozbudowywana (na razie tylko przełącza turę)
+    print("Wykonuję akcję pola (na razie tylko zmiana tury).")
     switch_turn()
 
 
 def update_game_logic(dt_seconds, dice_instance):
     """Główna funkcja aktualizująca logikę gry, wywoływana w pętli main."""
     global turn_phase, pawn_that_was_moving
-
     all_sprites_group.update(dt_seconds)
     dice_instance.update(dt_seconds)
 
@@ -233,19 +215,14 @@ def update_game_logic(dt_seconds, dice_instance):
         start_pawn_move(roll_value)
 
     if turn_phase == 'PAWN_MOVING' and pawn_that_was_moving and not pawn_that_was_moving.is_moving:
-        print(f"Animacja ruchu dla {pawn_that_was_moving.pawn_id} zakończona.")
-
         final_board_index = pawn_that_was_moving.board_field_index
         total_fields = gameplay_screen.game_board_instance.get_total_fields()
-        roll_amount = dice_instance.current_roll  # Pobierz ostatni wynik rzutu
-        # Oblicz stary indeks na podstawie nowego i rzutu
+        roll_amount = dice_instance.current_roll
         old_board_index = (final_board_index - roll_amount + total_fields) % total_fields
 
-        # Aktualizuj mapę pionków
         remove_pawn_from_field_map(pawn_that_was_moving, old_board_index)
         add_pawn_to_field_map(pawn_that_was_moving, final_board_index)
 
-        # Rozpocznij animację rozsuwania na starym i nowym polu
         start_pawns_repositioning_on_field(old_board_index)
         start_pawns_repositioning_on_field(final_board_index)
 
@@ -253,8 +230,8 @@ def update_game_logic(dt_seconds, dice_instance):
         pawn_that_was_moving = None
 
     if turn_phase == 'FIELD_ACTION':
-        # Poczekaj, aż wszystkie animacje rozsuwania się zakończą
         any_pawn_repositioning = next((p for p in all_pawn_objects if p.is_repositioning), None)
         if not any_pawn_repositioning:
-            # print("Wszystkie animacje rozsuwania zakończone. Wykonuję akcję pola.")
-            handle_field_action()  # Wywołaj akcję pola i przełącz turę
+            print("Wszystkie animacje rozsuwania zakończone.")
+            # W przyszłości tutaj będzie logika akcji pola, np. pytanie
+            handle_field_action()  # Na razie tylko przełącza turę

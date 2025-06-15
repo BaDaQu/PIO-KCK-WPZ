@@ -40,6 +40,7 @@ while running:
     dt_seconds = clock.tick(settings.FPS) / 1000.0
     mouse_pos = pygame.mouse.get_pos()
     current_game_state = game_logic.game_state
+    current_turn_phase = game_logic.turn_phase
 
     # Sprawdzenie, czy można obsługiwać input
     pawn_in_motion = next((p for p in game_logic.all_pawn_objects if p.is_moving or p.is_repositioning), None)
@@ -50,8 +51,10 @@ while running:
             running = False
 
         # --- Delegowanie Obsługi Zdarzeń do Odpowiednich Modułów ---
-        if current_game_state == "MENU_GLOWNE":
-            if can_handle_input:
+        # Input jest blokowany, jeśli 'can_handle_input' jest False,
+        # co zapobiega klikaniu podczas animacji.
+        if can_handle_input:
+            if current_game_state == "MENU_GLOWNE":
                 action = menu_screen.handle_menu_input(event, mouse_pos)
                 if action:
                     if action == "GAMEPLAY":
@@ -61,23 +64,23 @@ while running:
                     elif action == "QUIT":
                         running = False
 
-        elif current_game_state == "GETTING_PLAYER_NAMES":
-            action = name_input_screen.handle_name_input_events(event, mouse_pos)
-            if action == "START_GAME":
-                game_logic.start_new_game(name_input_screen.player_names_input)
+            elif current_game_state == "GETTING_PLAYER_NAMES":
+                action = name_input_screen.handle_name_input_events(event, mouse_pos)
+                if action == "START_GAME":
+                    game_logic.start_new_game(name_input_screen.player_names_input)
 
-        elif current_game_state == "GAMEPLAY":
-            if can_handle_input and game_logic.turn_phase == 'WAITING_FOR_ROLL':
-                gameplay_action = gameplay_screen.handle_gameplay_input(event, mouse_pos)
-                if gameplay_action == "ROLL_DICE_PANEL":
-                    dice_instance.start_animation_and_roll()
-                    game_logic.turn_phase = 'DICE_ROLLING'
-                elif gameplay_action == "BACK_TO_MENU":
+            elif current_game_state == "GAMEPLAY":
+                if current_turn_phase == 'WAITING_FOR_ROLL':
+                    gameplay_action = gameplay_screen.handle_gameplay_input(event, mouse_pos)
+                    if gameplay_action == "ROLL_DICE_PANEL":
+                        dice_instance.start_animation_and_roll()
+                        game_logic.turn_phase = 'DICE_ROLLING'
+                    elif gameplay_action == "BACK_TO_MENU":
+                        game_logic.change_game_state("MENU_GLOWNE")
+
+            elif current_game_state == "INSTRUCTIONS":
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     game_logic.change_game_state("MENU_GLOWNE")
-
-        elif current_game_state == "INSTRUCTIONS":
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                game_logic.change_game_state("MENU_GLOWNE")
 
     # --- Aktualizacja Logiki ---
     if current_game_state == "GAMEPLAY":
@@ -92,8 +95,8 @@ while running:
         name_input_screen.draw_name_input_screen(screen, game_logic.current_screen_width, game_logic.current_screen_height, mouse_pos)
     elif current_game_state == "GAMEPLAY":
         gameplay_screen.draw_gameplay_screen(screen, mouse_pos, dice_instance)
-        for pawn in game_logic.all_pawn_objects:
-            pawn.draw(screen)
+        # Rysuj wszystkie pionki, metoda draw() w Pawn sama obsłuży podświetlenie
+        game_logic.all_sprites_group.draw(screen)
     elif current_game_state == "INSTRUCTIONS":
         # Ten kod rysowania też można przenieść do osobnego modułu/funkcji w przyszłości
         screen.fill(settings.MENU_BG_FALLBACK_COLOR)
