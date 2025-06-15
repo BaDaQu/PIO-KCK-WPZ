@@ -1,0 +1,211 @@
+{
+  "PROGRAMOWANIE SKRYPTOWE": [
+    {
+      "question_text": "Które z poniższych stwierdzeń dotyczących języka Python jest prawdziwe?",
+      "answers": [
+        "Zmienne muszą być jawnie deklarowane z typem przed użyciem.",
+        "Jest językiem silnie i statycznie typowanym.",
+        "Służy głównie do programowania niskopoziomowego sterowników sprzętu.",
+        "Używa wcięć do definiowania bloków kodu."
+      ],
+      "correct_answer_index": 3
+    }
+  ],
+  "BHP": [
+    {
+      "question_text": "Co oznacza skrót PPOŻ?",
+      "answers": [
+        "Pomoc Poszkodowanym Osobom Życia",
+        "Ochrona Przeciwpożarowa",
+        "Pierwsza Pomoc Osobom Żywym",
+        "Plan Postępowania w Obliczu Zagrożenia"
+      ],
+      "correct_answer_index": 1
+    }
+  ],
+  "FIZYKA": [
+    {
+      "question_text": "Które z poniższych równań poprawnie opisuje drugą zasadę dynamiki Newtona?",
+      "answers": ["F = m * a", "E = m * c^2", "P = V * I", "V = I * R"],
+      "correct_answer_index": 0
+    }
+  ],
+  "MATEMATYKA DYSKRETNA": [
+    {
+      "question_text": "Ile wynosi 5! (pięć silnia)?",
+      "answers": ["25", "120", "60", "15"],
+      "correct_answer_index": 1
+    }
+  ],
+  "PODSTAWY ELEKTROTECHNIKI": [
+    {
+      "question_text": "Zgodnie z prawem Ohma, jeśli napięcie w obwodzie wzrośnie dwukrotnie przy stałej rezystancji, to natężenie prądu:",
+      "answers": [
+        "zmaleje dwukrotnie",
+        "wzrośnie dwukrotnie",
+        "pozostanie bez zmian",
+        "wzrośnie czterokrotnie"
+      ],
+      "correct_answer_index": 1
+    }
+  ],
+  "PODSTAWY PROGRAMOWANIA I": [
+    {
+      "question_text": "Jaka jest typowa rola pętli 'for' w programowaniu?",
+      "answers": [
+        "Definiowanie nowej funkcji",
+        "Wykonywanie bloku kodu określoną liczbę razy lub dla każdego elementu w kolekcji",
+        "Warunkowe wykonanie kodu w zależności od spełnienia warunku logicznego",
+        "Deklarowanie zmiennych globalnych"
+      ],
+      "correct_answer_index": 1
+    }
+  ],
+  "PODSTAWY PROGRAMOWANIA II": [
+    {
+      "question_text": "Czym jest wskaźnik (pointer) w językach takich jak C++?",
+      "answers": [
+        "Zmienną przechowującą wartość liczbową",
+        "Typem danych reprezentującym tekst",
+        "Zmienną przechowującą adres pamięci innej zmiennej",
+        "Specjalnym rodzajem funkcji"
+      ],
+      "correct_answer_index": 2
+    }
+  ],
+  "SYSTEMY OPERACYJNE I": [
+    {
+      "question_text": "Który z poniższych elementów jest centralną częścią systemu operacyjnego, zarządzającą zasobami systemowymi?",
+      "answers": ["Powłoka (Shell)", "Jądro (Kernel)", "System plików", "Kompilator"],
+      "correct_answer_index": 1
+    }
+  ],
+  "ANALIZA MAT. II": [
+    {
+      "question_text": "Ile wynosi całka nieoznaczona z funkcji f(x) = 2x?",
+      "answers": ["2", "x^2 + C", "2x^2 + C", "ln(2x) + C"],
+      "correct_answer_index": 1
+    }
+  ],
+  "PODSTAWY GRAFIKI KOMP.": [
+    {
+      "question_text": "Który model kolorów jest najczęściej używany do wyświetlania obrazów na monitorach komputerowych?",
+      "answers": ["CMYK", "RGB", "HSL", "YUV"],
+      "correct_answer_index": 1
+    }
+  ],
+  "SYSTEMY OPERACYJNE II": [
+    {
+      "question_text": "Sytuacja, w której dwa lub więcej procesów czeka na zasoby zajęte przez inne procesy w tej samej grupie, co uniemożliwia ich dalsze działanie, to:",
+      "answers": ["Zakleszczenie (Deadlock)", "Wywłaszczenie (Preemption)", "Wątek (Thread)", "Przeplot (Interleaving)"],
+      "correct_answer_index": 0
+    }
+  ],
+  "ALGORYTMY I STRUKTURY DANYCH": [
+    {
+      "question_text": "Jaka jest średnia złożoność czasowa algorytmu sortowania szybkiego (Quicksort)?",
+      "answers": ["O(n^2)", "O(n log n)", "O(n)", "O(log n)"],
+      "correct_answer_index": 1
+    }
+  ],
+  "METODY PROBABILISTYCZNE": [
+    {
+      "question_text": "Jakie jest prawdopodobieństwo wyrzucenia liczby parzystej na standardowej, sześciennej kostce do gry?",
+      "answers": ["1/6", "1/3", "1/2", "2/3"],
+      "correct_answer_index": 2
+    }
+  ],
+  "METODY NUMERYCZNE": [
+    {
+      "question_text": "Do czego służy metoda Newtona-Raphsona?",
+      "answers": [
+        "Do sortowania list",
+        "Do znajdowania miejsc zerowych funkcji",
+        "Do obliczania całek oznaczonych",
+        "Do rozwiązywania układów równań różniczkowych"
+      ],
+      "correct_answer_index": 1
+    }
+  ],
+  "TECHNIKA CYFROWA": [
+    {
+      "question_text": "Jaki będzie wynik na wyjściu bramki logicznej AND, jeśli na obu jej wejściach podany jest stan wysoki (1)?",
+      "answers": [
+        "Stan niski (0)",
+        "Stan wysoki (1)",
+        "Stan nieokreślony",
+        "Zależy to od napięcia zasilania"
+      ],
+      "correct_answer_index": 1
+    }
+  ],
+  "PROGRAMOWANIE OBIEKTOWE I": [
+    {
+      "question_text": "Która z zasad programowania obiektowego opisuje mechanizm łączenia danych i metod w jedną całość (obiekt) oraz ukrywania szczegółów implementacji?",
+      "answers": ["Dziedziczenie", "Polimorfizm", "Enkapsulacja", "Abstrakcja"],
+      "correct_answer_index": 2
+    }
+  ],
+  "ARCHITEKTURA KOMPUTERÓW": [
+    {
+      "question_text": "Która część procesora (CPU) jest odpowiedzialna za wykonywanie operacji arytmetycznych i logicznych?",
+      "answers": [
+        "Jednostka sterująca (Control Unit)",
+        "Pamięć podręczna (Cache)",
+        "Jednostka arytmetyczno-logiczna (ALU)",
+        "Rejestry (Registers)"
+      ],
+      "correct_answer_index": 2
+    }
+  ],
+  "DESIGN THINKING": [
+    {
+      "question_text": "Który z etapów procesu Design Thinking skupia się na zrozumieniu potrzeb i problemów użytkownika poprzez obserwację i interakcję?",
+      "answers": ["Identyfikacja (Ideate)", "Prototypowanie (Prototype)", "Testowanie (Test)", "Empatia (Empathize)"],
+      "correct_answer_index": 3
+    }
+  ],
+  "JĘZYK ANGIELSKI": [
+    {
+      "question_text": "Which sentence is grammatically correct?",
+      "answers": [
+        "He go to school every day.",
+        "She don't like apples.",
+        "They are playing football now.",
+        "I has a new car."
+      ],
+      "correct_answer_index": 2
+    }
+  ],
+  "SIECI KOMPUTEROWE": [
+    {
+      "question_text": "W modelu TCP/IP, za co odpowiedzialna jest warstwa transportowa?",
+      "answers": [
+        "Za fizyczne przesyłanie bitów przez medium transmisyjne.",
+        "Za adresowanie logiczne i routing pakietów.",
+        "Za zapewnienie komunikacji między procesami na różnych hostach (np. TCP, UDP).",
+        "Za formatowanie danych i obsługę sesji (np. HTTP, FTP)."
+      ],
+      "correct_answer_index": 2
+    }
+  ],
+  "BAZY DANYCH": [
+    {
+      "question_text": "W relacyjnych bazach danych, kolumna (lub zestaw kolumn), która jednoznacznie identyfikuje każdy wiersz w tabeli, to:",
+      "answers": ["Klucz obcy (Foreign Key)", "Klucz główny (Primary Key)", "Indeks (Index)", "Kursor (Cursor)"],
+      "correct_answer_index": 1
+    }
+  ],
+  "ALGEBRA LINIOWA": [
+    {
+      "question_text": "Jaki jest wyznacznik (determinant) macierzy A = [[2, 1], [3, 4]]?",
+      "answers": [
+        "11",
+        "-5",
+        "5",
+        "10"
+      ],
+      "correct_answer_index": 2
+    }
+  ]
+}

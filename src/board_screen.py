@@ -171,3 +171,9 @@ class Board:
 
     def get_total_fields(self):
         return len(self.fields_data)
+
+    def get_field_data(self, field_index):
+        """Zwraca cały słownik danych dla pola o danym indeksie."""
+        if 0 <= field_index < len(self.fields_data):
+            return self.fields_data[field_index]
+        return None
