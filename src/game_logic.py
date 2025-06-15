@@ -4,12 +4,16 @@ import settings
 import gameplay_screen
 import menu_screen
 from pawn import PlayerPawn, ProfessorPawn
+import question_manager
 
-# --- Zmienne Stanu Aplikacji (przeniesione z main.py) ---
+# --- Stałe dla Logiki Gry ---
+SPECIAL_FIELDS = ["START", "STYPENDIUM", "EGZAMIN", "POPRAWKA"]
+
+# --- Zmienne Stanu Aplikacji ---
 game_state = "MENU_GLOWNE"
 current_screen_width = settings.INITIAL_SCREEN_WIDTH
 current_screen_height = settings.INITIAL_SCREEN_HEIGHT
-screen = None  # Instancja ekranu będzie przekazywana
+screen = None
 
 # --- Zmienne Logiki Gry ---
 all_sprites_group = pygame.sprite.Group()
@@ -18,7 +22,7 @@ all_pawn_objects = []
 current_player_id = "player_1"
 turn_phase = 'WAITING_FOR_ROLL'
 pawn_that_was_moving = None
-final_player_names = []  # Przechowuje ostateczne imiona graczy
+final_player_names = []
 
 
 def set_main_screen(main_screen_surface):
@@ -43,7 +47,7 @@ def change_game_state(new_state):
     else:
         # Jeśli rozmiar ekranu jest poprawny, tylko zainicjuj odpowiedni stan
         if new_state == "GETTING_PLAYER_NAMES":
-            import name_input_screen  # Import wewnątrz funkcji, by uniknąć cyklicznych zależności
+            import name_input_screen
             name_input_screen.setup_name_input_screen(current_screen_width, current_screen_height)
         elif new_state == "GAMEPLAY":
             initialize_gameplay()
@@ -75,6 +79,9 @@ def initialize_gameplay():
     global final_player_names
     print("Rozpoczynam inicjalizację rozgrywki...")
 
+    # Zresetuj pulę pytań na nową grę
+    question_manager.reset_available_questions()
+
     gameplay_screen.load_gameplay_resources(current_screen_width, current_screen_height)
     gameplay_screen.setup_gameplay_ui_elements(current_screen_height, final_player_names)
     initialize_game_logic_and_pawns()
@@ -91,7 +98,7 @@ def start_new_game(player_names_from_input):
     change_game_state("GAMEPLAY")
 
 
-# --- Istniejące funkcje logiki gry (z drobnymi poprawkami) ---
+# --- Istniejące funkcje logiki gry ---
 def update_active_pawn_indicator():
     for pawn in all_pawn_objects:
         pawn.set_active(pawn.pawn_id.startswith("player_") and pawn.pawn_id == current_player_id)
@@ -180,26 +187,74 @@ def switch_turn():
     update_active_pawn_indicator()
 
 
+def handle_field_action():
+    """Obsługuje akcję po wylądowaniu na polu (np. zadaje pytanie)."""
+    # Znajdź pionka, który właśnie zakończył ruch (używamy current_player_id, bo on się jeszcze nie zmienił)
+    active_pawn = next((p for p in all_pawn_objects if p.pawn_id == current_player_id), None)
+
+    if active_pawn and gameplay_screen.game_board_instance:
+        current_field_index = active_pawn.board_field_index
+        field_data = gameplay_screen.game_board_instance.get_field_data(current_field_index)
+
+        if field_data:
+            subject_name = field_data["label"]
+
+            # Sprawdzamy, czy pole NIE jest specjalne
+            if subject_name.upper() not in SPECIAL_FIELDS:
+                question = question_manager.get_random_question_for_subject(subject_name)
+                if question:
+                    print(f"POLE Z PYTANIEM! Przedmiot: {subject_name}")
+                    print(f"Pytanie: {question['question_text']}")
+                    # TODO: Zmień stan na 'SHOWING_QUESTION' i przekaż 'question' do wyświetlenia
+                else:
+                    print(f"Brak dostępnych (nowych) pytań dla przedmiotu: {subject_name}.")
+            else:
+                # To jest pole specjalne, więc nic nie robimy z pytaniami
+                print(f"Wylądowano na polu specjalnym: {subject_name}. Brak pytania.")
+                # TODO: W przyszłości tutaj będzie logika dla pól specjalnych (np. dodaj/odejmij punkty)
+        else:
+            print(f"Brak danych dla pola o indeksie {current_field_index}")
+    else:
+        print(f"Nie można znaleźć pionka {current_player_id} lub planszy do wykonania akcji pola.")
+
+    # Po wykonaniu akcji (lub jej braku), przełączamy turę
+    switch_turn()
+
+
 def update_game_logic(dt_seconds, dice_instance):
+    """Główna funkcja aktualizująca logikę gry, wywoływana w pętli main."""
     global turn_phase, pawn_that_was_moving
+
     all_sprites_group.update(dt_seconds)
     dice_instance.update(dt_seconds)
+
     if turn_phase == 'DICE_ROLLING' and not dice_instance.is_animating:
-        roll_value = dice_instance.get_final_roll_result();
+        roll_value = dice_instance.get_final_roll_result()
         start_pawn_move(roll_value)
+
     if turn_phase == 'PAWN_MOVING' and pawn_that_was_moving and not pawn_that_was_moving.is_moving:
+        print(f"Animacja ruchu dla {pawn_that_was_moving.pawn_id} zakończona.")
+
         final_board_index = pawn_that_was_moving.board_field_index
         total_fields = gameplay_screen.game_board_instance.get_total_fields()
-        roll_amount = dice_instance.current_roll
+        roll_amount = dice_instance.current_roll  # Pobierz ostatni wynik rzutu
+        # Oblicz stary indeks na podstawie nowego i rzutu
         old_board_index = (final_board_index - roll_amount + total_fields) % total_fields
+
+        # Aktualizuj mapę pionków
         remove_pawn_from_field_map(pawn_that_was_moving, old_board_index)
         add_pawn_to_field_map(pawn_that_was_moving, final_board_index)
+
+        # Rozpocznij animację rozsuwania na starym i nowym polu
         start_pawns_repositioning_on_field(old_board_index)
         start_pawns_repositioning_on_field(final_board_index)
-        turn_phase = 'FIELD_ACTION';
+
+        turn_phase = 'FIELD_ACTION'
         pawn_that_was_moving = None
+
     if turn_phase == 'FIELD_ACTION':
+        # Poczekaj, aż wszystkie animacje rozsuwania się zakończą
         any_pawn_repositioning = next((p for p in all_pawn_objects if p.is_repositioning), None)
         if not any_pawn_repositioning:
-            print("Wszystkie animacje rozsuwania zakończone.");
-            switch_turn()
+            # print("Wszystkie animacje rozsuwania zakończone. Wykonuję akcję pola.")
+            handle_field_action()  # Wywołaj akcję pola i przełącz turę
