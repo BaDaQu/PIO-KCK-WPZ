@@ -186,7 +186,7 @@ def switch_turn():
 
 def handle_field_action():
     """Obsługuje akcję po wylądowaniu na polu (np. zadaje pytanie)."""
-    global turn_phase  # Modyfikujemy stan tury
+    global turn_phase  
     active_pawn = next((p for p in all_pawn_objects if p.pawn_id == current_player_id), None)
 
     if not (active_pawn and gameplay_screen.game_board_instance):
