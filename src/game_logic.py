@@ -5,11 +5,13 @@ import gameplay_screen
 import menu_screen
 from pawn import PlayerPawn, ProfessorPawn
 
+# question_manager i name_input_screen będą importowane wewnątrz funkcji, by uniknąć cyklicznych zależności
+
 # --- Zmienne Stanu Aplikacji ---
 game_state = "MENU_GLOWNE"
 current_screen_width = settings.INITIAL_SCREEN_WIDTH
 current_screen_height = settings.INITIAL_SCREEN_HEIGHT
-screen = None
+screen = None  # Instancja ekranu będzie przekazywana z main.py
 
 # --- Zmienne Logiki Gry ---
 all_sprites_group = pygame.sprite.Group()
