@@ -44,22 +44,23 @@ while running:
 
     # Sprawdzenie, czy można obsługiwać input
     pawn_in_motion = next((p for p in game_logic.all_pawn_objects if p.is_moving or p.is_repositioning), None)
-    can_handle_input = not dice_instance.is_animating and not pawn_in_motion and not (
-            current_turn_phase in ['SHOWING_QUESTION', 'SHOWING_FEEDBACK', 'PAWN_MOVING'])
+    can_handle_input_main = not dice_instance.is_animating and not pawn_in_motion and not (
+            current_turn_phase in ['SHOWING_RESULT_ON_CARD', 'PAWN_MOVING'])
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-        # Zdarzenia dla karty pytania są obsługiwane zawsze, gdy jest widoczna
+        # Zdarzenia dla karty pytania są obsługiwane tylko w stanie 'SHOWING_QUESTION'
         if current_game_state == "GAMEPLAY" and current_turn_phase == 'SHOWING_QUESTION':
             if game_logic.active_question_card:
                 chosen_answer_index = game_logic.active_question_card.handle_event(event, mouse_pos)
                 if chosen_answer_index is not None:
+                    # Gracz wybrał odpowiedź, przetwarzamy ją i zmieniamy stan
                     game_logic.process_player_answer(chosen_answer_index)
 
         # Pozostałe zdarzenia obsługuj tylko, gdy nie ma blokady
-        elif can_handle_input:
+        elif can_handle_input_main:
             if current_game_state == "MENU_GLOWNE":
                 action = menu_screen.handle_menu_input(event, mouse_pos)
                 if action:
@@ -75,7 +76,7 @@ while running:
             elif current_game_state == "GAMEPLAY" and current_turn_phase == 'WAITING_FOR_ROLL':
                 gameplay_action = gameplay_screen.handle_gameplay_input(event, mouse_pos)
                 if gameplay_action == "ROLL_DICE_PANEL":
-                    dice_instance.start_animation_and_roll()
+                    dice_instance.start_animation_and_roll();
                     game_logic.turn_phase = 'DICE_ROLLING'
                 elif gameplay_action == "BACK_TO_MENU":
                     game_logic.change_game_state("MENU_GLOWNE")
@@ -106,8 +107,6 @@ while running:
 
         if game_logic.active_question_card and game_logic.active_question_card.is_visible:
             game_logic.active_question_card.draw(screen)
-        elif game_logic.active_feedback_card and game_logic.active_feedback_card.is_visible:
-            game_logic.active_feedback_card.draw(screen)
 
     elif current_game_state == "INSTRUCTIONS":
         screen.fill(settings.MENU_BG_FALLBACK_COLOR)

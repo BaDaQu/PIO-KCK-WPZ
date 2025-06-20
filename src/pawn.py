@@ -6,19 +6,18 @@ import math
 
 
 class Pawn(pygame.sprite.Sprite):
+    # ... (cała klasa Pawn bez zmian) ...
     def __init__(self, image_path, initial_board_field_index, board_ref):
         super().__init__()
         self.board_field_index = initial_board_field_index
         self.board = board_ref
         self.pawn_id = id(self)
-
         self.is_moving = False
         self.is_repositioning = False
         self.path = []
         self.target_screen_center_pos = None
         self.current_screen_pos_float = None
         self.is_active_turn = False
-
         try:
             self.original_image = pygame.image.load(image_path).convert_alpha()
             original_width, original_height = self.original_image.get_size()
@@ -30,13 +29,11 @@ class Pawn(pygame.sprite.Sprite):
             self.pawn_render_width = int(self.pawn_render_height * aspect_ratio)
             self.image = pygame.transform.scale(self.original_image, (self.pawn_render_width, self.pawn_render_height))
             self.rect = self.image.get_rect()
-
         except Exception as e:
             print(f"Błąd ładowania obrazka pionka '{image_path}': {e}")
             self.image = pygame.Surface([int(settings.PAWN_TARGET_HEIGHT * 0.8), settings.PAWN_TARGET_HEIGHT])
             self.image.fill(settings.PAWN_FALLBACK_COLOR)
             self.rect = self.image.get_rect()
-
         initial_center_pos = self.board.get_field_screen_center(self.board_field_index)
         if initial_center_pos:
             self.rect.center = initial_center_pos
@@ -44,12 +41,9 @@ class Pawn(pygame.sprite.Sprite):
             self.rect.topleft = (0, 0)
 
     def set_active(self, is_active):
-        """Ustawia, czy ten pionek ma teraz turę."""
         self.is_active_turn = is_active
 
     def draw(self, surface):
-        """Rysuje pionek na podanej powierzchni."""
-        # Rysujemy tylko obrazek pionka, bez żadnej obwoluty.
         surface.blit(self.image, self.rect)
 
     def start_move_animation(self, path_of_indices):
@@ -73,6 +67,7 @@ class Pawn(pygame.sprite.Sprite):
             self.target_screen_center_pos = None
 
     def update_visual_position_on_field(self, field_index_param, pawns_on_this_field_ids):
+        # ... (ta metoda pozostaje bez zmian) ...
         if self.is_moving: return
         self.board_field_index = field_index_param
         field_screen_rect = self.board.get_field_screen_rect(self.board_field_index)
@@ -143,10 +138,3 @@ class PlayerPawn(Pawn):
         self.player_id_num = player_id
         self.pawn_id = f"player_{player_id}"
         print(f"Utworzono pionek gracza {self.player_id_num} (ID: {self.pawn_id})")
-
-
-class ProfessorPawn(Pawn):
-    def __init__(self, image_path, initial_board_field_index, board_ref):
-        super().__init__(image_path, initial_board_field_index, board_ref)
-        self.pawn_id = "professor"
-        print(f"Utworzono pionek Profesora (ID: {self.pawn_id})")   
