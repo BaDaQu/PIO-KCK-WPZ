@@ -63,18 +63,18 @@ Projekt stanowi odpowiedź na zidentyfikowane wyzwania, takie jak monotonia trad
 ## Główne Funkcje (Zaimplementowane/Planowane)
 
 *   [X] **Menu Główne:** Start gry, Wyjście.
-*   [ ] **Wyświetlanie Planszy i Pionków:** Statyczny widok planszy, renderowanie pionków graczy i profesora.
-*   [ ] **Rzut Kostką:** Logika losowania i wizualny feedback.
-*   [ ] **Ruch Pionka Gracza:** Logika i podstawowa animacja ruchu.
-*   [ ] **Zarządzanie Turami:** Przełączanie między graczami.
-*   [ ] **System Pytań:** Ładowanie pytań z pliku, wyświetlanie karty pytania.
-*   [ ] **Weryfikacja Odpowiedzi:** Sprawdzanie poprawności i logika konsekwencji.
-*   [ ] **Karty Informacji Zwrotnej:** Wyświetlanie "Poprawna"/"Błędna".
+*   [x] **Wyświetlanie Planszy i Pionków:** Statyczny widok planszy, renderowanie pionków graczy i profesora.
+*   [x] **Rzut Kostką:** Logika losowania i wizualny feedback.
+*   [x] **Ruch Pionka Gracza:** Logika i podstawowa animacja ruchu.
+*   [x] **Zarządzanie Turami:** Przełączanie między graczami.
+*   [x] **System Pytań:** Ładowanie pytań z pliku, wyświetlanie karty pytania.
+*   [x] **Weryfikacja Odpowiedzi:** Sprawdzanie poprawności i logika konsekwencji.
+*   [x] **Karty Informacji Zwrotnej:** Wyświetlanie "Poprawna"/"Błędna".
 *   [ ] **Ruch Pionka Profesora:** Logika i animacja ruchu AI.
 *   [ ] **Logika Pól Specjalnych:** Podstawowe efekty Bonus/Porażka/Egzamin.
 *   [ ] **Warunki Zwycięstwa/Porażki:** Sprawdzanie końca gry.
 *   [ ] **Ekran Końca Gry:** Wyświetlanie wyników i opcji.
-*   [ ] **Obsługa wielu graczy lokalnych** (2+).
+*   [x] **Obsługa dwóch graczy lokalnych**.
 *   [ ] **Efekty dźwiękowe.**
 
 *(Legenda: [X] - Częściowo/W pełni zaimplementowane, [ ] - Do zaimplementowania)*
