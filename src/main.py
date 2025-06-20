@@ -13,7 +13,7 @@ pygame.init()
 # --- Inicjalizacja Okna ---
 screen = pygame.display.set_mode((settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT))
 pygame.display.set_caption(settings.SCREEN_TITLE)
-game_logic.set_main_screen(screen) # Przekaż instancję ekranu do logiki gry
+game_logic.set_main_screen(screen)  # Przekaż instancję ekranu do logiki gry
 
 try:
     game_icon = pygame.image.load(settings.IMAGE_PATH_ICON)
@@ -44,16 +44,25 @@ while running:
 
     # Sprawdzenie, czy można obsługiwać input
     pawn_in_motion = next((p for p in game_logic.all_pawn_objects if p.is_moving or p.is_repositioning), None)
-    can_handle_input = not dice_instance.is_animating and not pawn_in_motion
+    # Zezwalaj na input tylko wtedy, gdy nie ma animacji ORAZ gdy nie ma aktywnej karty pytania
+    can_handle_input_main = not dice_instance.is_animating and not pawn_in_motion and not (
+                current_turn_phase == 'SHOWING_QUESTION')
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
         # --- Delegowanie Obsługi Zdarzeń do Odpowiednich Modułów ---
-        # Input jest blokowany, jeśli 'can_handle_input' jest False,
-        # co zapobiega klikaniu podczas animacji.
-        if can_handle_input:
+        # Zdarzenia dla karty pytania są obsługiwane zawsze, gdy jest widoczna, niezależnie od can_handle_input_main
+        if current_game_state == "GAMEPLAY" and current_turn_phase == 'SHOWING_QUESTION':
+            if game_logic.active_question_card:
+                chosen_answer_index = game_logic.active_question_card.handle_event(event, mouse_pos)
+                if chosen_answer_index is not None:
+                    # Gracz wybrał odpowiedź, przetwarzamy ją i zmieniamy stan
+                    game_logic.process_player_answer(chosen_answer_index)
+
+        # Pozostałe zdarzenia obsługuj tylko, gdy nie ma blokady
+        elif can_handle_input_main:
             if current_game_state == "MENU_GLOWNE":
                 action = menu_screen.handle_menu_input(event, mouse_pos)
                 if action:
@@ -63,21 +72,16 @@ while running:
                         game_logic.change_game_state("INSTRUCTIONS")
                     elif action == "QUIT":
                         running = False
-
             elif current_game_state == "GETTING_PLAYER_NAMES":
                 action = name_input_screen.handle_name_input_events(event, mouse_pos)
-                if action == "START_GAME":
-                    game_logic.start_new_game(name_input_screen.player_names_input)
-
-            elif current_game_state == "GAMEPLAY":
-                if current_turn_phase == 'WAITING_FOR_ROLL':
-                    gameplay_action = gameplay_screen.handle_gameplay_input(event, mouse_pos)
-                    if gameplay_action == "ROLL_DICE_PANEL":
-                        dice_instance.start_animation_and_roll()
-                        game_logic.turn_phase = 'DICE_ROLLING'
-                    elif gameplay_action == "BACK_TO_MENU":
-                        game_logic.change_game_state("MENU_GLOWNE")
-
+                if action == "START_GAME": game_logic.start_new_game(name_input_screen.player_names_input)
+            elif current_game_state == "GAMEPLAY" and current_turn_phase == 'WAITING_FOR_ROLL':
+                gameplay_action = gameplay_screen.handle_gameplay_input(event, mouse_pos)
+                if gameplay_action == "ROLL_DICE_PANEL":
+                    dice_instance.start_animation_and_roll()
+                    game_logic.turn_phase = 'DICE_ROLLING'
+                elif gameplay_action == "BACK_TO_MENU":
+                    game_logic.change_game_state("MENU_GLOWNE")
             elif current_game_state == "INSTRUCTIONS":
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     game_logic.change_game_state("MENU_GLOWNE")
@@ -86,23 +90,35 @@ while running:
     if current_game_state == "GAMEPLAY":
         game_logic.update_game_logic(dt_seconds, dice_instance)
         gameplay_screen.update_gameplay_state(game_logic.current_player_id)
+        # Aktualizacja stanu hover dla karty pytania (jeśli jest widoczna)
+        if game_logic.active_question_card:
+            game_logic.active_question_card.update_hover(mouse_pos)
 
     # --- Rysowanie ---
     screen.fill(settings.DEFAULT_BG_COLOR)
+
     if current_game_state == "MENU_GLOWNE":
-        menu_screen.draw_menu_screen(screen, game_logic.current_screen_width, game_logic.current_screen_height, mouse_pos)
+        menu_screen.draw_menu_screen(screen, game_logic.current_screen_width, game_logic.current_screen_height,
+                                     mouse_pos)
     elif current_game_state == "GETTING_PLAYER_NAMES":
-        name_input_screen.draw_name_input_screen(screen, game_logic.current_screen_width, game_logic.current_screen_height, mouse_pos)
+        name_input_screen.draw_name_input_screen(screen, game_logic.current_screen_width,
+                                                 game_logic.current_screen_height, mouse_pos)
     elif current_game_state == "GAMEPLAY":
+        # Najpierw rysuj cały ekran gry
         gameplay_screen.draw_gameplay_screen(screen, mouse_pos, dice_instance)
-        # Rysuj wszystkie pionki, metoda draw() w Pawn sama obsłuży podświetlenie
-        game_logic.all_sprites_group.draw(screen)
+        # Rysuj wszystkie pionki
+        for pawn in game_logic.all_pawn_objects:
+            pawn.draw(screen)
+
+        # Jeśli jest aktywna karta pytania, narysuj ją NA WIERZCHU
+        if game_logic.active_question_card and game_logic.active_question_card.is_visible:
+            game_logic.active_question_card.draw(screen)
     elif current_game_state == "INSTRUCTIONS":
-        # Ten kod rysowania też można przenieść do osobnego modułu/funkcji w przyszłości
         screen.fill(settings.MENU_BG_FALLBACK_COLOR)
         if menu_screen.TITLE_FONT_MENU and menu_screen.BUTTON_FONT_MENU:
             title_instr = menu_screen.TITLE_FONT_MENU.render("Instrukcja", True, settings.MENU_TEXT_COLOR)
-            title_instr_rect = title_instr.get_rect(center=(game_logic.current_screen_width // 2, game_logic.current_screen_height // 4))
+            title_instr_rect = title_instr.get_rect(
+                center=(game_logic.current_screen_width // 2, game_logic.current_screen_height // 4))
             screen.blit(title_instr, title_instr_rect)
             info_text_lines = [
                 "Witaj w Wyścigu po Zaliczenie!", "Rzuć kostką, aby się poruszyć.",

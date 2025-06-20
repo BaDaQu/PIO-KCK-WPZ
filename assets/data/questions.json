@@ -1,209 +1,3878 @@
 {
-  "PROGRAMOWANIE SKRYPTOWE": [
+  "ANALIZA MAT. I": [
     {
-      "question_text": "Które z poniższych stwierdzeń dotyczących języka Python jest prawdziwe?",
+      "question_text": "Ile wynosi granica ciągu a_n = 1/n gdy n → ∞?",
       "answers": [
-        "Zmienne muszą być jawnie deklarowane z typem przed użyciem.",
-        "Jest językiem silnie i statycznie typowanym.",
-        "Służy głównie do programowania niskopoziomowego sterowników sprzętu.",
-        "Używa wcięć do definiowania bloków kodu."
+        "0",
+        "1",
+        "∞",
+        "nie istnieje"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Granica funkcji f(x) = sin(x)/x dla x → 0 wynosi:",
+      "answers": [
+        "1",
+        "0",
+        "∞",
+        "nie istnieje"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Granica funkcji f(x) = (x² - 1)/(x - 1) dla x → 1 wynosi:",
+      "answers": [
+        "2",
+        "0",
+        "1",
+        "nie istnieje"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Granica ciągu a_n = (n+1)/n dla n → ∞ to:",
+      "answers": [
+        "0",
+        "1",
+        "∞",
+        "2"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Czego szukamy przy obliczaniu granicy funkcji?",
+      "answers": [
+        "Wartości funkcji w punkcie",
+        "Zachowania funkcji w nieskończoności",
+        "Zachowania funkcji w otoczeniu punktu",
+        "Pochodnej"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Nieoznaczoność 0/0 może oznaczać konieczność:",
+      "answers": [
+        "Obliczenia pochodnej",
+        "Zastosowania reguły de l'Hospitala",
+        "Wyciągnięcia wspólnego czynnika",
+        "Dowolne z powyższych"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Całka oznaczona ∫₀¹ x dx wynosi:",
+      "answers": [
+        "1",
+        "0.5",
+        "2",
+        "ln(2)"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Całka ∫ x² dx to:",
+      "answers": [
+        "(1/3)x³ + C",
+        "(1/2)x² + C",
+        "x³ + C",
+        "3x² + C"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Całka oznaczona ∫₀² x dx wynosi:",
+      "answers": [
+        "4",
+        "2",
+        "1",
+        "2²"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Czym jest całka nieoznaczona?",
+      "answers": [
+        "Wartością liczbową",
+        "Pochodną funkcji",
+        "Rodziną funkcji pierwotnych",
+        "Sumą granic"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jeśli F'(x) = f(x), to całką f(x) jest:",
+      "answers": [
+        "F(x) + C",
+        "F(x)",
+        "F'(x)",
+        "f(x)"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Całka ∫ dx/x to:",
+      "answers": [
+        "ln|x| + C",
+        "1/x + C",
+        "x ln x + C",
+        "x + C"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Całka ∫ cos(x) dx to:",
+      "answers": [
+        "sin(x) + C",
+        "-cos(x) + C",
+        "-sin(x) + C",
+        "cos(x) + C"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Całka ∫ e^x dx to:",
+      "answers": [
+        "e^x + C",
+        "x e^x + C",
+        "ln|x| + C",
+        "e^(x+1) + C"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Całka oznaczona ∫₀^π sin(x) dx wynosi:",
+      "answers": [
+        "2",
+        "0",
+        "1",
+        "π"
+      ],
+      "correct_answer_index": 0
+    }
+  ],
+  "ALGEBRA LINIOWA": [
+    {
+      "question_text": "Jakie równanie opisuje płaszczyznę w przestrzeni trójwymiarowej?",
+      "answers": [
+        "ax + by = 0",
+        "ax^2 + by^2 = r^2",
+        "ax + by + cz = d",
+        "x^2 + y^2 + z^2 = r^2"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaki warunek musi spełniać macierz, by była odwracalna?",
+      "answers": [
+        "Jest symetryczna",
+        "Wszystkie elementy są dodatnie",
+        "Ma rząd mniejszy od rozmiaru",
+        "Jej wyznacznik jest różny od zera"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Czym jest liczba zespolona i?",
+      "answers": [
+        "Moduł liczby zespolonej",
+        "Jednostka multiplikatywna",
+        "Pierwiastek z 1",
+        "Pierwiastek z -1"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Czym jest macierz jednostkowa?",
+      "answers": [
+        "Macierz z losowymi wartościami",
+        "Macierz o wyznaczniku 0",
+        "Macierz z jedynkami na przekątnej i zerami poza nią",
+        "Macierz wypełniona jedynkami"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie działanie odpowiada mnożeniu macierzy przez skalar?",
+      "answers": [
+        "Dzielenie przez liczbę",
+        "Odejmowanie skalarnej wartości",
+        "Mnożenie każdego elementu przez liczbę",
+        "Dodawanie do każdego elementu"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaki jest warunek ortogonalności dwóch wektorów?",
+      "answers": [
+        "Ich iloczyn skalarny wynosi 0",
+        "Jeden jest zerowy",
+        "Są równej długości",
+        "Są równoległe"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jaki jest moduł liczby zespolonej z = 3 + 4i?",
+      "answers": [
+        "25",
+        "1",
+        "7",
+        "5"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Jak zapisujemy liczbę zespoloną?",
+      "answers": [
+        "a + bi",
+        "a^b",
+        "(a, b)",
+        "a * b"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Czym jest rząd macierzy?",
+      "answers": [
+        "Liczba wszystkich elementów",
+        "Największa wartość w macierzy",
+        "Liczba liniowo niezależnych wierszy",
+        "Liczba kolumn"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co to jest macierz transponowana?",
+      "answers": [
+        "Macierz z podniesionymi wartościami do kwadratu",
+        "Macierz odwrotna",
+        "Macierz o wartościach przeciwnych",
+        "Macierz powstała przez zamianę wierszy z kolumnami"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Czym jest iloczyn skalarny dwóch wektorów?",
+      "answers": [
+        "Suma ich długości",
+        "Suma iloczynów odpowiadających sobie współrzędnych",
+        "Iloczyn ich długości",
+        "Iloczyn ich kątów"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie działanie nie zawsze jest wykonalne na macierzach?",
+      "answers": [
+        "Transpozycja",
+        "Mnożenie przez skalar",
+        "Dodawanie macierzy",
+        "Dzielenie macierzy przez macierz"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Macierz A ma wymiar 3x2, a B 2x4. Jaki wymiar ma macierz C = A * B?",
+      "answers": [
+        "3x2",
+        "2x2",
+        "3x4",
+        "4x3"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co oznacza, że układ równań jest oznaczony?",
+      "answers": [
+        "Nie da się go rozwiązać",
+        "Ma dokładnie jedno rozwiązanie",
+        "Ma nieskończenie wiele rozwiązań",
+        "Nie ma rozwiązań"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jak wyznaczyć wyznacznik macierzy 2x2: |a b| |c d|?",
+      "answers": [
+        "ab + cd",
+        "a + d",
+        "ac - bd",
+        "ad - bc"
       ],
       "correct_answer_index": 3
     }
   ],
-  "BHP": [
+"OPROGRAMOWANIE UŻYTKOWE": [
     {
-      "question_text": "Co oznacza skrót PPOŻ?",
+      "question_text": "Które rozszerzenie jest typowe dla plików rysunkowych Solid Edge?",
       "answers": [
-        "Pomoc Poszkodowanym Osobom Życia",
-        "Ochrona Przeciwpożarowa",
-        "Pierwsza Pomoc Osobom Żywym",
-        "Plan Postępowania w Obliczu Zagrożenia"
+        "*.par",
+        "*.cdr",
+        "*.docx",
+        "*.xlsx"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakie jest główne zastosowanie programu CorelDRAW?",
+      "answers": [
+        "Edytowanie tekstu",
+        "Tworzenie grafiki wektorowej",
+        "Obróbka zdjęć",
+        "Zarządzanie bazami danych"
       ],
       "correct_answer_index": 1
+    },
+    {
+      "question_text": "Funkcja `VLOOKUP` w Excelu służy do:",
+      "answers": [
+        "Sumowania wartości",
+        "Szukanie wartości w pionie",
+        "Zliczania pustych komórek",
+        "Filtrowania danych"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która z poniższych funkcji VBA służy do wyświetlenia okna z wiadomością?",
+      "answers": [
+        "ShowAlert()",
+        "DisplayBox()",
+        "MsgBox()",
+        "AlertWindow()"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "W jakim języku pisane są makra w Excelu?",
+      "answers": [
+        "Python",
+        "C#",
+        "JavaScript",
+        "VBA"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Które narzędzie w CorelDRAW pozwala przekształcać tekst w krzywe?",
+      "answers": [
+        "Przekształć > Odbij",
+        "Tekst > Zamień na krzywe",
+        "Efekty > Rozciągnij",
+        "Obiekt > Zgrupuj"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Co oznacza skrót .psm w programie Solid Edge?",
+      "answers": [
+        "Plik zestawu części",
+        "Plik modelu blachy",
+        "Plik złożenia",
+        "Plik rysunkowy"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która funkcja Excela oblicza średnią z zakresu komórek?",
+      "answers": [
+        "SUMA",
+        "ŚREDNIA",
+        "MAKS",
+        "MIN"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaki skrót klawiaturowy uruchamia edytor VBA w Excelu?",
+      "answers": [
+        "Ctrl+Alt+M",
+        "Alt+F11",
+        "Ctrl+Shift+V",
+        "F10"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "W CorelDRAW funkcja 'PowerClip' służy do:",
+      "answers": [
+        "Wycinania elementów bitmapy",
+        "Zastosowania efektu cienia",
+        "Wkładania obiektu w inny",
+        "Zmieniania przestrzeni barwnej"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który typ pliku zapisywany jest przez Solid Edge jako rysunek techniczny?",
+      "answers": [
+        "*.asm",
+        "*.psm",
+        "*.dft",
+        "*.doc"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaka funkcja VBA służy do pobrania aktualnej daty?",
+      "answers": [
+        "Today()",
+        "Now()",
+        "DateTime()",
+        "GetDate()"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "W Excelu funkcja `IF()` służy do:",
+      "answers": [
+        "Warunkowego formatowania komórek",
+        "Tworzenia list rozwijanych",
+        "Warunkowego wykonywania obliczeń",
+        "Zliczania niepustych komórek"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "W Solid Edge narzędzie 'Extrude' służy do:",
+      "answers": [
+        "Przenoszenia szkicu",
+        "Wyciągania szkicu w bryłę",
+        "Zakrzywiania powierzchni",
+        "Obrotu modelu"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "W CorelDRAW które narzędzie umożliwia wyrównanie obiektów do wspólnej osi?",
+      "answers": [
+        "Narzędzie Wyrównaj",
+        "Kratka",
+        "Przyciąganie do obiektów",
+        "Układ"
+      ],
+      "correct_answer_index": 0
+    }
+  ],
+  "PROGRAMOWANIE SKRYPTOWE": [
+    {
+      "question_text": "Co wypisze poniższy kod?\n\n```python\nx = [1, 2, 3]\nprint(x[-1])\n```",
+      "answers": [
+        "1",
+        "2",
+        "3",
+        "Błąd indeksu"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaką strukturę danych tworzy poniższy kod?\n\n```python\nx = {}\n```",
+      "answers": [
+        "Lista",
+        "Krotka",
+        "Słownik",
+        "Zbiór"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Która funkcja zwraca długość listy w Pythonie?",
+      "answers": [
+        "count()",
+        "length()",
+        "len()",
+        "size()"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakiego operatora używamy do sprawdzenia przynależności elementu do listy?",
+      "answers": [
+        "==",
+        "in",
+        "has",
+        "within"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które z poniższych słów kluczowych służy do zdefiniowania funkcji w Pythonie?",
+      "answers": [
+        "function",
+        "define",
+        "def",
+        "fun"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie będzie wyjście programu?\n\n```python\nfor i in range(3):\n    print(i)\n```",
+      "answers": [
+        "1 2 3",
+        "0 1 2",
+        "0 1 2 3",
+        "1 2"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które wyrażenie tworzy listę liczb od 0 do 9?",
+      "answers": [
+        "range(10)",
+        "list(10)",
+        "range(0,9)",
+        "[0..9]"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakiego typu jest wynik operacji `3 / 2` w Pythonie 3?",
+      "answers": [
+        "int",
+        "float",
+        "str",
+        "bool"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie słowo kluczowe służy do obsługi wyjątków?",
+      "answers": [
+        "try",
+        "catch",
+        "except",
+        "error"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Czym różni się lista od krotki?",
+      "answers": [
+        "Listy są niezmienne, krotki można modyfikować",
+        "Krotki są niezmienne, listy można modyfikować",
+        "Listy nie mogą zawierać różnych typów",
+        "Krotki zajmują więcej pamięci"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która z poniższych instrukcji wypisze każdy znak w stringu `s = \"Python\"`?",
+      "answers": [
+        "for c in s: print(c)",
+        "for s in c: print(c)",
+        "for print in s: c",
+        "while s: print(c)"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Która metoda usuwa element z listy po indeksie?",
+      "answers": [
+        "delete()",
+        "remove()",
+        "pop()",
+        "cut()"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakiej funkcji użyjemy do wczytania danych od użytkownika?",
+      "answers": [
+        "read()",
+        "input()",
+        "get()",
+        "scanf()"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jak zapisać komentarz jednoliniowy w Pythonie?",
+      "answers": [
+        "//",
+        "#",
+        "/* */",
+        "<!-- -->"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaki typ danych zwraca `input()` w Pythonie?",
+      "answers": [
+        "int",
+        "float",
+        "str",
+        "bool"
+      ],
+      "correct_answer_index": 2
+    }
+  ],
+  "BHP": [
+    {
+      "question_text": "Co jest podstawowym celem przepisów BHP?",
+      "answers": [
+        "Zwiększenie efektywności pracownika",
+        "Zwiększenie zysków firmy",
+        "Zapewnienie bezpiecznych i higienicznych warunków pracy",
+        "Kontrola czasu pracy"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakiego rodzaju ryzyko najczęściej dotyczy pracy informatyka?",
+      "answers": [
+        "Upadek z wysokości",
+        "Kontakt z substancjami toksycznymi",
+        "Długotrwała praca przy komputerze",
+        "Hałas przemysłowy"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Ile wynosi maksymalny czas ciągłej pracy przy komputerze bez przerwy, zgodnie z przepisami BHP?",
+      "answers": [
+        "2 godziny",
+        "4 godziny",
+        "50 minut",
+        "8 godzin"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co powinien zrobić pracownik, gdy zauważy uszkodzoną izolację kabla zasilającego?",
+      "answers": [
+        "Naprawić ją samodzielnie taśmą",
+        "Zignorować, jeśli działa",
+        "Zgłosić przełożonemu lub działowi BHP",
+        "Przestać korzystać z komputera i pójść do domu"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie powinno być minimalne oświetlenie stanowiska komputerowego?",
+      "answers": [
+        "Zawsze sztuczne",
+        "Wyłącznie naturalne",
+        "Jednolite i dostosowane do wzroku pracownika",
+        "Zgaszone podczas pracy"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co oznacza ergonomia stanowiska pracy?",
+      "answers": [
+        "Dobór najnowszego sprzętu",
+        "Oszczędność energii",
+        "Dostosowanie stanowiska do możliwości człowieka",
+        "Praca na stojąco"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Czy przerwy w pracy przy komputerze są obowiązkowe?",
+      "answers": [
+        "Nie, są tylko zaleceniem",
+        "Tak, co najmniej 5 minut na każdą godzinę pracy",
+        "Tylko w przypadku osób powyżej 50 lat",
+        "Tak, ale tylko po 4 godzinach"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie zagrożenie może powodować niewłaściwe uziemienie sprzętu komputerowego?",
+      "answers": [
+        "Zanik obrazu",
+        "Zwiększenie zużycia energii",
+        "Porażenie prądem",
+        "Wolniejsze działanie systemu"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Do czego służy filtr ochronny na monitorze?",
+      "answers": [
+        "Do zwiększenia jasności ekranu",
+        "Do ochrony przed przegrzaniem",
+        "Do redukcji odblasków i promieniowania",
+        "Do zabezpieczenia przed zarysowaniami"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który z wymienionych elementów nie jest obowiązkowy na stanowisku komputerowym?",
+      "answers": [
+        "Podnóżek",
+        "Monitor",
+        "Krzesło z regulacją wysokości",
+        "Stół o odpowiedniej wysokości"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jak często należy przeprowadzać szkolenia okresowe z BHP dla pracowników biurowych?",
+      "answers": [
+        "Co 2 lata",
+        "Co 3 lata",
+        "Co 5 lat",
+        "Tylko raz, przy zatrudnieniu"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co należy zrobić w przypadku pożaru w serwerowni?",
+      "answers": [
+        "Gasić wodą",
+        "Wyłączyć zasilanie i użyć gaśnicy CO2",
+        "Uciekać bez informowania kogokolwiek",
+        "Zignorować alarm"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie są najczęstsze skutki zdrowotne długiej pracy przy komputerze?",
+      "answers": [
+        "Poprawa wzroku",
+        "Zwiększenie masy mięśniowej",
+        "Bóle pleców, oczu i nadgarstków",
+        "Obniżenie ciśnienia krwi"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jak powinien być ustawiony monitor względem oczu?",
+      "answers": [
+        "Powyżej linii wzroku",
+        "Na wysokości stóp",
+        "Na poziomie linii wzroku lub nieco niżej",
+        "Na wysokości szyi"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Czy praca w ciemnym pomieszczeniu przy komputerze jest bezpieczna?",
+      "answers": [
+        "Tak, jeśli ekran jest jasny",
+        "Tak, jeśli nie trwa długo",
+        "Nie, obciąża wzrok",
+        "Tak, zmniejsza zużycie prądu"
+      ],
+      "correct_answer_index": 2
     }
   ],
   "FIZYKA": [
     {
-      "question_text": "Które z poniższych równań poprawnie opisuje drugą zasadę dynamiki Newtona?",
-      "answers": ["F = m * a", "E = m * c^2", "P = V * I", "V = I * R"],
+      "question_text": "Jednostką natężenia prądu elektrycznego w układzie SI jest:",
+      "answers": [
+        "Coulomb",
+        "Amper",
+        "Wolt",
+        "Ohm"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Prawo Ohma wyraża zależność między:",
+      "answers": [
+        "Napięciem, natężeniem i oporem",
+        "Mocą, oporem i napięciem",
+        "Czasem, napięciem i natężeniem",
+        "Przyspieszeniem, masą i siłą"
+      ],
       "correct_answer_index": 0
+    },
+    {
+      "question_text": "Która wielkość fizyczna ma jednostkę J (dżul)?",
+      "answers": [
+        "Energia",
+        "Moc",
+        "Praca",
+        "Ładunek"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Wzór na energię kinetyczną to:",
+      "answers": [
+        "E = mgh",
+        "E = mc^2",
+        "E = 1/2mv^2",
+        "E = qU"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie zjawisko opisuje prawo Hooke’a?",
+      "answers": [
+        "Rozciąganie sprężyny",
+        "Ruch jednostajnie przyspieszony",
+        "Zasysanie cieczy",
+        "Zjawisko fotoelektryczne"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co to jest napięcie elektryczne?",
+      "answers": [
+        "Ilość ładunku przepływającego w czasie",
+        "Stosunek pracy do ładunku",
+        "Siła działająca na elektron",
+        "Różnica temperatur"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jednostką pojemności kondensatora jest:",
+      "answers": [
+        "Ohm",
+        "Amper",
+        "Farad",
+        "Tesli"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Która z poniższych wielkości jest skalarem?",
+      "answers": [
+        "Przyspieszenie",
+        "Siła",
+        "Energia",
+        "Prędkość"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie są jednostki pola elektrycznego?",
+      "answers": [
+        "N/C",
+        "V/A",
+        "W/m",
+        "C/s"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co opisuje równanie p = F/S?",
+      "answers": [
+        "Napięcie",
+        "Ciśnienie",
+        "Gęstość",
+        "Moc"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Wzór na opór zastępczy dla połączenia równoległego dwóch oporników R1 i R2 to:",
+      "answers": [
+        "R = R1 + R2",
+        "R = 1 / (1/R1 + 1/R2)",
+        "R = R1 * R2",
+        "R = (R1 - R2)^2"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które zjawisko powoduje zmianę kierunku fali na granicy ośrodków?",
+      "answers": [
+        "Załamanie",
+        "Odbicie",
+        "Dyfrakcja",
+        "Interferencja"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Który z poniższych wzorów opisuje drugą zasadę dynamiki Newtona?",
+      "answers": [
+        "F = ma",
+        "E = mc^2",
+        "v = at",
+        "s = vt"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Pole magnetyczne wokół przewodnika z prądem opisuje prawo:",
+      "answers": [
+        "Ohma",
+        "Hooke’a",
+        "Ampère’a",
+        "Faradaya"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Czym są fale elektromagnetyczne?",
+      "answers": [
+        "Cząstkami światła",
+        "Falami mechanicznych drgań",
+        "Rozchodzącym się polem elektrycznym i magnetycznym",
+        "Zbiorem fotonów bez energii"
+      ],
+      "correct_answer_index": 2
     }
   ],
   "MATEMATYKA DYSKRETNA": [
     {
-      "question_text": "Ile wynosi 5! (pięć silnia)?",
-      "answers": ["25", "120", "60", "15"],
+      "question_text": "Ile jest permutacji zbioru 4-elementowego?",
+      "answers": [
+        "4",
+        "16",
+        "24",
+        "12"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Ile wynosi liczba kombinacji bez powtórzeń 5-elementowych z 10-elementowego zbioru?",
+      "answers": [
+        "252",
+        "120",
+        "30240",
+        "10"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Które wyrażenie opisuje zasadę włączeń i wyłączeń?",
+      "answers": [
+        "A ∪ B = A + B",
+        "|A ∪ B| = |A| + |B| − |A ∩ B|",
+        "A ∪ B = A ∩ B",
+        "|A ∪ B| = |A| * |B|"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Ile podzbiorów ma zbiór n-elementowy?",
+      "answers": [
+        "n",
+        "2^n",
+        "n!",
+        "n^2"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Czym jest graf pełny Kₙ?",
+      "answers": [
+        "Grafem bez krawędzi",
+        "Grafem skierowanym",
+        "Grafem, w którym każda para wierzchołków jest połączona",
+        "Grafem cyklicznym"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaka jest liczba krawędzi w grafie pełnym K₄?",
+      "answers": [
+        "4",
+        "6",
+        "8",
+        "10"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które wyrażenie jest tautologią?",
+      "answers": [
+        "p ∧ ¬p",
+        "p ∨ ¬p",
+        "¬(p ∧ q) ↔ (¬p ∧ ¬q)",
+        "p → q"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Co oznacza relacja przechodnia?",
+      "answers": [
+        "Jeśli aRb i bRc to aRc",
+        "Jeśli aRb to bRa",
+        "Jeśli aRa to R jest symetryczna",
+        "Jeśli a ≠ b to aRb"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Czym jest drzewo w teorii grafów?",
+      "answers": [
+        "Grafem cyklicznym",
+        "Grafem pełnym",
+        "Grafem spójnym bez cykli",
+        "Grafem skierowanym"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaki jest wynik iloczynu kartezjańskiego A × B dla |A|=2 i |B|=3?",
+      "answers": [
+        "6",
+        "5",
+        "3",
+        "2"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co opisuje funkcja tworząca?",
+      "answers": [
+        "Suma wartości funkcji",
+        "Szereg potęgowy opisujący ciąg",
+        "Iloczyn dwóch funkcji",
+        "Złożenie funkcji"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaką liczbą jest liczba binarna 1011?",
+      "answers": [
+        "11",
+        "9",
+        "13",
+        "7"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Ile wynosi 2⁵ mod 3?",
+      "answers": [
+        "1",
+        "2",
+        "4",
+        "0"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które z poniższych twierdzeń jest twierdzeniem o liczbach pierwszych?",
+      "answers": [
+        "Każda liczba naturalna większa od 1 jest podzielna przez liczbę pierwszą",
+        "Suma dwóch liczb pierwszych jest zawsze parzysta",
+        "Liczba pierwsza dzieli każdą liczbę całkowitą",
+        "Liczby pierwsze mają dzielniki inne niż 1 i same siebie"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Czy graf z 5 wierzchołkami i 6 krawędziami może być drzewem?",
+      "answers": [
+        "Tak",
+        "Nie",
+        "Tylko jeśli jest skierowany",
+        "Zawsze"
+      ],
       "correct_answer_index": 1
     }
   ],
   "PODSTAWY ELEKTROTECHNIKI": [
     {
-      "question_text": "Zgodnie z prawem Ohma, jeśli napięcie w obwodzie wzrośnie dwukrotnie przy stałej rezystancji, to natężenie prądu:",
+      "question_text": "Jakie jednostki ma napięcie elektryczne?",
       "answers": [
-        "zmaleje dwukrotnie",
-        "wzrośnie dwukrotnie",
-        "pozostanie bez zmian",
-        "wzrośnie czterokrotnie"
+        "Ampery",
+        "Waty",
+        "Volty",
+        "Ommy"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jak nazywa się prawo opisujące zależność między napięciem, natężeniem a oporem?",
+      "answers": [
+        "Prawo Kirchhoffa",
+        "Prawo Coulomba",
+        "Prawo Ohma",
+        "Prawo Faradaya"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Która z poniższych wielkości jest wielkością skalarną?",
+      "answers": [
+        "Napięcie",
+        "Prąd",
+        "Strumień magnetyczny",
+        "Pole elektryczne"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Który przyrząd służy do pomiaru natężenia prądu?",
+      "answers": [
+        "Woltomierz",
+        "Omomierz",
+        "Amperomierz",
+        "Mikrofon"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaka jest jednostka oporu elektrycznego?",
+      "answers": [
+        "Wat",
+        "Om",
+        "Volt",
+        "Amper"
       ],
       "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które z poniższych urządzeń jest źródłem napięcia?",
+      "answers": [
+        "Rezystor",
+        "Kondensator",
+        "Bateria",
+        "Cewka"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co oznacza skrót AC w kontekście prądu elektrycznego?",
+      "answers": [
+        "Active Current",
+        "Alternative Current",
+        "Average Current",
+        "Alternating Current"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Który element magazynuje energię w polu elektrycznym?",
+      "answers": [
+        "Rezystor",
+        "Kondensator",
+        "Transformator",
+        "Dioda"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które z poniższych zjawisk NIE występuje w przewodniku?",
+      "answers": [
+        "Przepływ prądu",
+        "Straty cieplne",
+        "Isolacja",
+        "Opór elektryczny"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaką funkcję pełni dioda w układzie elektronicznym?",
+      "answers": [
+        "Przechowuje energię",
+        "Zmienia napięcie",
+        "Przewodzi prąd tylko w jednym kierunku",
+        "Zwiększa częstotliwość"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który element indukuje napięcie w obwodzie zmiennym?",
+      "answers": [
+        "Rezystor",
+        "Kondensator",
+        "Cewka",
+        "Dioda"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co mierzy oscyloskop?",
+      "answers": [
+        "Wartość średnią napięcia",
+        "Zmienność napięcia w czasie",
+        "Kąt fazowy",
+        "Rezystancję"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Czym jest zwarcie w obwodzie elektrycznym?",
+      "answers": [
+        "Brakiem napięcia",
+        "Zbyt dużym oporem",
+        "Połączeniem o bardzo niskim oporze",
+        "Brakiem przepływu prądu"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który z elementów nie jest bierny?",
+      "answers": [
+        "Rezystor",
+        "Kondensator",
+        "Cewka",
+        "Źródło napięcia"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Która jednostka jest odpowiednikiem jednego dżula na sekundę?",
+      "answers": [
+        "Watt",
+        "Ohm",
+        "Volt",
+        "Ampere"
+      ],
+      "correct_answer_index": 0
     }
   ],
   "PODSTAWY PROGRAMOWANIA I": [
     {
-      "question_text": "Jaka jest typowa rola pętli 'for' w programowaniu?",
+      "question_text": "Co wykona poniższy program:\n\n```c\n#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char zrodlo[] = \"To jest test\";\n    char cel[100];\n\n    strcpy(cel, zrodlo);\n\n    printf(\"Zrodlo: %s\\n\", zrodlo);\n    printf(\"Cel:    %s\\n\", cel);\n\n    return 0;\n}\n```",
       "answers": [
-        "Definiowanie nowej funkcji",
-        "Wykonywanie bloku kodu określoną liczbę razy lub dla każdego elementu w kolekcji",
-        "Warunkowe wykonanie kodu w zależności od spełnienia warunku logicznego",
-        "Deklarowanie zmiennych globalnych"
+        "Przeniesienie zrodla do celu",
+        "Skopiowanie zrodla do celu",
+        "Połączenie zawartości zrodlo i cel w jeden ciąg",
+        "Zastąpienie każdego znaku w zrodlo znakiem z cel"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Co robi funkcja `strlen()` w języku C?",
+      "answers": [
+        "Zwraca liczbę znaków włącznie z '\\0'",
+        "Zwraca długość tekstu bez znaku końca",
+        "Zamienia tekst na długość",
+        "Kopiuje zawartość łańcucha znaków"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Co wykona poniższy program?\n\n```c\n#include <stdio.h>\n\nint main() {\n    int tab[5] = {1, 2, 3, 4, 5};\n    printf(\"%d\\n\", tab[2]);\n    return 0;\n}\n```",
+      "answers": [
+        "Wyświetli wartość ostatniego elementu tablicy",
+        "Wyświetli indeks elementu równego 2",
+        "Wyświetli trzeci element tablicy",
+        "Wyświetli liczbę elementów tablicy"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co wypisze poniższy kod?\n\n```c\nint tab[] = {10, 20, 30};\nprintf(\"%d\", tab[1]);\n```",
+      "answers": [
+        "10",
+        "20",
+        "30",
+        "Błąd kompilacji"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Co wypisze poniższy program?\n\n```c\n#include <stdio.h>\n\nint main() {\n    int x = 42;\n    int *p = &x;\n    x = x + 1;\n    printf(\"%d\\n\", *p);\n    return 0;\n}\n```",
+      "answers": [
+        "42",
+        "Adres x",
+        "43",
+        "Błąd kompilacji"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Która z poniższych wersji funkcji poprawnie oblicza NWD rekurencyjnie?",
+      "answers": [
+        "int NWD(int a, int b) { if (a != b) return NWD(a > b ? a - b : a, b > a ? b - a : b); return a; }",
+        "int NWD(int a, int b) { while (a != b) { if (a > b) a -= b; else b -= a; } return a; }",
+        "int NWD(int a, int b) { int pom; while(b != 0) { pom = b; b = a % b; a = pom; } return a; }",
+        "int NWD(int a, int b) { while(b) swap(a %= b, b); return a; }"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Która funkcja oblicza silnię rekurencyjnie?",
+      "answers": [
+        "int silnia(int n) { return n * silnia(n - 1); }",
+        "int silnia(int n) { int s = 1; for(int i=1;i<=n;i++) s*=i; return s; }",
+        "int silnia(int n) { return n + silnia(n - 1); }",
+        "int silnia(int n) { return silnia(n); }"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jaki będzie wynik działania tego programu, jeśli użytkownik poda `1A` jako wejście?\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    char hex_input[20];\n    unsigned int value;\n\n    printf(\"Podaj liczbe heksadecymalna (np. 0x1A lub 1A): \");\n    scanf(\"%s\", hex_input);\n\n    value = (unsigned int)strtoul(hex_input, NULL, 16);\n\n    printf(\"Wartosc dziesietna: %u\\n\", value);\n    printf(\"Wartosc heksadecymalna: 0x%X\\n\", value);\n\n    return 0;\n}\n```",
+      "answers": [
+        "Wyświetli wartość dziesiętną i heksadecymalną liczby",
+        "Zamieni wartość na binarną",
+        "Wyświetli tylko tekst wejściowy",
+        "Zgłosi błąd konwersji"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co wypisze poniższy program?\n\n```c\n#include <stdio.h>\n\nint main() {\n    int macierz[2][3] = {{1, 2, 3}, {4, 5, 6}};\n    int suma = 0;\n\n    for(int i = 0; i < 2; i++)\n        for(int j = 0; j < 3; j++)\n            suma += macierz[i][j];\n\n    printf(\"%d\\n\", suma);\n    return 0;\n}\n```",
+      "answers": [
+        "12",
+        "15",
+        "21",
+        "9"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co robi poniższy program?\n\n```c\n#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char napis[20] = \"informatyka\";\n    napis[4] = '\\0';\n    printf(\"%s\\n\", napis);\n    return 0;\n}\n```",
+      "answers": [
+        "Wypisuje cały napis „informatyka”",
+        "Wypisuje „info”",
+        "Wypisuje „matyka”",
+        "Program nie skompiluje się"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaką wartość ASCII ma znak 'a'?",
+      "answers": [
+        "65",
+        "90",
+        "97",
+        "122"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co wypisze program?\n\n```c\nchar ch = 75;\nprintf(\"%c\", ch);\n```",
+      "answers": [
+        "k",
+        "K",
+        "L",
+        "M"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która z poniższych funkcji sortuje tablicę rosnąco?\n\n```c\nvoid sort(int t[], int n) {\n    for(int i = 0; i < n-1; i++)\n        for(int j = 0; j < n-i-1; j++)\n            if(t[j] > t[j+1]) {\n                int temp = t[j];\n                t[j] = t[j+1];\n                t[j+1] = temp;\n            }\n}\n```",
+      "answers": [
+        "Wykorzystuje sortowanie przez wybieranie",
+        "Wykorzystuje rekurencję do sortowania",
+        "Wykorzystuje sortowanie bąbelkowe",
+        "Funkcja niczego nie sortuje"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Które z poniższych wyrażeń definiuje funkcję przyjmującą dwa argumenty typu int i zwracającą int?",
+      "answers": [
+        "int suma(a, b) { return a + b; }",
+        "int suma(int a, int b) { return a + b; }",
+        "void suma(int a, int b) { return a + b; }",
+        "suma(int a, int b) { return a + b; }"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakiego typu jest wynik działania funkcji `strcmp()`?",
+      "answers": [
+        "void",
+        "int",
+        "char*",
+        "bool"
       ],
       "correct_answer_index": 1
     }
   ],
   "PODSTAWY PROGRAMOWANIA II": [
     {
-      "question_text": "Czym jest wskaźnik (pointer) w językach takich jak C++?",
+      "question_text": "Co robi funkcja `fopen()`?",
       "answers": [
-        "Zmienną przechowującą wartość liczbową",
-        "Typem danych reprezentującym tekst",
-        "Zmienną przechowującą adres pamięci innej zmiennej",
-        "Specjalnym rodzajem funkcji"
+        "Zamyka plik",
+        "Otwiera plik",
+        "Tworzy nową zmienną typu FILE",
+        "Usuwa plik z dysku"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Który tryb otwarcia pliku umożliwia jego zapis bez nadpisywania istniejącej zawartości?",
+      "answers": [
+        "\"r\"",
+        "\"w\"",
+        "\"a\"",
+        "\"rw\""
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co zwraca `fgetc()`?",
+      "answers": [
+        "Wskaźnik na plik",
+        "Znak jako int lub EOF",
+        "Rozmiar pliku",
+        "Wskaźnik na znak"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jak zadeklarować strukturę przechowującą imię i wiek?",
+      "answers": [
+        "struct Osoba { char imie[20]; int wiek; };",
+        "struct Osoba { imie[20]; wiek; };",
+        "struct Osoba { string imie; int wiek; };",
+        "Osoba { char imie[20]; int wiek; };"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jak uzyskać dostęp do pola `wiek` w strukturze wskazywanej przez wskaźnik `os`?",
+      "answers": [
+        "os.wiek",
+        "*os.wiek",
+        "os->wiek",
+        "&os->wiek"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Które słowo kluczowe służy do definiowania struktury?",
+      "answers": [
+        "struct",
+        "record",
+        "define",
+        "class"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakie jest główne zastosowanie unii?",
+      "answers": [
+        "Aby przechowywać wiele typów danych w różnych strukturach",
+        "Aby oszczędzać pamięć dzieląc to samo miejsce między pola",
+        "Aby uniknąć wskaźników",
+        "Aby wymusić typowanie statyczne"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaką wartość przechowuje unia, jeśli nadpiszesz dwa pola?",
+      "answers": [
+        "Ostatnio przypisaną",
+        "Obie wartości",
+        "Pierwszą zdefiniowaną",
+        "Zależy od typu"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Które słowo kluczowe służy do deklaracji unii?",
+      "answers": [
+        "class",
+        "struct",
+        "union",
+        "enum"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakiej funkcji używa się do dynamicznej alokacji pamięci dla jednego elementu?",
+      "answers": [
+        "malloc",
+        "realloc",
+        "calloc",
+        "free"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co należy zawsze zrobić po użyciu `malloc()`?",
+      "answers": [
+        "Wywołać `calloc`",
+        "Zwolnić pamięć funkcją `free()`",
+        "Ustawić wskaźnik na NULL",
+        "Zamknąć deskryptor pliku"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Co oznacza, gdy `malloc()` zwróci NULL?",
+      "answers": [
+        "Pamięć została poprawnie zaalokowana",
+        "Program zakończył się sukcesem",
+        "Nie udało się zaalokować pamięci",
+        "NULL to wskaźnik na zaalokowaną pamięć"
       ],
       "correct_answer_index": 2
     }
   ],
-  "SYSTEMY OPERACYJNE I": [
+"SYSTEMY OPERACYJNE I": [
     {
-      "question_text": "Który z poniższych elementów jest centralną częścią systemu operacyjnego, zarządzającą zasobami systemowymi?",
-      "answers": ["Powłoka (Shell)", "Jądro (Kernel)", "System plików", "Kompilator"],
+      "question_text": "Jakie jest główne zadanie systemu operacyjnego?",
+      "answers": [
+        "Obsługa sieci",
+        "Zarządzanie sprzętem i oprogramowaniem",
+        "Tworzenie dokumentów",
+        "Prowadzenie księgowości"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które polecenie w systemie Linux służy do zmiany uprawnień pliku?",
+      "answers": [
+        "chmod",
+        "ls",
+        "cd",
+        "rm"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Czym jest Active Directory?",
+      "answers": [
+        "Systemem backupu danych",
+        "Serwisem WWW",
+        "Usługą katalogową systemu Windows Server",
+        "Zastępczym dyskiem twardym"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie polecenie w Linuxie pozwala na instalację pakietów w systemach opartych na Debianie?",
+      "answers": [
+        "yum install",
+        "rpm install",
+        "apt install",
+        "dnf install"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie konto ma najwyższe uprawnienia w systemie Windows?",
+      "answers": [
+        "User",
+        "Administrator",
+        "Guest",
+        "Operator"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które narzędzie służy do zarządzania domeną w systemie Windows Server?",
+      "answers": [
+        "Active Directory Users and Computers",
+        "Group Policy Editor",
+        "Registry Editor",
+        "Disk Management"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakie polecenie w systemie Linux pokazuje aktualnego użytkownika?",
+      "answers": [
+        "pwd",
+        "whoami",
+        "ls -l",
+        "echo $USER"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które polecenie umożliwia restartowanie komputera z poziomu wiersza poleceń w Windows?",
+      "answers": [
+        "shutdown /r",
+        "restart.exe",
+        "reboot",
+        "reset /windows"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co oznacza skrót DNS?",
+      "answers": [
+        "Data Network Service",
+        "Domain Name System",
+        "Device Name Server",
+        "Domain Network Setup"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Który system plików nie obsługuje uprawnień użytkownika w Linuksie?",
+      "answers": [
+        "NTFS",
+        "EXT4",
+        "FAT32",
+        "XFS"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jak sprawdzić adres IP komputera w systemie Windows?",
+      "answers": [
+        "ipconfig",
+        "ifconfig",
+        "ping",
+        "netstat"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Gdzie w systemie Windows Server konfiguruje się zasady grupy?",
+      "answers": [
+        "GPO Manager",
+        "Group Policy Management",
+        "Group Editor Console",
+        "User Access Configuration"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które polecenie w systemie Linux służy do zmiany właściciela pliku?",
+      "answers": [
+        "chown",
+        "chmod",
+        "su",
+        "sudo"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakie rozszerzenie mają skrypty powłoki Bash?",
+      "answers": [
+        ".bash",
+        ".bat",
+        ".sh",
+        ".exe"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Które narzędzie umożliwia zdalne logowanie do systemu Linux?",
+      "answers": [
+        "telnet",
+        "ssh",
+        "ftp",
+        "rdp"
+      ],
       "correct_answer_index": 1
     }
   ],
-  "ANALIZA MAT. II": [
+"ANALIZA MAT. II": [
     {
-      "question_text": "Ile wynosi całka nieoznaczona z funkcji f(x) = 2x?",
-      "answers": ["2", "x^2 + C", "2x^2 + C", "ln(2x) + C"],
+      "question_text": "Jak obliczyć pochodną cząstkową funkcji f(x,y) względem x?",
+      "answers": [
+        "Traktujemy y jako stałą i różniczkujemy po x",
+        "Stosujemy wzór Taylora",
+        "Traktujemy x jako stałą",
+        "Obliczamy całkę podwójną"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jaką powierzchnię opisuje równanie f(x,y) = x² + y²?",
+      "answers": [
+        "Stożek prosty",
+        "Paraboloidę eliptyczną",
+        "Płaszczyznę poziomą",
+        "Sferę w przestrzeni 3D"
+      ],
       "correct_answer_index": 1
+    },
+    {
+      "question_text": "Który z poniższych zbiorów w \\( \\mathbb{R}^2 \\) jest zbiorem otwartym?",
+      "answers": [
+        "{ (x, y) ∈ ℝ² : x² + y² = 4 }",
+        "{ (x, y) ∈ ℝ² : x² + y² < 4 }",
+        "{ (x, y) ∈ ℝ² : x² + y² ≤ 4 }",
+        "{ (x, y) ∈ ℝ² : x = 0 }"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Gradient funkcji f(x,y) to:",
+      "answers": [
+        "Wektor pochodnych cząstkowych",
+        "Całka podwójna",
+        "Pochodna całkowita",
+        "Iloczyn pochodnych"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Równanie różniczkowe y' = y ma rozwiązanie postaci:",
+      "answers": [
+        "y = Cx",
+        "y = Ce^x",
+        "y = ln(x)",
+        "y = C/x"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Transformata Laplace’a funkcji f(t) = 1 to:",
+      "answers": [
+        "1/s²",
+        "e^(-st)",
+        "s",
+        "1/s"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Transformata Laplace’a funkcji f(t) = t to:",
+      "answers": [
+        "t/s",
+        "s",
+        "1/s",
+        "1/s²"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Jeśli F(s) to transformata Laplace’a f(t), to transformata f'(t) to:",
+      "answers": [
+        "F(s)/s",
+        "F'(s)",
+        "sF(s)",
+        "sF(s) - f(0)"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Równanie różniczkowe y'' - 3y' + 2y = 0 jest równaniem:",
+      "answers": [
+        "Liniowym, jednorodnym",
+        "Z drugiego stopnia i nieliniowym",
+        "Nieliniowym",
+        "Niejednorodnym"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Warunek konieczny ekstremum funkcji wielu zmiennych to:",
+      "answers": [
+        "Funkcja jest wypukła",
+        "Gradient = 0",
+        "Pochodna cząstkowa ≠ 0",
+        "f(x,y) = 0"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Transformata Laplace’a f(t) = sin(at) to:",
+      "answers": [
+        "1 / (s - a)",
+        "s / (s² + a²)",
+        "e^(-at)",
+        "a / (s² + a²)"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Pochodna kierunkowa funkcji f(x,y) w kierunku wektora u to:",
+      "answers": [
+        "Iloczyn skalarny grad f i u",
+        "Długość gradientu",
+        "Pochodna cząstkowa po y",
+        "Pochodna cząstkowa po x"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jeśli pochodna funkcji zmienia znak z dodatniego na ujemny w punkcie x₀, to:",
+      "answers": [
+        "x₀ nie jest ekstremum",
+        "x₀ jest minimum lokalnym",
+        "x₀ jest punktem przegięcia",
+        "x₀ jest maksimum lokalnym"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Jaki jest warunek drugiego rzędu dla minimum funkcji?",
+      "answers": [
+        "f''(x) < 0",
+        "f''(x) > 0",
+        "f'(x) > 0",
+        "f(x) = 0"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która funkcja ma tę samą pochodną co sama funkcja?",
+      "answers": [
+        "e^x",
+        "cos(x)",
+        "ln(x)",
+        "x^2"
+      ],
+      "correct_answer_index": 0
     }
   ],
-  "PODSTAWY GRAFIKI KOMP.": [
+"PODSTAWY GRAFIKI KOMP.": [
     {
-      "question_text": "Który model kolorów jest najczęściej używany do wyświetlania obrazów na monitorach komputerowych?",
-      "answers": ["CMYK", "RGB", "HSL", "YUV"],
+      "question_text": "Czym jest rasteryzacja w grafice komputerowej?",
+      "answers": [
+        "Konwersja obrazu bitmapowego na wektorowy",
+        "Proces mapowania obrazu 3D na 2D",
+        "Metoda kompresji obrazu",
+        "Technika wygładzania krawędzi"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaki kolor otrzymamy dodając czerwony i zielony w modelu RGB?",
+      "answers": [
+        "Czarny",
+        "Niebieski",
+        "Żółty",
+        "Biały"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Czym jest aliasing w grafice komputerowej?",
+      "answers": [
+        "Technika cieniowania",
+        "Efekt schodkowania krawędzi",
+        "Zapis danych obrazu",
+        "Proces animacji"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jak nazywa się podstawowa jednostka obrazu rastrowego?",
+      "answers": [
+        "Wektor",
+        "Klatka",
+        "Piksel",
+        "Bit"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który algorytm służy do wypełniania obszarów kolorem?",
+      "answers": [
+        "Bresenhama",
+        "Flood Fill",
+        "Phong",
+        "Gouraud"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie są podstawowe kolory w modelu CMYK?",
+      "answers": [
+        "Czerwony, Zielony, Niebieski",
+        "Cyjan, Magenta, Żółty, Czarny",
+        "Biały, Czarny, Szary",
+        "Czerwony, Żółty, Niebieski"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Do czego służy bufor Z w grafice 3D?",
+      "answers": [
+        "Do kompresji obrazu",
+        "Do eliminacji pikseli",
+        "Do przechowywania danych o głębokości",
+        "Do renderowania światła"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który z poniższych formatów obsługuje przezroczystość?",
+      "answers": [
+        "BMP",
+        "JPG",
+        "GIF",
+        "PPM"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który algorytm służy do wyznaczania widocznych linii i powierzchni?",
+      "answers": [
+        "Back-face culling",
+        "Ray tracing",
+        "Rasteryzacja",
+        "Phong shading"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakiego koloru nie da się uzyskać mieszając światła RGB?",
+      "answers": [
+        "Czarny",
+        "Pomarańczowy",
+        "Zielony",
+        "Purpurowy"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jaka technika pozwala zwiększyć płynność animacji przez interpolację między kluczowymi klatkami?",
+      "answers": [
+        "Rasteryzacja",
+        "Keyframing",
+        "Tweening",
+        "Sampling"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie wartości opisują kolor w przestrzeni HSV?",
+      "answers": [
+        "Hue, Saturation, Value",
+        "High, Sharp, Vivid",
+        "Hue, Shadow, Volume",
+        "Heat, Saturation, Vibrance"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakiego rodzaju grafiki użyjemy do przechowywania logotypu skalowalnego?",
+      "answers": [
+        "Bitmapowej",
+        "Wektorowej",
+        "RGB",
+        "CMYK"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Co określa funkcja fragment shader w OpenGL?",
+      "answers": [
+        "Pozycję kamery",
+        "Transformację obiektu",
+        "Wygląd piksela po rasteryzacji",
+        "Kolor światła"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jak nazywa się technika polegająca na podmianie tekstur w czasie rzeczywistym w grze komputerowej?",
+      "answers": [
+        "Raycasting",
+        "Texture swapping",
+        "Shadow mapping",
+        "Multisampling"
+      ],
       "correct_answer_index": 1
     }
   ],
   "SYSTEMY OPERACYJNE II": [
     {
-      "question_text": "Sytuacja, w której dwa lub więcej procesów czeka na zasoby zajęte przez inne procesy w tej samej grupie, co uniemożliwia ich dalsze działanie, to:",
-      "answers": ["Zakleszczenie (Deadlock)", "Wywłaszczenie (Preemption)", "Wątek (Thread)", "Przeplot (Interleaving)"],
+      "question_text": "Jakie zadanie realizuje harmonogram krótkoterminowy (CPU scheduler)?",
+      "answers": [
+        "Wybór procesu do uruchomienia na CPU",
+        "Zarządzanie pamięcią wirtualną",
+        "Tworzenie nowych procesów",
+        "Przydzielanie zasobów wejścia-wyjścia"
+      ],
       "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co to jest semafor binarny?",
+      "answers": [
+        "Semafor o dwóch możliwych stanach: 0 i 1",
+        "Semafor do synchronizacji pamięci wirtualnej",
+        "Semafor używany tylko w systemie Windows",
+        "Semafor z wieloma zasobami"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Który z algorytmów planowania zadań jest algorytmem wywłaszczającym?",
+      "answers": [
+        "SJF bez wywłaszczania",
+        "FIFO",
+        "FCFS",
+        "Round Robin"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Co to jest zombie process?",
+      "answers": [
+        "Proces, który nie może otrzymać zasobów",
+        "Proces bez dostępu do pamięci",
+        "Proces, który zakończył działanie, ale nie został usunięty z tablicy procesów",
+        "Proces w stanie zawieszenia"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie są etapy cyklu życia procesu?",
+      "answers": [
+        "Utworzony, czekający, zamrożony",
+        "Nowy, gotowy, wykonywany, zakończony",
+        "Wstrzymany, aktywny, zablokowany",
+        "Stworzony, oczekujący, usunięty"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Co to jest mutex?",
+      "answers": [
+        "Zmienna środowiskowa",
+        "Mechanizm synchronizacji dostępu do zasobu krytycznego",
+        "Typ blokady logicznej w systemie plików",
+        "Rodzaj procesu użytkownika"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która komenda w systemie Linux służy do sprawdzenia listy procesów?",
+      "answers": [
+        "who",
+        "topdir",
+        "ps",
+        "ls"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Czym różni się wątek od procesu?",
+      "answers": [
+        "Wątki współdzielą przestrzeń adresową",
+        "Procesy nie mają PID",
+        "Procesy są szybsze niż wątki",
+        "Wątki nie mogą być wywłaszczane"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Do czego służy polecenie `kill` w systemie Linux?",
+      "answers": [
+        "Do wysyłania sygnałów do procesów",
+        "Do odczytu logów",
+        "Do usuwania użytkowników",
+        "Do zatrzymywania systemu"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co oznacza stan `D` w wyniku `ps aux` w Linuxie?",
+      "answers": [
+        "Proces jest gotowy do wykonania",
+        "Proces został usunięty",
+        "Proces działa z priorytetem 0",
+        "Proces czeka na operację I/O (nieprzerywalny sen)"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Jaką strukturę danych stosuje jądro systemu do przechowywania informacji o procesach?",
+      "answers": [
+        "PIT (Process ID Table)",
+        "KVM (Kernel Virtual Memory)",
+        "PCB (Process Control Block)",
+        "LUT (Lookup Table)"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie są podstawowe strategie planowania zadań?",
+      "answers": [
+        "FCFS, SJF, RR, priorytetowe",
+        "Random, Deadlock, Wait, Resume",
+        "LOOK, SSTF, NOP, RST",
+        "FIFO, LRU, MRU, SCAN"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Czym jest `fork()` w systemie Linux?",
+      "answers": [
+        "Systemowym wywołaniem tworzącym nowy proces",
+        "Funkcją tworzącą plik tymczasowy",
+        "Metodą synchronizacji procesów",
+        "Polem w tablicy procesów"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakie są główne cele wielowątkowości?",
+      "answers": [
+        "Zmniejszenie przestrzeni adresowej",
+        "Redukcja błędów synchronizacji",
+        "Zwiększenie wydajności i responsywności",
+        "Zmniejszenie liczby procesów"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który system plików jest najczęściej stosowany w nowoczesnych dystrybucjach Linuxa?",
+      "answers": [
+        "HFS+",
+        "NTFS",
+        "FAT32",
+        "ext4"
+      ],
+      "correct_answer_index": 3
     }
   ],
   "ALGORYTMY I STRUKTURY DANYCH": [
     {
-      "question_text": "Jaka jest średnia złożoność czasowa algorytmu sortowania szybkiego (Quicksort)?",
-      "answers": ["O(n^2)", "O(n log n)", "O(n)", "O(log n)"],
+      "question_text": "Jaki jest czas działania algorytmu wyszukiwania binarnego w najgorszym przypadku?",
+      "answers": [
+        "O(n)",
+        "O(log n)",
+        "O(n log n)",
+        "O(1)"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które z poniższych struktur danych najlepiej nadaje się do realizacji kolejki FIFO?",
+      "answers": [
+        "Stos",
+        "Kolejka",
+        "Lista jednokierunkowa",
+        "Drzewo BST"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaki algorytm sortowania jest stabilny i ma złożoność O(n²)?",
+      "answers": [
+        "QuickSort",
+        "MergeSort",
+        "BubbleSort",
+        "HeapSort"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co oznacza termin „stabilność algorytmu sortowania”?",
+      "answers": [
+        "Zawsze działa w czasie O(n)",
+        "Zachowuje kolejność elementów o tych samych kluczach",
+        "Zawsze daje ten sam wynik",
+        "Jest odporny na błędy danych"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która struktura danych działa na zasadzie LIFO?",
+      "answers": [
+        "Stos",
+        "Kolejka",
+        "Lista cykliczna",
+        "Drzewo AVL"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co robi funkcja `enqueue` w implementacji kolejki?",
+      "answers": [
+        "Usuwa element",
+        "Dodaje element",
+        "Zwraca pierwszy element",
+        "Zwraca ostatni element"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaka jest wysokość idealnie zbalansowanego drzewa binarnego o 15 węzłach?",
+      "answers": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaką złożoność czasową ma dodanie elementu do kopca binarnego?",
+      "answers": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n log n)"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Który z algorytmów sortowania NIE jest sortowaniem przez porównywanie?",
+      "answers": [
+        "Counting Sort",
+        "Insertion Sort",
+        "Selection Sort",
+        "Merge Sort"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co oznacza złożoność obliczeniowa O(1)?",
+      "answers": [
+        "Czas wykonania nie zależy od rozmiaru danych",
+        "Czas wykonania jest liniowy",
+        "Czas wykonania jest wykładniczy",
+        "Czas wykonania rośnie logarytmicznie"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Które z poniższych jest algorytmem zachłannym?",
+      "answers": [
+        "Sortowanie bąbelkowe",
+        "DFS",
+        "Kruskal",
+        "BFS"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który algorytm może być użyty do znajdowania najkrótszej ścieżki w grafie bez ujemnych wag?",
+      "answers": [
+        "DFS",
+        "BFS",
+        "Dijkstra",
+        "Bellman-Ford"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie operacje w drzewie BST są typowo wykonywane w czasie O(log n)?",
+      "answers": [
+        "Wstawianie, wyszukiwanie, usuwanie",
+        "Wstawianie, tylko",
+        "Tylko wyszukiwanie",
+        "Usuwanie tylko"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co to jest haszowanie?",
+      "answers": [
+        "Metoda sortowania tablic",
+        "Technika kodowania grafów",
+        "Technika przekształcania danych na indeks w tablicy",
+        "Metoda wyszukiwania rekurencyjnego"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co zwraca funkcja `pop()` w stosie?",
+      "answers": [
+        "Zwraca pierwszy element kolejki",
+        "Zwraca ostatni element i go usuwa",
+        "Zwraca najmniejszy element",
+        "Zwraca indeks"
+      ],
       "correct_answer_index": 1
     }
   ],
   "METODY PROBABILISTYCZNE": [
     {
-      "question_text": "Jakie jest prawdopodobieństwo wyrzucenia liczby parzystej na standardowej, sześciennej kostce do gry?",
-      "answers": ["1/6", "1/3", "1/2", "2/3"],
+      "question_text": "Która z poniższych miar opisuje najbardziej typową wartość w zbiorze danych?",
+      "answers": [
+        "Odchylenie standardowe",
+        "Wariancja",
+        "Mediana",
+        "Rozstęp"
+      ],
       "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jeśli średnia z próby wynosi 10, a wariancja 4, to odchylenie standardowe wynosi:",
+      "answers": [
+        "2",
+        "4",
+        "16",
+        "8"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakie jest prawdopodobieństwo wyrzucenia liczby większej niż 4 przy rzucie uczciwą kostką?",
+      "answers": [
+        "1/3",
+        "2/3",
+        "1/6",
+        "2/6"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "W histogramie liczba obserwacji w przedziale to:",
+      "answers": [
+        "Częstość skumulowana",
+        "Wysokość słupka",
+        "Odchylenie standardowe",
+        "Suma kwadratów błędów"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która z poniższych zmiennych jest dyskretna?",
+      "answers": [
+        "Wzrost w cm",
+        "Temperatura w °C",
+        "Liczba dzieci",
+        "Czas reakcji"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jeśli prawdopodobieństwo zajścia zdarzenia A wynosi 0.3, to prawdopodobieństwo jego dopełnienia to:",
+      "answers": [
+        "0.3",
+        "0.5",
+        "0.7",
+        "0.9"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jak interpretujemy wartość średnią (średnia arytmetyczna)?",
+      "answers": [
+        "Najczęściej występująca wartość",
+        "Wartość dzieląca dane na połowę",
+        "Wartość sumaryczna podzielona przez liczność",
+        "Wartość największa w zbiorze"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Która funkcja prawdopodobieństwa opisuje liczbę sukcesów w próbach Bernoulliego?",
+      "answers": [
+        "Rozkład Poissona",
+        "Rozkład normalny",
+        "Rozkład dwumianowy",
+        "Rozkład wykładniczy"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Rozkład normalny charakteryzuje się tym, że:",
+      "answers": [
+        "Ma asymetrię dodatnią",
+        "Jest zawsze jednostajny",
+        "Ma postać dzwonową i jest symetryczny",
+        "Zawsze ma wartość zero po środku"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co oznacza współczynnik korelacji bliski -1?",
+      "answers": [
+        "Brak zależności",
+        "Silna dodatnia zależność",
+        "Silna ujemna zależność",
+        "Zależność losowa"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jeśli próbka ma rozmiar 100 i suma wszystkich wartości to 500, to średnia wynosi:",
+      "answers": [
+        "50",
+        "5",
+        "500",
+        "100"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Do czego służy test chi-kwadrat?",
+      "answers": [
+        "Do porównania średnich",
+        "Do analizy regresji",
+        "Do testowania zgodności rozkładu",
+        "Do obliczania wartości oczekiwanej"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaką wartość przyjmuje suma wszystkich prawdopodobieństw w rozkładzie dyskretnym?",
+      "answers": [
+        "0",
+        "1",
+        "∞",
+        "Zależy od liczności zbioru"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaką interpretację ma mediana?",
+      "answers": [
+        "Wartość maksymalna",
+        "Wartość najczęściej występująca",
+        "Wartość dzieląca dane na połowy",
+        "Wartość średnia"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Które z poniższych stwierdzeń jest prawdziwe dla histogramu?",
+      "answers": [
+        "Służy do analizy danych jakościowych",
+        "Służy do wizualizacji rozkładu danych liczbowych",
+        "Nie pokazuje częstości",
+        "Zawsze zawiera tylko 3 przedziały klas"
+      ],
+      "correct_answer_index": 1
     }
   ],
   "METODY NUMERYCZNE": [
     {
-      "question_text": "Do czego służy metoda Newtona-Raphsona?",
+      "question_text": "Czym jest błąd względny w obliczeniach numerycznych?",
       "answers": [
-        "Do sortowania list",
-        "Do znajdowania miejsc zerowych funkcji",
-        "Do obliczania całek oznaczonych",
-        "Do rozwiązywania układów równań różniczkowych"
+        "Różnicą między wartością przybliżoną a dokładną",
+        "Ilorazem błędu bezwzględnego i wartości dokładnej",
+        "Iloczynem wartości dokładnej i przybliżonej",
+        "Wynikiem przybliżenia funkcji wielomianem"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która metoda rozwiązywania równań nieliniowych wymaga znajomości pochodnej?",
+      "answers": [
+        "Metoda bisekcji",
+        "Metoda siecznych",
+        "Metoda Newtona",
+        "Metoda iteracyjna Jacobiego"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaki warunek musi spełniać funkcja, by metoda bisekcji mogła zostać zastosowana?",
+      "answers": [
+        "Funkcja musi być różniczkowalna",
+        "Funkcja musi zmieniać znak w przedziale",
+        "Funkcja musi być parzysta",
+        "Funkcja musi mieć pochodną drugiego rzędu"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie jest główne założenie metody siecznych?",
+      "answers": [
+        "Wykorzystuje wartość pochodnej w punkcie początkowym",
+        "Zastępuje pochodną ilorazem różnicowym",
+        "Zakłada monotoniczność funkcji",
+        "Bazuje na przybliżeniu funkcji sinusoidalnej"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaka jest złożoność obliczeniowa eliminacji Gaussa dla macierzy n×n?",
+      "answers": [
+        "O(n)",
+        "O(n²)",
+        "O(n³)",
+        "O(log n)"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Której z metod używa się do rozwiązywania układów równań iteracyjnie?",
+      "answers": [
+        "Eliminacja Gaussa",
+        "Faktoryzacja LU",
+        "Metoda Jacobiego",
+        "Metoda interpolacji Lagrange’a"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie punkty wybieramy w interpolacji Newtona?",
+      "answers": [
+        "Dowolne punkty",
+        "Punkty jednakowo rozłożone",
+        "Punkty równoległe do osi x",
+        "Punkty zerowe funkcji"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Czym różni się aproksymacja od interpolacji?",
+      "answers": [
+        "Aproksymacja nie przechodzi przez wszystkie punkty",
+        "Interpolacja używa tylko funkcji wykładniczych",
+        "Aproksymacja wymaga znajomości pochodnej",
+        "Interpolacja działa tylko dla układów równań"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Która metoda służy do obliczania pochodnej numerycznie?",
+      "answers": [
+        "Metoda Newtona",
+        "Iloraz różnicowy",
+        "Interpolacja Lagrange’a",
+        "Całkowanie trapezowe"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Wzór trapezów stosujemy w celu:",
+      "answers": [
+        "Obliczania całki oznaczonej",
+        "Obliczania całki nieoznaczonej",
+        "Wyznaczania punktów przegięcia",
+        "Szacowania błędu interpolacji"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jaką dokładność ma metoda Simpsona dla całkowania?",
+      "answers": [
+        "Rzędu 1",
+        "Rzędu 2",
+        "Rzędu 3",
+        "Rzędu 4"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Jaka jest podstawowa wada metody Eulera?",
+      "answers": [
+        "Wymaga znajomości pochodnej wyższych rzędów",
+        "Mała dokładność przy dużych krokach",
+        "Brak zbieżności przy funkcjach liniowych",
+        "Trudność implementacji"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Czym różni się metoda Rungego-Kutty od Eulera?",
+      "answers": [
+        "Ma większą dokładność przez użycie kilku punktów",
+        "Używa interpolacji Lagrange’a",
+        "Wymaga znajomości drugiej pochodnej",
+        "Jest szybsza, ale mniej dokładna"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakie jest kryterium zakończenia iteracji w metodzie Newtona?",
+      "answers": [
+        "Gdy pochodna osiąga zero",
+        "Gdy różnica między kolejnymi przybliżeniami jest mała",
+        "Po ustalonej liczbie iteracji",
+        "Po osiągnięciu minimum funkcji"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Do czego służy macierz Jacobiego?",
+      "answers": [
+        "Do opisu układów nieliniowych",
+        "Do przyspieszania interpolacji",
+        "Do zapisu wzorów Newtona",
+        "Do eliminacji błędów zaokrągleń"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Odziedziczyłeś plażę kamienistą po szwagrze – co najlepiej z nią zrobić?",
+      "answers": [
+        "Zasiać trawę i otworzyć pole namiotowe",
+        "Zostawić naturze i obserwować erozję",
+        "Wybudować elektrownię pływową",
+        "Zbudować tor do jazdy gokartami"
       ],
       "correct_answer_index": 1
     }
   ],
   "TECHNIKA CYFROWA": [
     {
-      "question_text": "Jaki będzie wynik na wyjściu bramki logicznej AND, jeśli na obu jej wejściach podany jest stan wysoki (1)?",
+      "question_text": "Która bramka logiczna realizuje działanie alternatywy wykluczającej ?",
       "answers": [
-        "Stan niski (0)",
-        "Stan wysoki (1)",
-        "Stan nieokreślony",
-        "Zależy to od napięcia zasilania"
+        "Bramka AND",
+        "Bramka OR",
+        "Bramka NAND",
+        "Bramka XOR"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "Która z bramek logicznych jest odwrotnością AND?",
+      "answers": [
+        "OR",
+        "XOR",
+        "NAND",
+        "NOR"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Ile stanów logicznych ma przerzutnik typu SR?",
+      "answers": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co oznacza stan niestabilny w przerzutniku SR?",
+      "answers": [
+        "Obie wartości wejściowe są równe 0",
+        "Obie wartości wejściowe są równe 1",
+        "Wyjście się nie zmienia",
+        "Nie ma takiego stanu"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jak nazywa się automat skończony, który nie posiada wyjścia zależnego od wejścia, a tylko od stanu?",
+      "answers": [
+        "Automat Mealy'ego",
+        "Automat Moore'a",
+        "Automat kombinacyjny",
+        "Rejestr"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie są podstawowe elementy automatu skończonego?",
+      "answers": [
+        "Wejścia, wyjścia, pamięć",
+        "Zegar, bramki logiczne, liczniki",
+        "Zbiór stanów, zbiór wejść i wyjść, funkcje przejścia i wyjścia",
+        "Multiplexery i dekodery"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co to jest tablica Karnaugha?",
+      "answers": [
+        "Schemat połączeń bramek",
+        "Tablica kodów maszynowych",
+        "Metoda upraszczania funkcji logicznych",
+        "Sposób konfiguracji FPGA"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Ile wynosi wartość logiczna wyrażenia: A = 1, B = 0 dla A AND B?",
+      "answers": [
+        "1",
+        "0",
+        "Nieokreślona",
+        "Zależy od poprzedniego stanu"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które z poniższych wyrażeń reprezentuje funkcję NOR?",
+      "answers": [
+        "¬(A ∨ B)",
+        "¬(A ∧ B)",
+        "A ⊕ B",
+        "¬A ∨ ¬B"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co oznacza termin 'automat deterministyczny'?",
+      "answers": [
+        "Automat bez pamięci",
+        "Automat, w którym każde wejście ma tylko jedno możliwe przejście stanu",
+        "Automat z nieokreślonym wyjściem",
+        "Automat używany tylko w logice trójwartościowej"
       ],
       "correct_answer_index": 1
     }
   ],
   "PROGRAMOWANIE OBIEKTOWE I": [
     {
-      "question_text": "Która z zasad programowania obiektowego opisuje mechanizm łączenia danych i metod w jedną całość (obiekt) oraz ukrywania szczegółów implementacji?",
-      "answers": ["Dziedziczenie", "Polimorfizm", "Enkapsulacja", "Abstrakcja"],
-      "correct_answer_index": 2
-    }
-  ],
-  "ARCHITEKTURA KOMPUTERÓW": [
-    {
-      "question_text": "Która część procesora (CPU) jest odpowiedzialna za wykonywanie operacji arytmetycznych i logicznych?",
+      "question_text": "Czym jest konstruktor w C++?",
       "answers": [
-        "Jednostka sterująca (Control Unit)",
-        "Pamięć podręczna (Cache)",
-        "Jednostka arytmetyczno-logiczna (ALU)",
-        "Rejestry (Registers)"
+        "Funkcja wywoływana po destruktorze",
+        "Funkcja inicjalizująca obiekt klasy",
+        "Funkcja służąca do sortowania",
+        "Funkcja zamieniająca klasę na strukturę"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które słowo kluczowe służy do dziedziczenia w C++?",
+      "answers": [
+        "extends",
+        "inherits",
+        "public",
+        "implements"
       ],
       "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie są domyślne modyfikatory dostępu w klasie i strukturze?",
+      "answers": [
+        "public w obu",
+        "private w obu",
+        "private w klasie, public w strukturze",
+        "public w klasie, private w strukturze"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Czym jest przeciążenie funkcji (function overloading)?",
+      "answers": [
+        "Zastępowanie funkcji rodzica",
+        "Deklarowanie tej samej funkcji w innej przestrzeni nazw",
+        "Definiowanie wielu funkcji o tej samej nazwie, ale różnych parametrach",
+        "Przypisywanie wielu wartości zwracanych"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Które z poniższych słów kluczowych zapobiega dziedziczeniu klasy?",
+      "answers": [
+        "protected",
+        "sealed",
+        "final",
+        "virtual"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaki jest cel destruktora w klasie C++?",
+      "answers": [
+        "Zwiększenie liczby obiektów",
+        "Zwolnienie zasobów przed usunięciem obiektu",
+        "Tworzenie kopii obiektu",
+        "Zmiana typu klasy"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Czym jest polimorfizm w C++?",
+      "answers": [
+        "Tworzenie wielu klas w jednej",
+        "Zdolność klasy do tworzenia nowych obiektów",
+        "Zdolność funkcji lub metody do przyjmowania różnych form",
+        "Zamiana funkcji globalnej na lokalną"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jak zadeklarować metodę wirtualną w C++?",
+      "answers": [
+        "virtual void metoda();",
+        "static void metoda();",
+        "abstract void metoda();",
+        "final void metoda();"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Czym jest klasa abstrakcyjna?",
+      "answers": [
+        "Klasa, która nie może mieć żadnych metod",
+        "Klasa, która ma przynajmniej jedną metodę wirtualną czysto",
+        "Klasa, która nie może mieć konstruktora",
+        "Klasa z samymi polami publicznymi"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie dziedziczenie występuje w przypadku: class B : public A?",
+      "answers": [
+        "Prywatne",
+        "Publiczne",
+        "Chronione",
+        "Wielokrotne"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która składnia tworzy obiekt klasy?",
+      "answers": [
+        "class obiekt();",
+        "obiekt = new Klasa();",
+        "Klasa obiekt;",
+        "obiekt -> Klasa;"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jak oznacza się metodę wirtualną czysto abstrakcyjną?",
+      "answers": [
+        "virtual void fun() = 0;",
+        "void virtual fun();",
+        "abstract fun();",
+        "fun() = nullptr;"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jaka jest różnica między wskaźnikiem a referencją?",
+      "answers": [
+        "Referencja może być nullptr, wskaźnik nie",
+        "Wskaźnik nie może wskazywać na obiekt",
+        "Referencja nie może być nullptr i nie może być później zmieniona",
+        "Nie ma różnicy"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jak wywołać konstruktor kopiujący?",
+      "answers": [
+        "przez operator=",
+        "tworząc nowy obiekt na podstawie innego",
+        "przez delete",
+        "przez override"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie są zalety programowania obiektowego?",
+      "answers": [
+        "Duplikacja kodu, trudność w testowaniu",
+        "Lepsza organizacja kodu, reużywalność, hermetyzacja",
+        "Szybsze działanie niż kod proceduralny",
+        "Brak konieczności używania klas"
+      ],
+      "correct_answer_index": 1
+    }
+  ],
+"ARCHITEKTURA KOMPUTERÓW": [
+    {
+      "question_text": "Jaką funkcję pełni rejestr PC (Program Counter) w procesorze?",
+      "answers": [
+        "Przechowuje aktualny stan przerwań",
+        "Wskazuje adres kolejnej instrukcji do wykonania",
+        "Przechowuje dane wejściowe",
+        "Wskazuje adres aktualnie używanego rejestru"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaki system liczbowy jest wykorzystywany wewnętrznie przez komputery?",
+      "answers": [
+        "Dziesiętny",
+        "Binarny",
+        "Oktalny",
+        "Szesnastkowy"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która z instrukcji asemblera służy do zakończenia programu? (dla MIPS)",
+      "answers": [
+        "li",
+        "syscall",
+        "exit",
+        "jr"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "W jaki sposób zapisujemy liczbę -5 w kodzie U2 (uzupełnienie do dwóch)? (8 bitów)",
+      "answers": [
+        "11111011",
+        "00000101",
+        "11111101",
+        "10000011"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Czym różni się architektura single-cycle od multi-cycle?",
+      "answers": [
+        "Single-cycle wykonuje wiele instrukcji naraz",
+        "Single-cycle wykonuje każdą instrukcję w jednym takcie",
+        "Multi-cycle ma jeden rejestr do wszystkiego",
+        "Multi-cycle nie obsługuje skoków"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Ile bitów ma rejestr w architekturze 32-bitowej?",
+      "answers": [
+        "16",
+        "32",
+        "64",
+        "8"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaką funkcję pełni rozkaz 'add $t0, $t1, $t2' w MIPS?",
+      "answers": [
+        "Dodaje $t1 do $t2 i zapisuje wynik do $t0",
+        "Odejmuje $t2 od $t1 i zapisuje do $t0",
+        "Przenosi wartość z $t1 do $t0",
+        "Inicjalizuje rejestr $t0"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Która jednostka odpowiada za wykonanie operacji arytmetycznych w procesorze?",
+      "answers": [
+        "CU (Control Unit)",
+        "ALU (Arithmetic Logic Unit)",
+        "RAM",
+        "ROM"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jak wygląda rozkaz wczytania liczby 10 do rejestru $t0 w MIPS?",
+      "answers": [
+        "load $t0, 10",
+        "li $t0, 10",
+        "move $t0, 10",
+        "set $t0 = 10"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaką liczbę dziesiętną reprezentuje binarna liczba 11111111 w kodzie U2 (8-bitowym)?",
+      "answers": [
+        "255",
+        "127",
+        "-1",
+        "0"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co oznacza instrukcja 'lw $t0, 0($t1)' w asemblerze MIPS?",
+      "answers": [
+        "Zapisuje wartość 0 do rejestru $t0",
+        "Ładuje do $t0 dane z pamięci pod adresem $t1 + 0",
+        "Dodaje $t0 do $t1",
+        "Zapisuje $t1 do pamięci"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Który z rejestrów MIPS służy do przechowywania wartości zwracanej przez funkcję?",
+      "answers": [
+        "$a0",
+        "$t0",
+        "$v0",
+        "$s0"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który tryb adresowania polega na dodaniu przesunięcia do zawartości rejestru?",
+      "answers": [
+        "Bezpośredni",
+        "Pośredni",
+        "Indeksowany",
+        "Natychmiastowy"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który rozkaz asemblera umożliwia bezpośrednie przejście do innego miejsca w programie?",
+      "answers": [
+        "jump",
+        "goto",
+        "jmp",
+        "branch"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Ile bajtów zajmuje słowo (word) w MIPS?",
+      "answers": [
+        "2",
+        "4",
+        "8",
+        "1"
+      ],
+      "correct_answer_index": 1
     }
   ],
   "DESIGN THINKING": [
     {
-      "question_text": "Który z etapów procesu Design Thinking skupia się na zrozumieniu potrzeb i problemów użytkownika poprzez obserwację i interakcję?",
-      "answers": ["Identyfikacja (Ideate)", "Prototypowanie (Prototype)", "Testowanie (Test)", "Empatia (Empathize)"],
-      "correct_answer_index": 3
+      "question_text": "Który z poniższych etapów NIE należy do procesu Design Thinking?",
+      "answers": [
+        "Empatyzowanie",
+        "Definiowanie problemu",
+        "Programowanie",
+        "Testowanie"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Czym jest empatyzowanie w procesie Design Thinking?",
+      "answers": [
+        "Analizą kosztów",
+        "Tworzeniem prototypu",
+        "Zrozumieniem potrzeb użytkownika",
+        "Zbieraniem danych liczbowych"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaki jest cel etapu ideacji?",
+      "answers": [
+        "Zebranie informacji od interesariuszy",
+        "Weryfikacja hipotez",
+        "Generowanie możliwie wielu pomysłów",
+        "Utworzenie finalnego rozwiązania"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Która z poniższych technik jest typowo używana w etapie ideacji?",
+      "answers": [
+        "Burza mózgów",
+        "Wywiad pogłębiony",
+        "Mapa empatii",
+        "Analiza SWOT"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "W jakim celu tworzy się prototyp w Design Thinking?",
+      "answers": [
+        "Aby obliczyć koszty końcowego produktu",
+        "Aby zdobyć dane ilościowe",
+        "Aby przetestować pomysły i zebrać opinie",
+        "Aby przekonać inwestora"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Które narzędzie najlepiej wspiera empatyzowanie?",
+      "answers": [
+        "Burza mózgów",
+        "Mapa empatii",
+        "Storyboard",
+        "Testy A/B"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Czym jest iteracja w Design Thinking?",
+      "answers": [
+        "Jednorazowym wdrożeniem rozwiązania",
+        "Procesem zbierania danych",
+        "Powtarzaniem etapów na podstawie informacji zwrotnych",
+        "Końcowym raportem"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który z poniższych jest celem Design Thinking?",
+      "answers": [
+        "Opracowanie jak największej liczby funkcji",
+        "Tworzenie dokumentacji projektowej",
+        "Rozwiązywanie problemów zorientowanych na użytkownika",
+        "Tworzenie stron internetowych"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie podejście reprezentuje Design Thinking?",
+      "answers": [
+        "Podejście analityczne",
+        "Podejście inżynierskie",
+        "Podejście zorientowane na użytkownika",
+        "Podejście menedżerskie"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Czym kończy się typowo cykl Design Thinking?",
+      "answers": [
+        "Raportem końcowym",
+        "Zatwierdzeniem przez zarząd",
+        "Gotowym rozwiązaniem lub powrotem do wcześniejszego etapu",
+        "Sprzedażą produktu"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co odróżnia Design Thinking od tradycyjnych metod projektowania?",
+      "answers": [
+        "Brak prototypowania",
+        "Skupienie na danych ilościowych",
+        "Zorientowanie na użytkownika",
+        "Sztywna struktura etapów"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie znaczenie ma testowanie w Design Thinking?",
+      "answers": [
+        "Pomaga znaleźć inwestorów",
+        "Dostarcza danych do analizy konkurencji",
+        "Umożliwia ocenę użyteczności rozwiązania",
+        "Weryfikuje poprawność kodu"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie role mogą uczestniczyć w procesie Design Thinking?",
+      "answers": [
+        "Tylko projektanci UX",
+        "Tylko klienci",
+        "Wszyscy interesariusze i członkowie zespołu",
+        "Tylko menedżerowie projektu"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który z poniższych terminów najlepiej opisuje Design Thinking?",
+      "answers": [
+        "Hierarchiczny",
+        "Interaktywny",
+        "Jednokierunkowy",
+        "Selektywny"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "W którym etapie Design Thinking definiuje się problem projektowy?",
+      "answers": [
+        "Empatyzowanie",
+        "Definiowanie",
+        "Prototypowanie",
+        "Testowanie"
+      ],
+      "correct_answer_index": 1
     }
   ],
   "JĘZYK ANGIELSKI": [
     {
-      "question_text": "Which sentence is grammatically correct?",
+      "question_text": "Which of the following best describes 'focus group' in market research?",
       "answers": [
-        "He go to school every day.",
-        "She don't like apples.",
-        "They are playing football now.",
-        "I has a new car."
+        "An online data survey",
+        "A small group interview used for feedback",
+        "A government report",
+        "A marketing campaign slogan"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "In a business meeting, asking 'Would you mind if I asked a question?' is an example of:",
+      "answers": [
+        "Clarification",
+        "Interrupting rudely",
+        "Polite interruption",
+        "Criticism"
       ],
       "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which phrase is best for describing survey findings?",
+      "answers": [
+        "Let's brainstorm this",
+        "We need more coffee",
+        "The data shows a clear preference for A",
+        "Time to end the meeting"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "The verb 'to clarify' in business communication means:",
+      "answers": [
+        "To argue",
+        "To explain more clearly",
+        "To interrupt",
+        "To agree"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Which statement uses hedging language?",
+      "answers": [
+        "We must fire the client",
+        "It might be worth considering another supplier",
+        "This is the only option",
+        "Everyone agrees this is best"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "In Unit 2, mentoring is presented as:",
+      "answers": [
+        "Inefficient",
+        "Old-fashioned",
+        "A method to develop junior staff",
+        "A type of punishment"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which functional phrase fits a polite refusal?",
+      "answers": [
+        "No way!",
+        "Absolutely not",
+        "I'm afraid I can't do that",
+        "Forget it"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "'Negotiating an agreement' includes which action?",
+      "answers": [
+        "Running a focus group",
+        "Brainstorming internally",
+        "Clarifying roles and requirements",
+        "Ending a project"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which response is best for handling a last-minute change?",
+      "answers": [
+        "I completely disagree",
+        "Let's cancel everything",
+        "Thanks for letting me know – let's see what we can do",
+        "Why didn't you say that earlier?"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "The phrase 'Could you clarify what you mean by that?' is used to:",
+      "answers": [
+        "Interrupt rudely",
+        "Start a presentation",
+        "Ask for an explanation",
+        "End a conversation"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which business document is used to summarize research?",
+      "answers": [
+        "Letter of complaint",
+        "Report",
+        "Job advert",
+        "Invoice"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "The word 'stakeholder' refers to:",
+      "answers": [
+        "A shareholder only",
+        "An employee",
+        "Anyone with an interest in a business outcome",
+        "A legal consultant"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which expression shows hesitation or uncertainty?",
+      "answers": [
+        "Obviously",
+        "To be honest",
+        "Kind of",
+        "Absolutely"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which type of sentence is most suitable in formal email openings?",
+      "answers": [
+        "Hey, how's it going?",
+        "I'm writing to enquire about...",
+        "Guess what!",
+        "What do you want?"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Which is an effective way to give feedback?",
+      "answers": [
+        "You always mess up",
+        "You could try rephrasing this part",
+        "This is terrible",
+        "I don’t like it"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "What does 'managing your money' refer to in a business context?",
+      "answers": [
+        "Investing in real estate",
+        "Spending without a budget",
+        "Planning and controlling your financial resources",
+        "Borrowing more than you can afford"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which phrase would be appropriate in a formal letter of complaint?",
+      "answers": [
+        "This sucks",
+        "I am writing to express my dissatisfaction",
+        "Get your act together",
+        "No way this is acceptable"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "In Unit 3, millennials were described as:",
+      "answers": [
+        "Older workers",
+        "People born before 1960",
+        "A generation with different financial priorities",
+        "People without money"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which strategy helps to manage presentation anxiety?",
+      "answers": [
+        "Ignore the audience",
+        "Focus only on slides",
+        "Practice and know your content",
+        "Avoid making eye contact"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "The phrase 'return on investment' refers to:",
+      "answers": [
+        "How much a product weighs",
+        "The cost of a project",
+        "The benefit received compared to the amount invested",
+        "Company size"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which word fits best: 'He ____ a polite email to his manager.'",
+      "answers": [
+        "made",
+        "wrote",
+        "drew",
+        "fixed"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "What is a polite way to give criticism?",
+      "answers": [
+        "You're totally wrong",
+        "That's a stupid idea",
+        "You might want to consider a different approach",
+        "Forget it, you can't do that"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which functional language is used to talk about pay?",
+      "answers": [
+        "What's your salary range?",
+        "Let's play a game",
+        "Time to eat",
+        "Turn off the projector"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "In business writing, 'I would appreciate it if you could…' is an example of:",
+      "answers": [
+        "A threat",
+        "A command",
+        "A polite request",
+        "A complaint"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "In Unit 4, climate change is linked to which business concept?",
+      "answers": [
+        "Sustainability",
+        "Profitability",
+        "Bankruptcy",
+        "Efficiency"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Which is a useful phrase for refusing politely?",
+      "answers": [
+        "Nope",
+        "I’m afraid that’s not possible",
+        "Don’t ask again",
+        "Stop it"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "The phrase 'challenging assumptions' means:",
+      "answers": [
+        "Accepting facts",
+        "Questioning what is usually taken for granted",
+        "Avoiding conflict",
+        "Listening without responding"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Which of these is NOT typically part of a business presentation?",
+      "answers": [
+        "Introduction",
+        "Main points",
+        "Conclusion",
+        "Gossip"
+      ],
+      "correct_answer_index": 3
+    },
+    {
+      "question_text": "What is the purpose of writing a recommendation?",
+      "answers": [
+        "To file a complaint",
+        "To criticize a project",
+        "To suggest a future action",
+        "To summarize a call"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "What does the term 'carbon footprint' refer to?",
+      "answers": [
+        "The amount of carbon you step on",
+        "The climate in your region",
+        "The amount of CO2 emissions your activities produce",
+        "The amount of oxygen in the air"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "What is a secondment?",
+      "answers": [
+        "An investment",
+        "A temporary job transfer",
+        "A resignation",
+        "A retirement plan"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Which word best fits: 'The company is trying to ____ talent by offering flexible working.'",
+      "answers": [
+        "retain",
+        "refuse",
+        "remove",
+        "resign"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "When giving feedback, you should:",
+      "answers": [
+        "Avoid eye contact",
+        "Speak clearly and be constructive",
+        "Use as many negatives as possible",
+        "Criticize without context"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Which sentence is best for describing relocation benefits?",
+      "answers": [
+        "We hate moving",
+        "You might be eligible for a housing allowance",
+        "Bring your own tools",
+        "It’s your responsibility to move"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "What does 'giving feedback on performance' mean?",
+      "answers": [
+        "Telling jokes during work",
+        "Ignoring employee behavior",
+        "Providing positive or constructive comments on work",
+        "Avoiding conflict at all costs"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "What is a business alliance?",
+      "answers": [
+        "A conflict",
+        "A merger",
+        "A formal partnership between companies",
+        "A legal problem"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which verb collocates with 'strategic'?",
+      "answers": [
+        "break",
+        "develop",
+        "ignore",
+        "confuse"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "In Unit 6, conflict is best resolved by:",
+      "answers": [
+        "Blaming someone",
+        "Raising your voice",
+        "Using clear communication and compromise",
+        "Quitting the job"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which phrase shows you disagree diplomatically?",
+      "answers": [
+        "You’re wrong",
+        "That’s the dumbest idea",
+        "I see your point, but I have a different view",
+        "Forget it"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which part of a presentation is used to give context?",
+      "answers": [
+        "Conclusion",
+        "Main points",
+        "Introduction",
+        "Appendix"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "In Unit 5, 'talent retention' refers to:",
+      "answers": [
+        "Losing employees",
+        "Hiring friends",
+        "Keeping skilled employees in the company",
+        "Sending workers abroad"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "How do you begin formal written feedback?",
+      "answers": [
+        "Hey!",
+        "Yo!",
+        "I’d like to offer some feedback on your recent performance.",
+        "What’s up?"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Which of the following is a benefit of a business alliance?",
+      "answers": [
+        "Loss of control",
+        "Shared resources and risks",
+        "Higher taxes",
+        "Increased competition"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Which is a common conflict resolution technique?",
+      "answers": [
+        "Stonewalling",
+        "Active listening",
+        "Interrupting",
+        "Yelling"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "What does 'merger' mean in business?",
+      "answers": [
+        "A conflict between teams",
+        "The union of two companies",
+        "Hiring a manager",
+        "Closing a department"
+      ],
+      "correct_answer_index": 1
     }
   ],
-  "SIECI KOMPUTEROWE": [
+"SIECI KOMPUTEROWE": [
     {
-      "question_text": "W modelu TCP/IP, za co odpowiedzialna jest warstwa transportowa?",
+      "question_text": "Jakie urządzenie sieciowe łączy różne sieci i trasuje pakiety?",
       "answers": [
-        "Za fizyczne przesyłanie bitów przez medium transmisyjne.",
-        "Za adresowanie logiczne i routing pakietów.",
-        "Za zapewnienie komunikacji między procesami na różnych hostach (np. TCP, UDP).",
-        "Za formatowanie danych i obsługę sesji (np. HTTP, FTP)."
+        "Switch",
+        "Router",
+        "Hub",
+        "Access Point"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Który protokół służy do translacji adresów URL na adresy IP?",
+      "answers": [
+        "FTP",
+        "HTTP",
+        "DNS",
+        "IP"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaką długość ma adres IPv4?",
+      "answers": [
+        "32 bity",
+        "64 bity",
+        "128 bitów",
+        "8 bitów"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Który model warstwowy opisuje strukturę protokołów sieciowych?",
+      "answers": [
+        "TCP/IP",
+        "OSI",
+        "IEEE",
+        "IPX/SPX"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Która warstwa modelu OSI odpowiada za adresowanie MAC?",
+      "answers": [
+        "Sieciowa",
+        "Łącza danych",
+        "Transportowa",
+        "Fizyczna"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakiego protokołu używa przeglądarka do pobierania stron internetowych?",
+      "answers": [
+        "HTTP",
+        "DNS",
+        "IP",
+        "ARP"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Do czego służy adres MAC?",
+      "answers": [
+        "Identyfikacja sieci LAN",
+        "Fizyczna identyfikacja karty sieciowej",
+        "Translacja DNS",
+        "Przypisywanie adresu IP"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Który protokół zapewnia niezawodny przesył danych?",
+      "answers": [
+        "UDP",
+        "TCP",
+        "IP",
+        "ICMP"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Które z poniższych urządzeń rozsyła dane do wszystkich portów?",
+      "answers": [
+        "Router",
+        "Switch",
+        "Hub",
+        "Modem"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jaka komenda sprawdza połączenie z adresem IP?",
+      "answers": [
+        "ipconfig",
+        "ping",
+        "tracert",
+        "nslookup"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaką rolę pełni DHCP w sieci?",
+      "answers": [
+        "Zapewnia szyfrowanie danych",
+        "Monitoruje ruch sieciowy",
+        "Automatycznie przydziela adresy IP",
+        "Zarządza nazwami domen"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Co oznacza skrót LAN?",
+      "answers": [
+        "Large Access Network",
+        "Local Area Network",
+        "Logical Access Node",
+        "Limited Access Net"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jaką funkcję pełni protokół ARP?",
+      "answers": [
+        "Zamienia adres IP na MAC",
+        "Zamienia adres MAC na IP",
+        "Skanuje sieć",
+        "Wysyła e-maile"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Która warstwa OSI odpowiada za kompresję i szyfrowanie?",
+      "answers": [
+        "Sesji",
+        "Prezentacji",
+        "Aplikacji",
+        "Łącza danych"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakiej klasy adresów IP dotyczy zakres 192.168.x.x?",
+      "answers": [
+        "Klasa A",
+        "Klasa B",
+        "Klasa C",
+        "Klasa D"
       ],
       "correct_answer_index": 2
     }
   ],
   "BAZY DANYCH": [
     {
-      "question_text": "W relacyjnych bazach danych, kolumna (lub zestaw kolumn), która jednoznacznie identyfikuje każdy wiersz w tabeli, to:",
-      "answers": ["Klucz obcy (Foreign Key)", "Klucz główny (Primary Key)", "Indeks (Index)", "Kursor (Cursor)"],
-      "correct_answer_index": 1
-    }
-  ],
-  "ALGEBRA LINIOWA": [
-    {
-      "question_text": "Jaki jest wyznacznik (determinant) macierzy A = [[2, 1], [3, 4]]?",
+      "question_text": "Jakie polecenie SQL służy do pobierania danych z bazy?",
       "answers": [
-        "11",
-        "-5",
-        "5",
-        "10"
+        "SELECT",
+        "INSERT",
+        "UPDATE",
+        "DELETE"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Które z poniższych NIE jest typem danych w SQL?",
+      "answers": [
+        "VARCHAR",
+        "BOOLEAN",
+        "STRING",
+        "INT"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Które polecenie służy do dodawania nowych rekordów do tabeli?",
+      "answers": [
+        "UPDATE",
+        "INSERT",
+        "SELECT",
+        "ALTER"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie słowo kluczowe w SQL służy do filtrowania wyników?",
+      "answers": [
+        "WHERE",
+        "GROUP",
+        "ORDER",
+        "JOIN"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakie polecenie służy do tworzenia nowej tabeli w SQL?",
+      "answers": [
+        "CREATE TABLE",
+        "MAKE TABLE",
+        "NEW TABLE",
+        "ADD TABLE"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Które polecenie SQL usuwa dane z tabeli?",
+      "answers": [
+        "DROP",
+        "DELETE",
+        "REMOVE",
+        "TRUNCATE"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Czym jest klucz główny (PRIMARY KEY)?",
+      "answers": [
+        "Kolumna unikalna i niepusta",
+        "Dowolna kolumna",
+        "Kolumna z największą wartością",
+        "Indeks pomocniczy"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Co robi polecenie JOIN w SQL?",
+      "answers": [
+        "Usuwa tabele",
+        "Łączy dane z wielu tabel",
+        "Zmienia typ danych",
+        "Dodaje nową kolumnę"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Jakie polecenie zmienia strukturę tabeli?",
+      "answers": [
+        "ALTER",
+        "UPDATE",
+        "SELECT",
+        "JOIN"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jak nazywa się ograniczenie zapewniające, że dane w kolumnie nie będą się powtarzać?",
+      "answers": [
+        "PRIMARY KEY",
+        "FOREIGN KEY",
+        "UNIQUE",
+        "NOT NULL"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Który typ relacji występuje w bazie danych najczęściej?",
+      "answers": [
+        "1:1",
+        "1:N",
+        "N:N",
+        "N:0"
+      ],
+      "correct_answer_index": 1
+    },
+    {
+      "question_text": "Który język używany jest do definiowania struktury danych w bazie?",
+      "answers": [
+        "DML",
+        "DCL",
+        "DDL",
+        "SQL"
+      ],
+      "correct_answer_index": 2
+    },
+    {
+      "question_text": "Jakie polecenie z SQL służy do sortowania wyników?",
+      "answers": [
+        "ORDER BY",
+        "SORT",
+        "ARRANGE",
+        "GROUP BY"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Które polecenie służy do aktualizacji danych w tabeli?",
+      "answers": [
+        "UPDATE",
+        "ALTER",
+        "INSERT",
+        "REPLACE"
+      ],
+      "correct_answer_index": 0
+    },
+    {
+      "question_text": "Jakiego słowa użyjemy, by pobrać tylko unikalne wartości z kolumny?",
+      "answers": [
+        "UNIQUE",
+        "ONLY",
+        "DISTINCT",
+        "SEPARATE"
       ],
       "correct_answer_index": 2
     }

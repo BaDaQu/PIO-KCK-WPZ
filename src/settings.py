@@ -1,5 +1,4 @@
 # src/settings.py
-
 import pygame
 
 # --- Główne Ustawienia Okna ---
@@ -34,28 +33,22 @@ DICE_FALLBACK_IMAGE_COLOR = (255, 0, 0)
 
 # Kolory dla Karty Pytania
 QUESTION_CARD_BG_COLOR = (245, 245, 220)
-QUESTION_CARD_BORDER_COLOR = (80, 50, 20)
-QUESTION_TEXT_COLOR = (10, 10, 10)
-ANSWER_BUTTON_BASE_COLOR = (210, 210, 190)
-ANSWER_BUTTON_HOVER_COLOR = (230, 230, 210)
-ANSWER_BUTTON_TEXT_COLOR = (10, 10, 10)
+QUESTION_CARD_TEXT_COLOR = (80, 50, 20)
+ANSWER_BUTTON_HOVER_COLOR = (255, 255, 255, 50) # Lekko biała poświata przy najechaniu
 
 # --- Ścieżki do Zasobów ---
 BASE_ASSET_PATH = "../assets/"
 FONT_PATH_PT_SERIF_REGULAR = BASE_ASSET_PATH + "fonts/PTSerif-Regular.ttf"
-
 IMAGE_PATH_MENU_BG = BASE_ASSET_PATH + "images/MENU_GLOWNE.png"
 IMAGE_PATH_ICON = BASE_ASSET_PATH + "images/IKONA_GRY.png"
 IMAGE_PATH_GAMEPLAY_LEFT_PANEL_BG = BASE_ASSET_PATH + "images/GAMEBOARD_LEFT_PANEL.png"
 IMAGE_PATH_BOARD_BG = BASE_ASSET_PATH + "images/PLANSZA_GRY.png"
-
+IMAGE_PATH_QUESTION_CARD_BG = BASE_ASSET_PATH + "images/KARTA_PYTANIA.png"
 IMAGE_PATH_PLAYER1_PAWN = BASE_ASSET_PATH + "images/PIONEK_STUDENT1.png"
 IMAGE_PATH_PLAYER2_PAWN = BASE_ASSET_PATH + "images/PIONEK_STUDENT2.png"
 IMAGE_PATH_PROFESSOR_PAWN = BASE_ASSET_PATH + "images/PIONEK_PROFESOR.png"
-
 IMAGE_PATH_PLAYER_WIDGET_BG = BASE_ASSET_PATH + "images/WIDGET_GRACZA1.png"
-IMAGE_PATH_PLAYER_WIDGET_BG_2 = BASE_ASSET_PATH + "images/WIDGET_GRACZA2.png" #
-
+IMAGE_PATH_PLAYER_WIDGET_BG_2 = BASE_ASSET_PATH + "images/WIDGET_GRACZA2.png"
 DICE_IMAGES_BASE_PATH = BASE_ASSET_PATH + "images/"
 
 # --- Ustawienia Czcionek ---
@@ -67,8 +60,9 @@ GAMEPLAY_PANEL_BUTTON_FONT_SIZE = 30
 PLAYER_WIDGET_FONT_SIZE = 32
 NAME_INPUT_FONT_SIZE = 40
 NAME_INPUT_LABEL_FONT_SIZE = 35
-QUESTION_FONT_SIZE = 42
-ANSWER_FONT_size = 28
+QUESTION_CARD_QUESTION_FONT_SIZE = 32
+QUESTION_CARD_ANSWER_FONT_SIZE = 28
+QUESTION_CARD_ANSWER_LABEL_FONT_SIZE = 48
 
 # --- Ustawienia Przycisków Menu ---
 MENU_BUTTON_WIDTH = 470
@@ -88,6 +82,25 @@ NAME_INPUT_BOX_HEIGHT = 60
 NAME_INPUT_LABEL_Y_OFFSET = -50
 NAME_INPUT_LABEL_X_OFFSET = 0
 
+# --- Ustawienia Karty Pytania ---
+QUESTION_CARD_WIDTH = 614
+QUESTION_CARD_HEIGHT = 921
+# Prostokąt, w którym będzie renderowany tekst PYTANIA (współrzędne lokalne względem karty)
+QUESTION_TEXT_AREA_RECT = pygame.Rect(90, 330, 430, 190)
+# Indywidualne prostokąty dla klikalnych obszarów ODPOWIEDZI (A, B, C, D)
+# (x, y, szerokość, wysokość) - względem lewego górnego rogu karty
+ANSWER_A_CLICK_RECT = pygame.Rect(89, 551, 436, 76)
+ANSWER_B_CLICK_RECT = pygame.Rect(89, 650, 436, 76)
+ANSWER_C_CLICK_RECT = pygame.Rect(89, 748, 436, 76)
+ANSWER_D_CLICK_RECT = pygame.Rect(89, 845, 436, 76)
+# Wspólne ustawienia dla tekstu wewnątrz każdej odpowiedzi
+ANSWER_TEXT_AREA_PADDING_X = 50
+ANSWER_TEXT_AREA_PADDING_Y = 5
+# Pozycja X etykiety "A", "B", "C", "D"
+ANSWER_LABEL_CENTER_X = 40
+# Zaokrąglenie rogów dla podświetlenia hover
+ANSWER_HOVER_BORDER_RADIUS = 10
+
 # --- Ustawienia Kostki ---
 DICE_IMAGE_WIDTH = 120
 DICE_IMAGE_HEIGHT = 120
@@ -104,14 +117,10 @@ PAWN_FALLBACK_COLOR = (255, 0, 0)
 PAWN_MOVE_SPEED_PIXELS_PER_SECOND = 300
 
 # --- Ustawienia Widgetu Gracza ---
-PLAYER_WIDGET_WIDTH = 405   # Szerokość grafiki widgetu
-PLAYER_WIDGET_HEIGHT = 157   # Wysokość grafiki widgetu
-
-# --- Ustawienia Pozycjonowania Widgetów ---
-PLAYER_WIDGET_1_X_OFFSET = ((LEFT_PANEL_WIDTH - PLAYER_WIDGET_WIDTH) // 2) + 15 # Centrowanie
-PLAYER_WIDGET_1_Y_OFFSET = 30 # Odstęp od góry
-PLAYER_WIDGET_VERTICAL_SPACING = 15 # Odstęp między widgetami
-
-# --- Pozycjonowanie Tekstu w Widgecie ---
-PLAYER_WIDGET_TEXT_X_PADDING = 140 # Odstęp od lewej krawędzi widgetu
-PLAYER_WIDGET_TEXT_Y_OFFSET = -7 # Dodatkowe przesunięcie w pionie od środka
+PLAYER_WIDGET_WIDTH = 405
+PLAYER_WIDGET_HEIGHT = 157
+PLAYER_WIDGET_1_X_OFFSET = ((LEFT_PANEL_WIDTH - PLAYER_WIDGET_WIDTH) // 2) + 15
+PLAYER_WIDGET_1_Y_OFFSET = 30
+PLAYER_WIDGET_VERTICAL_SPACING = 15
+PLAYER_WIDGET_TEXT_X_PADDING = 140
+PLAYER_WIDGET_TEXT_Y_OFFSET = -7

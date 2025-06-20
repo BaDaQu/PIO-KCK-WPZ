@@ -4,7 +4,8 @@ import settings
 import gameplay_screen
 import menu_screen
 from pawn import PlayerPawn, ProfessorPawn
-import question_manager  # <-- Ważny import dla akcji pól
+import question_manager
+from question_screen import QuestionCard  # <-- Ważny import
 
 # --- Stałe dla Logiki Gry ---
 SPECIAL_FIELDS = ["START", "STYPENDIUM", "EGZAMIN", "POPRAWKA"]
@@ -17,12 +18,13 @@ screen = None  # Instancja ekranu będzie przekazywana z main.py
 
 # --- Zmienne Logiki Gry ---
 all_sprites_group = pygame.sprite.Group()
-pawns_on_fields_map = {}  # Klucz: field_index, Wartość: lista obiektów Pawn
+pawns_on_fields_map = {}
 all_pawn_objects = []
 current_player_id = "player_1"
 turn_phase = 'WAITING_FOR_ROLL'
 pawn_that_was_moving = None
 final_player_names = []
+active_question_card = None  # Przechowuje aktywną kartę pytania
 
 
 def set_main_screen(main_screen_surface):
@@ -76,7 +78,7 @@ def initialize_gameplay():
     """Przygotowuje wszystko do rozpoczęcia nowej gry, używając imion."""
     global final_player_names
     print("Rozpoczynam inicjalizację rozgrywki...")
-    question_manager.reset_available_questions()  # Resetuj pulę pytań
+    question_manager.reset_available_questions()
     gameplay_screen.load_gameplay_resources(current_screen_width, current_screen_height)
     gameplay_screen.setup_gameplay_ui_elements(current_screen_height, final_player_names)
     initialize_game_logic_and_pawns()
@@ -178,6 +180,7 @@ def switch_turn():
     if current_player_id == "player_1":
         current_player_id = "player_2"
     elif current_player_id == "player_2":
+        # TODO: Logika dla tury Profesora? Na razie wracamy do gracza 1
         current_player_id = "player_1"
     print(f"--- Następna tura: Gracz {current_player_id} ---")
     turn_phase = 'WAITING_FOR_ROLL'
@@ -186,12 +189,12 @@ def switch_turn():
 
 def handle_field_action():
     """Obsługuje akcję po wylądowaniu na polu (np. zadaje pytanie)."""
-    global turn_phase  
+    global turn_phase, active_question_card
     active_pawn = next((p for p in all_pawn_objects if p.pawn_id == current_player_id), None)
 
     if not (active_pawn and gameplay_screen.game_board_instance):
         print(f"Błąd: Nie można wykonać akcji pola dla {current_player_id}.")
-        switch_turn()
+        switch_turn();
         return
 
     current_field_index = active_pawn.board_field_index
@@ -203,20 +206,35 @@ def handle_field_action():
             question = question_manager.get_random_question_for_subject(subject_name)
             if question:
                 print(f"POLE Z PYTANIEM! Przedmiot: {subject_name}")
-                print(f"Pytanie: {question['question_text']}")
-                # TODO: Zmień stan na 'SHOWING_QUESTION' i przekaż 'question' do wyświetlenia
-                # Na razie, po prostu przełącz turę, bo nie mamy jeszcze UI pytania
-                switch_turn()
+                # Stwórz instancję karty pytania i zmień stan tury
+                active_question_card = QuestionCard(question, subject_name)
+                turn_phase = 'SHOWING_QUESTION'  # Zatrzymujemy grę, czekając na odpowiedź
             else:
                 print(f"Brak dostępnych (nowych) pytań dla przedmiotu: {subject_name}.")
-                switch_turn()  # Brak pytania, więc przełączamy turę
+                switch_turn()
         else:
             print(f"Wylądowano na polu specjalnym: {subject_name}. Brak pytania.")
-            # TODO: W przyszłości tutaj będzie logika dla pól specjalnych
-            switch_turn()  # Brak pytania, więc przełączamy turę
+            switch_turn()
     else:
         print(f"Brak danych dla pola o indeksie {current_field_index}")
         switch_turn()
+
+
+def process_player_answer(chosen_answer_index):
+    """Weryfikuje odpowiedź gracza i przygotowuje do następnej tury."""
+    global turn_phase, active_question_card
+    if not active_question_card: return
+
+    correct_index = active_question_card.question_data["correct_answer_index"]
+    if chosen_answer_index == correct_index:
+        print("ODPOWIEDŹ POPRAWNA!")
+        # TODO: Logika dla poprawnej odpowiedzi (Issue #12)
+    else:
+        print("ODPOWIEDŹ BŁĘDNA!")
+        # TODO: Logika dla błędnej odpowiedzi (Issue #12)
+
+    active_question_card = None  # Usuń kartę
+    switch_turn()
 
 
 def update_game_logic(dt_seconds, dice_instance):
@@ -226,11 +244,10 @@ def update_game_logic(dt_seconds, dice_instance):
     dice_instance.update(dt_seconds)
 
     if turn_phase == 'DICE_ROLLING' and not dice_instance.is_animating:
-        roll_value = dice_instance.get_final_roll_result();
+        roll_value = dice_instance.get_final_roll_result()
         start_pawn_move(roll_value)
 
-    if turn_phase == 'PAWN_MOVING' and pawn_that_was_moving and not pawn_that_was_moving.is_moving:
-        print(f"Animacja ruchu dla {pawn_that_was_moving.pawn_id} zakończona.")
+    elif turn_phase == 'PAWN_MOVING' and pawn_that_was_moving and not pawn_that_was_moving.is_moving:
         final_board_index = pawn_that_was_moving.board_field_index
         total_fields = gameplay_screen.game_board_instance.get_total_fields()
         roll_amount = dice_instance.current_roll
@@ -241,10 +258,10 @@ def update_game_logic(dt_seconds, dice_instance):
         start_pawns_repositioning_on_field(old_board_index)
         start_pawns_repositioning_on_field(final_board_index)
 
-        turn_phase = 'FIELD_ACTION';
+        turn_phase = 'FIELD_ACTION'
         pawn_that_was_moving = None
 
-    if turn_phase == 'FIELD_ACTION':
+    elif turn_phase == 'FIELD_ACTION':
         any_pawn_repositioning = next((p for p in all_pawn_objects if p.is_repositioning), None)
         if not any_pawn_repositioning:
             handle_field_action()
