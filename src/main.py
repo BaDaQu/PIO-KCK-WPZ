@@ -44,25 +44,22 @@ while running:
 
     # Sprawdzenie, czy można obsługiwać input
     pawn_in_motion = next((p for p in game_logic.all_pawn_objects if p.is_moving or p.is_repositioning), None)
-    # Zezwalaj na input tylko wtedy, gdy nie ma animacji ORAZ gdy nie ma aktywnej karty pytania
-    can_handle_input_main = not dice_instance.is_animating and not pawn_in_motion and not (
-                current_turn_phase == 'SHOWING_QUESTION')
+    can_handle_input = not dice_instance.is_animating and not pawn_in_motion and not (
+            current_turn_phase in ['SHOWING_QUESTION', 'SHOWING_FEEDBACK', 'PAWN_MOVING'])
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-        # --- Delegowanie Obsługi Zdarzeń do Odpowiednich Modułów ---
-        # Zdarzenia dla karty pytania są obsługiwane zawsze, gdy jest widoczna, niezależnie od can_handle_input_main
+        # Zdarzenia dla karty pytania są obsługiwane zawsze, gdy jest widoczna
         if current_game_state == "GAMEPLAY" and current_turn_phase == 'SHOWING_QUESTION':
             if game_logic.active_question_card:
                 chosen_answer_index = game_logic.active_question_card.handle_event(event, mouse_pos)
                 if chosen_answer_index is not None:
-                    # Gracz wybrał odpowiedź, przetwarzamy ją i zmieniamy stan
                     game_logic.process_player_answer(chosen_answer_index)
 
         # Pozostałe zdarzenia obsługuj tylko, gdy nie ma blokady
-        elif can_handle_input_main:
+        elif can_handle_input:
             if current_game_state == "MENU_GLOWNE":
                 action = menu_screen.handle_menu_input(event, mouse_pos)
                 if action:
@@ -90,7 +87,6 @@ while running:
     if current_game_state == "GAMEPLAY":
         game_logic.update_game_logic(dt_seconds, dice_instance)
         gameplay_screen.update_gameplay_state(game_logic.current_player_id)
-        # Aktualizacja stanu hover dla karty pytania (jeśli jest widoczna)
         if game_logic.active_question_card:
             game_logic.active_question_card.update_hover(mouse_pos)
 
@@ -104,15 +100,15 @@ while running:
         name_input_screen.draw_name_input_screen(screen, game_logic.current_screen_width,
                                                  game_logic.current_screen_height, mouse_pos)
     elif current_game_state == "GAMEPLAY":
-        # Najpierw rysuj cały ekran gry
         gameplay_screen.draw_gameplay_screen(screen, mouse_pos, dice_instance)
-        # Rysuj wszystkie pionki
         for pawn in game_logic.all_pawn_objects:
             pawn.draw(screen)
 
-        # Jeśli jest aktywna karta pytania, narysuj ją NA WIERZCHU
         if game_logic.active_question_card and game_logic.active_question_card.is_visible:
             game_logic.active_question_card.draw(screen)
+        elif game_logic.active_feedback_card and game_logic.active_feedback_card.is_visible:
+            game_logic.active_feedback_card.draw(screen)
+
     elif current_game_state == "INSTRUCTIONS":
         screen.fill(settings.MENU_BG_FALLBACK_COLOR)
         if menu_screen.TITLE_FONT_MENU and menu_screen.BUTTON_FONT_MENU:

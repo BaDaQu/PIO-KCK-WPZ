@@ -34,11 +34,19 @@ DICE_FALLBACK_IMAGE_COLOR = (255, 0, 0)
 # Kolory dla Karty Pytania
 QUESTION_CARD_BG_COLOR = (245, 245, 220)
 QUESTION_CARD_TEXT_COLOR = (80, 50, 20)
-ANSWER_BUTTON_HOVER_COLOR = (255, 255, 255, 50) # Lekko biała poświata przy najechaniu
+ANSWER_BUTTON_HOVER_COLOR = (242, 182, 53, 50)
+
+# Kolory dla Karty Informacji Zwrotnej
+FEEDBACK_SUCCESS_BG_COLOR = (200, 255, 200, 240)
+FEEDBACK_SUCCESS_BORDER_COLOR = (0, 100, 0)
+FEEDBACK_ERROR_BG_COLOR = (255, 200, 200, 240)
+FEEDBACK_ERROR_BORDER_COLOR = (139, 0, 0)
+FEEDBACK_TEXT_COLOR = (10, 10, 10)
 
 # --- Ścieżki do Zasobów ---
 BASE_ASSET_PATH = "../assets/"
 FONT_PATH_PT_SERIF_REGULAR = BASE_ASSET_PATH + "fonts/PTSerif-Regular.ttf"
+FONT_PATH_NOTO_SERIF_REGULAR = BASE_ASSET_PATH + "fonts/NotoSerif_Condensed-Black.ttf"
 IMAGE_PATH_MENU_BG = BASE_ASSET_PATH + "images/MENU_GLOWNE.png"
 IMAGE_PATH_ICON = BASE_ASSET_PATH + "images/IKONA_GRY.png"
 IMAGE_PATH_GAMEPLAY_LEFT_PANEL_BG = BASE_ASSET_PATH + "images/GAMEBOARD_LEFT_PANEL.png"
@@ -63,6 +71,7 @@ NAME_INPUT_LABEL_FONT_SIZE = 35
 QUESTION_CARD_QUESTION_FONT_SIZE = 32
 QUESTION_CARD_ANSWER_FONT_SIZE = 28
 QUESTION_CARD_ANSWER_LABEL_FONT_SIZE = 48
+FEEDBACK_FONT_SIZE = 48
 
 # --- Ustawienia Przycisków Menu ---
 MENU_BUTTON_WIDTH = 470
@@ -85,21 +94,22 @@ NAME_INPUT_LABEL_X_OFFSET = 0
 # --- Ustawienia Karty Pytania ---
 QUESTION_CARD_WIDTH = 614
 QUESTION_CARD_HEIGHT = 921
-# Prostokąt, w którym będzie renderowany tekst PYTANIA (współrzędne lokalne względem karty)
+QUESTION_CARD_BORDER_RADIUS = 25
 QUESTION_TEXT_AREA_RECT = pygame.Rect(90, 330, 430, 190)
-# Indywidualne prostokąty dla klikalnych obszarów ODPOWIEDZI (A, B, C, D)
-# (x, y, szerokość, wysokość) - względem lewego górnego rogu karty
 ANSWER_A_CLICK_RECT = pygame.Rect(89, 551, 436, 76)
-ANSWER_B_CLICK_RECT = pygame.Rect(89, 650, 436, 76)
-ANSWER_C_CLICK_RECT = pygame.Rect(89, 748, 436, 76)
+ANSWER_B_CLICK_RECT = pygame.Rect(89, 649, 436, 77)
+ANSWER_C_CLICK_RECT = pygame.Rect(89, 747, 436, 77)
 ANSWER_D_CLICK_RECT = pygame.Rect(89, 845, 436, 76)
-# Wspólne ustawienia dla tekstu wewnątrz każdej odpowiedzi
 ANSWER_TEXT_AREA_PADDING_X = 50
 ANSWER_TEXT_AREA_PADDING_Y = 5
-# Pozycja X etykiety "A", "B", "C", "D"
 ANSWER_LABEL_CENTER_X = 40
-# Zaokrąglenie rogów dla podświetlenia hover
 ANSWER_HOVER_BORDER_RADIUS = 10
+
+# --- Ustawienia Karty Informacji Zwrotnej (Feedback) ---
+FEEDBACK_CARD_WIDTH = 500
+FEEDBACK_CARD_HEIGHT = 200
+FEEDBACK_CARD_BORDER_RADIUS = 20
+FEEDBACK_DURATION_SECONDS = 1.5
 
 # --- Ustawienia Kostki ---
 DICE_IMAGE_WIDTH = 120
