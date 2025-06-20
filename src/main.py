@@ -13,7 +13,7 @@ pygame.init()
 # --- Inicjalizacja Okna ---
 screen = pygame.display.set_mode((settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT))
 pygame.display.set_caption(settings.SCREEN_TITLE)
-game_logic.set_main_screen(screen)  # Przekaż instancję ekranu do logiki gry
+game_logic.set_main_screen(screen)
 
 try:
     game_icon = pygame.image.load(settings.IMAGE_PATH_ICON)
@@ -36,30 +36,25 @@ clock = pygame.time.Clock()
 # --- Główna Pętla Gry ---
 running = True
 while running:
-    # Pobierz aktualne wartości z modułu logiki
     dt_seconds = clock.tick(settings.FPS) / 1000.0
     mouse_pos = pygame.mouse.get_pos()
     current_game_state = game_logic.game_state
     current_turn_phase = game_logic.turn_phase
 
-    # Sprawdzenie, czy można obsługiwać input
     pawn_in_motion = next((p for p in game_logic.all_pawn_objects if p.is_moving or p.is_repositioning), None)
     can_handle_input_main = not dice_instance.is_animating and not pawn_in_motion and not (
-            current_turn_phase in ['SHOWING_RESULT_ON_CARD', 'PAWN_MOVING'])
+            current_turn_phase in ['SHOWING_RESULT_ON_CARD', 'PAWN_MOVING', 'PROCESSING_AFTER_ACTION',
+                                   'INTER_QUESTION_DELAY', 'WAITING_FOR_PAWNS'])
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-        # Zdarzenia dla karty pytania są obsługiwane tylko w stanie 'SHOWING_QUESTION'
         if current_game_state == "GAMEPLAY" and current_turn_phase == 'SHOWING_QUESTION':
             if game_logic.active_question_card:
                 chosen_answer_index = game_logic.active_question_card.handle_event(event, mouse_pos)
                 if chosen_answer_index is not None:
-                    # Gracz wybrał odpowiedź, przetwarzamy ją i zmieniamy stan
                     game_logic.process_player_answer(chosen_answer_index)
-
-        # Pozostałe zdarzenia obsługuj tylko, gdy nie ma blokady
         elif can_handle_input_main:
             if current_game_state == "MENU_GLOWNE":
                 action = menu_screen.handle_menu_input(event, mouse_pos)
@@ -87,7 +82,7 @@ while running:
     # --- Aktualizacja Logiki ---
     if current_game_state == "GAMEPLAY":
         game_logic.update_game_logic(dt_seconds, dice_instance)
-        gameplay_screen.update_gameplay_state(game_logic.current_player_id)
+        gameplay_screen.update_gameplay_state(game_logic.current_player_id, dt_seconds)
         if game_logic.active_question_card:
             game_logic.active_question_card.update_hover(mouse_pos)
 
@@ -99,15 +94,12 @@ while running:
                                      mouse_pos)
     elif current_game_state == "GETTING_PLAYER_NAMES":
         name_input_screen.draw_name_input_screen(screen, game_logic.current_screen_width,
-                                                 game_logic.current_screen_height, mouse_pos)
+                                                 game_logic.current_screen_height, mouse_pos, dt_seconds)
     elif current_game_state == "GAMEPLAY":
         gameplay_screen.draw_gameplay_screen(screen, mouse_pos, dice_instance)
-        for pawn in game_logic.all_pawn_objects:
-            pawn.draw(screen)
-
+        for pawn in game_logic.all_pawn_objects: pawn.draw(screen)
         if game_logic.active_question_card and game_logic.active_question_card.is_visible:
             game_logic.active_question_card.draw(screen)
-
     elif current_game_state == "INSTRUCTIONS":
         screen.fill(settings.MENU_BG_FALLBACK_COLOR)
         if menu_screen.TITLE_FONT_MENU and menu_screen.BUTTON_FONT_MENU:
