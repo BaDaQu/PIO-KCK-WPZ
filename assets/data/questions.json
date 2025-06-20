@@ -303,7 +303,7 @@
       "correct_answer_index": 3
     }
   ],
-"OPROGRAMOWANIE UŻYTKOWE": [
+  "OPROGRAMOWANIE UŻYTKOWE": [
     {
       "question_text": "Które rozszerzenie jest typowe dla plików rysunkowych Solid Edge?",
       "answers": [
@@ -933,16 +933,6 @@
       "correct_answer_index": 0
     },
     {
-      "question_text": "Które wyrażenie opisuje zasadę włączeń i wyłączeń?",
-      "answers": [
-        "A ∪ B = A + B",
-        "|A ∪ B| = |A| + |B| − |A ∩ B|",
-        "A ∪ B = A ∩ B",
-        "|A ∪ B| = |A| * |B|"
-      ],
-      "correct_answer_index": 1
-    },
-    {
       "question_text": "Ile podzbiorów ma zbiór n-elementowy?",
       "answers": [
         "n",
@@ -1041,16 +1031,6 @@
         "0"
       ],
       "correct_answer_index": 1
-    },
-    {
-      "question_text": "Które z poniższych twierdzeń jest twierdzeniem o liczbach pierwszych?",
-      "answers": [
-        "Każda liczba naturalna większa od 1 jest podzielna przez liczbę pierwszą",
-        "Suma dwóch liczb pierwszych jest zawsze parzysta",
-        "Liczba pierwsza dzieli każdą liczbę całkowitą",
-        "Liczby pierwsze mają dzielniki inne niż 1 i same siebie"
-      ],
-      "correct_answer_index": 0
     },
     {
       "question_text": "Czy graf z 5 wierzchołkami i 6 krawędziami może być drzewem?",
@@ -1267,26 +1247,6 @@
       "correct_answer_index": 2
     },
     {
-      "question_text": "Która z poniższych wersji funkcji poprawnie oblicza NWD rekurencyjnie?",
-      "answers": [
-        "int NWD(int a, int b) { if (a != b) return NWD(a > b ? a - b : a, b > a ? b - a : b); return a; }",
-        "int NWD(int a, int b) { while (a != b) { if (a > b) a -= b; else b -= a; } return a; }",
-        "int NWD(int a, int b) { int pom; while(b != 0) { pom = b; b = a % b; a = pom; } return a; }",
-        "int NWD(int a, int b) { while(b) swap(a %= b, b); return a; }"
-      ],
-      "correct_answer_index": 0
-    },
-    {
-      "question_text": "Która funkcja oblicza silnię rekurencyjnie?",
-      "answers": [
-        "int silnia(int n) { return n * silnia(n - 1); }",
-        "int silnia(int n) { int s = 1; for(int i=1;i<=n;i++) s*=i; return s; }",
-        "int silnia(int n) { return n + silnia(n - 1); }",
-        "int silnia(int n) { return silnia(n); }"
-      ],
-      "correct_answer_index": 0
-    },
-    {
       "question_text": "Jaki będzie wynik działania tego programu, jeśli użytkownik poda `1A` jako wejście?\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    char hex_input[20];\n    unsigned int value;\n\n    printf(\"Podaj liczbe heksadecymalna (np. 0x1A lub 1A): \");\n    scanf(\"%s\", hex_input);\n\n    value = (unsigned int)strtoul(hex_input, NULL, 16);\n\n    printf(\"Wartosc dziesietna: %u\\n\", value);\n    printf(\"Wartosc heksadecymalna: 0x%X\\n\", value);\n\n    return 0;\n}\n```",
       "answers": [
         "Wyświetli wartość dziesiętną i heksadecymalną liczby",
@@ -1489,7 +1449,7 @@
       "correct_answer_index": 2
     }
   ],
-"SYSTEMY OPERACYJNE I": [
+  "SYSTEMY OPERACYJNE I": [
     {
       "question_text": "Jakie jest główne zadanie systemu operacyjnego?",
       "answers": [
@@ -1641,7 +1601,7 @@
       "correct_answer_index": 1
     }
   ],
-"ANALIZA MAT. II": [
+  "ANALIZA MAT. II": [
     {
       "question_text": "Jak obliczyć pochodną cząstkową funkcji f(x,y) względem x?",
       "answers": [
@@ -1793,7 +1753,7 @@
       "correct_answer_index": 0
     }
   ],
-"PODSTAWY GRAFIKI KOMP.": [
+  "PODSTAWY GRAFIKI KOMP.": [
     {
       "question_text": "Czym jest rasteryzacja w grafice komputerowej?",
       "answers": [
@@ -1975,16 +1935,6 @@
         "Round Robin"
       ],
       "correct_answer_index": 3
-    },
-    {
-      "question_text": "Co to jest zombie process?",
-      "answers": [
-        "Proces, który nie może otrzymać zasobów",
-        "Proces bez dostępu do pamięci",
-        "Proces, który zakończył działanie, ale nie został usunięty z tablicy procesów",
-        "Proces w stanie zawieszenia"
-      ],
-      "correct_answer_index": 2
     },
     {
       "question_text": "Jakie są etapy cyklu życia procesu?",
@@ -2615,16 +2565,6 @@
       "correct_answer_index": 1
     },
     {
-      "question_text": "Jakie są podstawowe elementy automatu skończonego?",
-      "answers": [
-        "Wejścia, wyjścia, pamięć",
-        "Zegar, bramki logiczne, liczniki",
-        "Zbiór stanów, zbiór wejść i wyjść, funkcje przejścia i wyjścia",
-        "Multiplexery i dekodery"
-      ],
-      "correct_answer_index": 2
-    },
-    {
       "question_text": "Co to jest tablica Karnaugha?",
       "answers": [
         "Schemat połączeń bramek",
@@ -2653,16 +2593,6 @@
         "¬A ∨ ¬B"
       ],
       "correct_answer_index": 0
-    },
-    {
-      "question_text": "Co oznacza termin 'automat deterministyczny'?",
-      "answers": [
-        "Automat bez pamięci",
-        "Automat, w którym każde wejście ma tylko jedno możliwe przejście stanu",
-        "Automat z nieokreślonym wyjściem",
-        "Automat używany tylko w logice trójwartościowej"
-      ],
-      "correct_answer_index": 1
     }
   ],
   "PROGRAMOWANIE OBIEKTOWE I": [
@@ -2693,16 +2623,6 @@
         "private w obu",
         "private w klasie, public w strukturze",
         "public w klasie, private w strukturze"
-      ],
-      "correct_answer_index": 2
-    },
-    {
-      "question_text": "Czym jest przeciążenie funkcji (function overloading)?",
-      "answers": [
-        "Zastępowanie funkcji rodzica",
-        "Deklarowanie tej samej funkcji w innej przestrzeni nazw",
-        "Definiowanie wielu funkcji o tej samej nazwie, ale różnych parametrach",
-        "Przypisywanie wielu wartości zwracanych"
       ],
       "correct_answer_index": 2
     },
@@ -2787,16 +2707,6 @@
       "correct_answer_index": 0
     },
     {
-      "question_text": "Jaka jest różnica między wskaźnikiem a referencją?",
-      "answers": [
-        "Referencja może być nullptr, wskaźnik nie",
-        "Wskaźnik nie może wskazywać na obiekt",
-        "Referencja nie może być nullptr i nie może być później zmieniona",
-        "Nie ma różnicy"
-      ],
-      "correct_answer_index": 2
-    },
-    {
       "question_text": "Jak wywołać konstruktor kopiujący?",
       "answers": [
         "przez operator=",
@@ -2817,7 +2727,7 @@
       "correct_answer_index": 1
     }
   ],
-"ARCHITEKTURA KOMPUTERÓW": [
+  "ARCHITEKTURA KOMPUTERÓW": [
     {
       "question_text": "Jaką funkcję pełni rejestr PC (Program Counter) w procesorze?",
       "answers": [
@@ -2917,16 +2827,6 @@
         "0"
       ],
       "correct_answer_index": 2
-    },
-    {
-      "question_text": "Co oznacza instrukcja 'lw $t0, 0($t1)' w asemblerze MIPS?",
-      "answers": [
-        "Zapisuje wartość 0 do rejestru $t0",
-        "Ładuje do $t0 dane z pamięci pod adresem $t1 + 0",
-        "Dodaje $t0 do $t1",
-        "Zapisuje $t1 do pamięci"
-      ],
-      "correct_answer_index": 1
     },
     {
       "question_text": "Który z rejestrów MIPS służy do przechowywania wartości zwracanej przez funkcję?",
@@ -3199,16 +3099,6 @@
         "Brainstorming internally",
         "Clarifying roles and requirements",
         "Ending a project"
-      ],
-      "correct_answer_index": 2
-    },
-    {
-      "question_text": "Which response is best for handling a last-minute change?",
-      "answers": [
-        "I completely disagree",
-        "Let's cancel everything",
-        "Thanks for letting me know – let's see what we can do",
-        "Why didn't you say that earlier?"
       ],
       "correct_answer_index": 2
     },
@@ -3503,16 +3393,6 @@
       "correct_answer_index": 2
     },
     {
-      "question_text": "Which phrase shows you disagree diplomatically?",
-      "answers": [
-        "You’re wrong",
-        "That’s the dumbest idea",
-        "I see your point, but I have a different view",
-        "Forget it"
-      ],
-      "correct_answer_index": 2
-    },
-    {
       "question_text": "Which part of a presentation is used to give context?",
       "answers": [
         "Conclusion",
@@ -3573,7 +3453,7 @@
       "correct_answer_index": 1
     }
   ],
-"SIECI KOMPUTEROWE": [
+  "SIECI KOMPUTEROWE": [
     {
       "question_text": "Jakie urządzenie sieciowe łączy różne sieci i trasuje pakiety?",
       "answers": [
