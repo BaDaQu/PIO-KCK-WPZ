@@ -11,24 +11,27 @@ header_font = None
 body_font = None
 back_button = None
 
-# Treść zasad
+# Fragment do wstawienia w src/instructions_screen.py
+
+# Fragment do wstawienia w src/instructions_screen.py
+
 RULES_TEXT = [
     ("Cel Gry", "header"),
-    ("Dotrzyj do mety przed przeciwnikiem i goniącym Cię Profesorem, zachowując przy tym jak najwięcej żyć i punktów ECTS.",
+    ("Wygrywa gracz, który jako pierwszy zdobędzie 30 punktów ECTS. Przegrywasz, gdy stracisz wszystkie 3 życia.",
      "body"),
-    ("Przebieg Tury", "header"),
-    ("1. Rzut Kostką: Kliknij przycisk, aby przesunąć swój pionek o wylosowaną liczbę oczek.", "body"),
-    ("2. Akcja Pola: Po zatrzymaniu się na polu, wykonaj odpowiednią akcję.", "body"),
-    ("Pola Specjalne", "header"),
-    ("STYPENDIUM: Otrzymujesz +2 punkty ECTS.", "body_bullet"),
-    ("POPRAWKA: Tracisz -2 punkty ECTS.", "body_bullet"),
-    ("EGZAMIN: Odpowiedz na 3 losowe pytania. Za 2+ poprawne odpowiedzi odzyskujesz 1 życie!", "body_bullet"),
-    ("Pionek Profesora", "header"),
-    ("Profesor goni graczy! Przesuwa się co 3 tury oraz za każdą błędną odpowiedź. Złapanie przez Profesora kosztuje 1 życie i 1 ECTS.",
+
+    ("Tura i Pola", "header"),
+    ("Kliknij 'Rzuć Kostką', aby się poruszyć. Lądując na polu przedmiotu, odpowiadasz na pytanie. Poprawna odpowiedź daje +1 ECTS, błędna przesuwa Profesora o 1 pole. Pola specjalne dają bonusy lub kary: STYPENDIUM (+2 ECTS), POPRAWKA (-2 ECTS).",
      "body"),
+
+    ("Egzamin i Profesor", "header"),
+    ("Pole EGZAMIN uruchamia test z 3 losowych pytań (poprawna: +1 ECTS, błędna: -1 ECTS i ruch Profesora). Profesor porusza się o 1 pole co 3 tury graczy oraz po każdej błędnej odpowiedzi. Złapanie przez Profesora kosztuje 1 życie i 1 ECTS.",
+     "body"),
+
+    ("Koniec Gry", "header"),
+    ("Gra kończy się natychmiast, gdy gracz zdobędzie 30 ECTS, straci wszystkie życia lub podda grę przyciskiem 'Zakończ Grę'.",
+     "body")
 ]
-
-
 def load_instructions_resources(screen_width, screen_height):
     """Ładuje zasoby potrzebne dla PEŁNOEKRANOWEJ instrukcji."""
     global background_image, title_font, header_font, body_font
