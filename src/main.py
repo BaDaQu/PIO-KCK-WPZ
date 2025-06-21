@@ -5,6 +5,7 @@ import menu_screen
 import gameplay_screen
 import game_logic
 import name_input_screen
+import instructions_screen
 from dice import Dice
 import settings
 
@@ -13,7 +14,7 @@ pygame.init()
 # --- Inicjalizacja Okna ---
 screen = pygame.display.set_mode((settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT))
 pygame.display.set_caption(settings.SCREEN_TITLE)
-game_logic.set_main_screen(screen)
+game_logic.set_main_screen(screen)  # Przekaż instancję ekranu do logiki gry
 
 try:
     game_icon = pygame.image.load(settings.IMAGE_PATH_ICON)
@@ -25,6 +26,9 @@ except Exception as e:
 menu_screen.load_menu_resources(settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT)
 menu_screen.setup_menu_ui_elements(settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT)
 name_input_screen.setup_name_input_screen(settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT)
+instructions_screen.load_instructions_resources(settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT)
+instructions_screen.setup_instructions_ui(settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT,
+                                          menu_screen.BUTTON_FONT_MENU)
 
 # --- Instancja Kostki i Zegar ---
 dice_instance = Dice(
@@ -36,25 +40,34 @@ clock = pygame.time.Clock()
 # --- Główna Pętla Gry ---
 running = True
 while running:
+    # Pobierz aktualne wartości z modułu logiki
     dt_seconds = clock.tick(settings.FPS) / 1000.0
     mouse_pos = pygame.mouse.get_pos()
     current_game_state = game_logic.game_state
     current_turn_phase = game_logic.turn_phase
 
+    # Sprawdzenie, czy można obsługiwać input
     pawn_in_motion = next((p for p in game_logic.all_pawn_objects if p.is_moving or p.is_repositioning), None)
     can_handle_input_main = not dice_instance.is_animating and not pawn_in_motion and not (
             current_turn_phase in ['SHOWING_RESULT_ON_CARD', 'PAWN_MOVING', 'PROCESSING_AFTER_ACTION',
-                                   'INTER_QUESTION_DELAY', 'WAITING_FOR_PAWNS'])
+                                   'INTER_QUESTION_DELAY', 'WAITING_FOR_PAWNS', 'WAITING_FOR_PROFESSOR_MOVE'])
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
+        # --- Delegowanie Obsługi Zdarzeń do Odpowiednich Modułów ---
         if current_game_state == "GAMEPLAY" and current_turn_phase == 'SHOWING_QUESTION':
             if game_logic.active_question_card:
                 chosen_answer_index = game_logic.active_question_card.handle_event(event, mouse_pos)
                 if chosen_answer_index is not None:
                     game_logic.process_player_answer(chosen_answer_index)
+
+        elif current_game_state == "INSTRUCTIONS":
+            action = instructions_screen.handle_instructions_input(event, mouse_pos)
+            if action == "BACK_TO_MENU":
+                game_logic.change_game_state("MENU_GLOWNE")
+
         elif can_handle_input_main:
             if current_game_state == "MENU_GLOWNE":
                 action = menu_screen.handle_menu_input(event, mouse_pos)
@@ -75,9 +88,6 @@ while running:
                     game_logic.turn_phase = 'DICE_ROLLING'
                 elif gameplay_action == "BACK_TO_MENU":
                     game_logic.change_game_state("MENU_GLOWNE")
-            elif current_game_state == "INSTRUCTIONS":
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    game_logic.change_game_state("MENU_GLOWNE")
 
     # --- Aktualizacja Logiki ---
     if current_game_state == "GAMEPLAY":
@@ -97,27 +107,12 @@ while running:
                                                  game_logic.current_screen_height, mouse_pos, dt_seconds)
     elif current_game_state == "GAMEPLAY":
         gameplay_screen.draw_gameplay_screen(screen, mouse_pos, dice_instance)
-        for pawn in game_logic.all_pawn_objects: pawn.draw(screen)
+        for pawn in game_logic.all_pawn_objects:
+            pawn.draw(screen)
         if game_logic.active_question_card and game_logic.active_question_card.is_visible:
             game_logic.active_question_card.draw(screen)
     elif current_game_state == "INSTRUCTIONS":
-        screen.fill(settings.MENU_BG_FALLBACK_COLOR)
-        if menu_screen.TITLE_FONT_MENU and menu_screen.BUTTON_FONT_MENU:
-            title_instr = menu_screen.TITLE_FONT_MENU.render("Instrukcja", True, settings.MENU_TEXT_COLOR)
-            title_instr_rect = title_instr.get_rect(
-                center=(game_logic.current_screen_width // 2, game_logic.current_screen_height // 4))
-            screen.blit(title_instr, title_instr_rect)
-            info_text_lines = [
-                "Witaj w Wyścigu po Zaliczenie!", "Rzuć kostką, aby się poruszyć.",
-                "Odpowiadaj na pytania na polach przedmiotowych.", "Uważaj na Profesora i pola 'Poprawka'!",
-                "Zbieraj 'Stypendia Naukowe'!", "Celem jest dotarcie do mety jako pierwszy.",
-                "", "(Kliknij, aby wrócić do menu)"
-            ]
-            line_y_offset = title_instr_rect.bottom + 30
-            for i, line in enumerate(info_text_lines):
-                line_surface = menu_screen.BUTTON_FONT_MENU.render(line, True, settings.MENU_TEXT_COLOR)
-                line_rect = line_surface.get_rect(center=(game_logic.current_screen_width // 2, line_y_offset + i * 45))
-                screen.blit(line_surface, line_rect)
+        instructions_screen.draw_instructions_screen(screen, mouse_pos)
 
     pygame.display.flip()
 

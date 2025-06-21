@@ -44,7 +44,7 @@ class Dice:
             print("Kostka: Rozpoczęto animację rzutu.")
 
     def get_final_roll_result(self):
-        self.current_roll = random.randint(1, 6)
+        self.current_roll = 1
         print(f"Kostka: Wyrzucono ostatecznie: {self.current_roll}")
         return self.current_roll
 
