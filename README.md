@@ -1,21 +1,18 @@
 # Wyścig po Zaliczenie
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- Możesz zmienić lub usunąć licencję -->
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Cyfrowa gra planszowa wspierająca proces nauki i utrwalania wiedzy dla studentów Politechniki Łódzkiej.**
 
-<!-- Opcjonalnie: Krótki screenshot lub GIF pokazujący grę -->
-<!-- ![Gameplay Screenshot](link_do_obrazka.png) -->
+ <!-- Przykładowy screenshot, możesz podmienić na własny -->
 
 ## Spis Treści
 
 *   [Zespół](#zespół)
 *   [Cel Projektu](#cel-projektu)
-*   [Opis Gry](#opis-gry)
-    *   [Koncepcja](#koncepcja)
-    *   [Kluczowe Mechaniki](#kluczowe-mechaniki)
+*   [Opis i Zasady Gry](#opis-i-zasady-gry)
 *   [Technologie](#technologie)
-*   [Główne Funkcje (Zaimplementowane/Planowane)](#główne-funkcje-zaimplementowaneplanowane)
+*   [Status Funkcji](#status-funkcji)
 *   [Struktura Projektu](#struktura-projektu)
 *   [Dokumentacja Projektowa](#dokumentacja-projektowa)
 *   [Licencja](#licencja)
@@ -33,78 +30,100 @@
 Głównym celem projektu "Wyścig po Zaliczenie" jest stworzenie **angażującej i motywującej formy grywalizacyjnej**, która:
 
 *   **Wspiera studentów Politechniki Łódzkiej** w procesie nauki i przygotowań do zaliczeń.
-*   **Uatrakcyjnia powtarzanie materiału** z kluczowych przedmiotów, czerpiąc inspirację (i potencjalnie dane) z platformy Wikamp.
+*   **Uatrakcyjnia powtarzanie materiału** z kluczowych przedmiotów, czerpiąc inspirację z platformy Wikamp.
 *   **Zmniejsza stres** związany z sesją egzaminacyjną poprzez zabawę i element rywalizacji.
-*   **Integruje elementy wiedzy akademickiej z rozrywką**, wzmacniając poczucie wspólnoty i zdrowej rywalizacji wśród studentów.
+*   **Integruje elementy wiedzy akademickiej z rozrywką**, wzmacniając poczucie wspólnoty wśród studentów.
 
-Projekt stanowi odpowiedź na zidentyfikowane wyzwania, takie jak monotonia tradycyjnych metod nauki i natłok informacji na początku studiów.
+## Opis i Zasady Gry
 
-## Opis Gry
+"Wyścig po Zaliczenie" to cyfrowa gra planszowa dla dwóch graczy. Uczestnicy wcielają się w studentów-pionki, poruszających się po planszy symbolizującej ścieżkę edukacyjną.
 
-### Koncepcja
+**Cel Gry:**
+Dotrzyj do mety (ostatniego pola) przed przeciwnikiem i goniącym Cię Profesorem, zachowując przy tym jak najwięcej żyć i punktów ECTS.
 
-"Wyścig po Zaliczenie" to **cyfrowa gra planszowa** przeznaczona dla minimum dwóch graczy (studentów), rozgrywana lokalnie na jednym ekranie. Gracze wcielają się w studentów-pionki, poruszających się po planszy symbolizującej ścieżkę edukacyjną (np. pierwsze semestry na PŁ). Celem jest dotarcie do mety (symbolizującej zaliczenie) przed innymi graczami oraz przed goniącym ich "Pionkiem Profesora".
+**Przebieg Tury:**
+1.  **Rzut Kostką:** W swojej turze kliknij przycisk "Rzuć Kostką". Twój pionek przesunie się o wylosowaną liczbę oczek.
+2.  **Akcja Pola:** Po zatrzymaniu się na polu, następuje odpowiednia akcja:
+    *   **Pola Przedmiotowe** (np. "FIZYKA"): Pojawia się karta z pytaniem.
+        *   **Poprawna odpowiedź:** Zdobywasz **+1 punkt ECTS**.
+        *   **Błędna odpowiedź:** Nie zdobywasz punktów, a **Pionek Profesora przesuwa się o 1 pole do przodu!**
+    *   **Pola Specjalne:**
+        *   **START:** Twoja przygoda zaczyna się tutaj.
+        *   **STYPENDIUM:** Otrzymujesz **+2 punkty ECTS**.
+        *   **POPRAWKA:** Tracisz **-2 punkty ECTS**.
+        *   **EGZAMIN:** Odpowiadasz na 3 losowe pytania z całej puli przedmiotów.
+            *   **+1 ECTS** za każdą poprawną odpowiedź.
+            *   **-1 ECTS** i **ruch Profesora o 1 pole** za każdą błędną.
+            *   **Nagroda:** Za minimum 2 poprawne odpowiedzi odzyskujesz **1 życie**.
 
-### Kluczowe Mechaniki
+**Pionek Profesora:**
+Profesor to Twoje największe zmartwienie! Nieustannie goni graczy.
+*   **Ruch Podstawowy:** Przesuwa się o 1 pole co 3 tury graczy.
+*   **Ruch za Karę:** Przesuwa się o 1 pole za każdą błędną odpowiedź.
+*   **Złapanie przez Profesora:** Jeśli Profesor wyląduje na Twoim polu, tracisz **1 życie** oraz **1 punkt ECTS**.
 
-1.  **Ruch po Planszy:** Gracze rzucają wirtualną, sześciościenną kostką i przesuwają swoje pionki o wylosowaną liczbę pól.
-2.  **Pola Przedmiotowe:** Wylądowanie na polu oznaczonym konkretnym przedmiotem (np. Matematyka, Fizyka, Programowanie, Chemia) aktywuje pytanie testowe z tej dziedziny.
-3.  **System Pytań i Odpowiedzi:** Gracz musi wybrać jedną z czterech odpowiedzi (A, B, C, D). Poprawna odpowiedź pozwala kontynuować grę (lub daje bonus), błędna może skutkować karą (np. utratą kolejki, cofnięciem) i przyspieszeniem "Pionka Profesora".
-4.  **Pionek Profesora:** Postać sterowana przez komputer, która nieustannie posuwa się do przodu, stanowiąc element presji czasu i rywala dla graczy. Jego szybkość może zależeć od błędnych odpowiedzi graczy.
-5.  **Pola Specjalne:** Plansza zawiera pola specjalne, takie jak "Bonus" (nagroda), "Porażka" (kara) czy "Egzamin" (potencjalnie trudniejsze wyzwanie).
-6.  **Warunki Końca Gry:** Gra kończy się, gdy pierwszy gracz dotrze do mety (wygrana) lub gdy Pionek Profesora dogoni wszystkich aktywnych graczy (przegrana).
+**System Żyć:**
+*   Każdy gracz rozpoczyna grę z **3 życiami** (sercami).
+*   Jeśli stracisz wszystkie życia, przegrywasz!
 
 ## Technologie
 
 *   **Język programowania:** Python 3.13
-*   **Główna biblioteka graficzna i gry:** Pygame
-*   **(Potencjalnie w przyszłości):** Bazy danych (np. SQLite), narzędzia do budowania interfejsu, obsługa sieci.
+*   **Główna biblioteka:** Pygame
+*   **Format danych:** JSON (dla bazy pytań)
 
-## Główne Funkcje (Zaimplementowane/Planowane)
+## Status Funkcji
 
-*   [X] **Menu Główne:** Start gry, Wyjście.
-*   [x] **Wyświetlanie Planszy i Pionków:** Statyczny widok planszy, renderowanie pionków graczy i profesora.
-*   [x] **Rzut Kostką:** Logika losowania i wizualny feedback.
-*   [x] **Ruch Pionka Gracza:** Logika i podstawowa animacja ruchu.
-*   [x] **Zarządzanie Turami:** Przełączanie między graczami.
-*   [x] **System Pytań:** Ładowanie pytań z pliku, wyświetlanie karty pytania.
-*   [x] **Weryfikacja Odpowiedzi:** Sprawdzanie poprawności i logika konsekwencji.
-*   [x] **Karty Informacji Zwrotnej:** Wyświetlanie "Poprawna"/"Błędna".
-*   [ ] **Ruch Pionka Profesora:** Logika i animacja ruchu AI.
-*   [ ] **Logika Pól Specjalnych:** Podstawowe efekty Bonus/Porażka/Egzamin.
-*   [ ] **Warunki Zwycięstwa/Porażki:** Sprawdzanie końca gry.
-*   [ ] **Ekran Końca Gry:** Wyświetlanie wyników i opcji.
-*   [x] **Obsługa dwóch graczy lokalnych**.
-*   [ ] **Efekty dźwiękowe.**
+Lista zaimplementowanych i planowanych funkcjonalności.
 
-*(Legenda: [X] - Częściowo/W pełni zaimplementowane, [ ] - Do zaimplementowania)*
+*   [x] **Menu Główne i Nawigacja:** Ekran startowy, instrukcji i wyjścia.
+*   [x] **Ekran Wprowadzania Imion:** Możliwość personalizacji rozgrywki.
+*   [x] **Interfejs Rozgrywki:** Wyświetlanie planszy, panelu bocznego, widgetów graczy.
+*   [x] **System Pionków:** Renderowanie pionków graczy i Profesora, animacja ruchu pole po polu, unikanie nakładania się.
+*   [x] **System Rzutu Kostką:** Interaktywny przycisk z animacją losowania.
+*   [x] **System Tur:** Logika przełączania tur między dwoma graczami.
+*   [x] **System Pytań:** Ładowanie pytań z pliku JSON i wyświetlanie ich na karcie "popup".
+*   [x] **Weryfikacja Odpowiedzi:** Logika sprawdzania poprawności i wizualny feedback na karcie.
+*   [x] **System Punktacji ECTS:** Zliczanie punktów, animacja zmian.
+*   [x] **System Żyć:** Zliczanie żyć, wizualizacja utraty/zdobycia.
+*   [x] **Logika Pól Specjalnych:** Działanie pól "Stypendium", "Poprawka", "Egzamin".
+*   [x] **Logika Ruchu Profesora:** Dynamiczny ruch oparty na turach i błędach graczy.
+*   [ ] **Warunki Zwycięstwa/Porażki:** Implementacja logiki końca gry (dotarcie do mety, utrata wszystkich żyć).
+*   [ ] **Ekran Końca Gry:** Wyświetlanie wyników i opcji po zakończeniu rozgrywki.
+*   [ ] **Efekty Dźwiękowe i Muzyka:** Dodanie oprawy audio.
+
+*(Legenda: [x] - Zaimplementowane, [ ] - Do zaimplementowania)*
 
 ## Struktura Projektu
 ```plaintext
 WyscigPoZaliczenie/
 ├── src/                     # Główny folder z kodem źródłowym gry
-│   ├── main.py              # Punkt startowy aplikacji, główna pętla gry
-│   └── ...                  # Inne moduły Pythona (.py)
+│   ├── main.py              # Punkt startowy, główna pętla gry
+│   ├── settings.py          # Centralny plik konfiguracyjny
+│   ├── game_logic.py        # Główna logika gry i zarządzanie stanem
+│   ├── menu_screen.py       # Logika i rysowanie menu głównego
+│   ├── gameplay_screen.py   # Logika i rysowanie ekranu rozgrywki
+│   ├── question_screen.py   # Logika i rysowanie karty pytania
+│   ├── name_input_screen.py # Logika i rysowanie ekranu wprowadzania imion
+│   ├── player_widget.py     # Klasa dla widgetu informacji o graczu
+│   ├── pawn.py              # Klasa dla pionków
+│   ├── dice.py              # Klasa dla kostki
+│   ├── button.py            # Klasa dla przycisków
+│   ├── effects.py           # Klasa dla efektów wizualnych (np. pływający tekst)
+│   ├── question_manager.py  # Zarządzanie bazą pytań
+│   └── text_utility.py      # Funkcje pomocnicze do renderowania tekstu
 │
 ├── assets/                  # Zasoby gry
 │   ├── images/              # Pliki graficzne (.png, .jpg)
 │   ├── fonts/               # Pliki czcionek (.ttf, .otf)
-│   ├── sounds/              # Pliki dźwiękowe (.wav, .ogg)
-│   └── data/                # Pliki danych (np. pytania .json, .csv)
+│   ├── data/                # Pliki danych (np. questions.json)
+│   └── sounds/              # Pliki dźwiękowe (opcjonalnie)
 │
 ├── docs/                    # Dokumentacja projektowa
-│   ├── DOKUMENTACJA_PROJEKTOWA.pdf  # Specyfikacja
-│   └── BRAND_BOOK.pdf               # BRAND BOOK
+│   ├── DOKUMENTACJA_PROJEKTOWA.pdf
+│   └── BRAND_BOOK.pdf
 │
-├── .gitignore               # Plik ignorowania dla Git
-├── LICENSE                  # Plik licencji
-├── README.md                # Ten plik
-└── requirements.txt         # Zależności Python
-```
-## Dokumentacja Projektowa
-
-Szczegółowa dokumentacja koncepcyjna, analiza potrzeb oraz księga tożsamości wizualnej (Brand Book) znajdują się w folderze `/docs`.
-
-## Licencja
-
-Ten projekt jest udostępniany na licencji MIT
+├── .gitignore
+├── LICENSE
+├── README.md
+└── requirements.txt
