@@ -3,9 +3,11 @@ import pygame
 import settings
 import gameplay_screen
 import menu_screen
+import instructions_screen  # <-- NOWY IMPORT
 from pawn import PlayerPawn, ProfessorPawn
 import question_manager
 from question_screen import QuestionCard
+from effects import FloatingText
 
 # --- Stałe dla Logiki Gry ---
 SPECIAL_FIELDS = ["START", "STYPENDIUM", "EGZAMIN", "POPRAWKA"]
@@ -23,22 +25,28 @@ all_pawn_objects = []
 current_player_id = "player_1"
 turn_phase = 'WAITING_FOR_ROLL'
 pawn_that_was_moving = None
+professor_that_was_moving = None
 final_player_names = []
 active_question_card = None
 player_points = {}
+player_lives = {}
 exam_mode_active = False
 exam_questions_left = 0
+exam_correct_answers_count = 0
 professor_move_pending = 0
-delay_timer = 0.0
+global_turn_counter = 0
 points_to_animate = 0
+delay_timer = 0.0
 
 
 def set_main_screen(main_screen_surface):
+    """Pozwala głównemu plikowi przekazać instancję ekranu do tego modułu."""
     global screen
     screen = main_screen_surface
 
 
 def change_game_state(new_state):
+    """Centralna funkcja do zmiany stanu gry."""
     global game_state
     if game_state == new_state: return
     print(f"Zmiana stanu gry z '{game_state}' na '{new_state}'")
@@ -50,33 +58,43 @@ def change_game_state(new_state):
             current_screen_width != settings.INITIAL_SCREEN_WIDTH or current_screen_height != settings.INITIAL_SCREEN_HEIGHT):
         set_screen_mode(settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT)
     else:
+        # Jeśli rozmiar ekranu jest poprawny, tylko zainicjuj odpowiedni stan
         if new_state == "GETTING_PLAYER_NAMES":
-            import name_input_screen; name_input_screen.setup_name_input_screen(current_screen_width,
-                                                                                current_screen_height)
+            import name_input_screen
+            name_input_screen.setup_name_input_screen(current_screen_width, current_screen_height)
         elif new_state == "GAMEPLAY":
             initialize_gameplay()
+        elif new_state == "INSTRUCTIONS":
+            instructions_screen.load_instructions_resources(current_screen_width, current_screen_height)
+            instructions_screen.setup_instructions_ui(current_screen_width, current_screen_height,
+                                                      menu_screen.BUTTON_FONT_MENU)
 
 
 def set_screen_mode(width, height):
+    """Zmienia tryb ekranu i deleguje inicjalizację zasobów."""
     global screen, current_screen_width, current_screen_height
     current_screen_width = width;
     current_screen_height = height
     screen = pygame.display.set_mode((current_screen_width, current_screen_height))
     print(f"Tryb ekranu zmieniony na: {width}x{height}")
     if game_state == "MENU_GLOWNE":
-        menu_screen.load_menu_resources(current_screen_width,
-                                        current_screen_height); menu_screen.setup_menu_ui_elements(current_screen_width,
-                                                                                                   current_screen_height)
+        menu_screen.load_menu_resources(current_screen_width, current_screen_height)
+        menu_screen.setup_menu_ui_elements(current_screen_width, current_screen_height)
     elif game_state == "GAMEPLAY":
         initialize_gameplay()
     elif game_state == "INSTRUCTIONS":
-        menu_screen.load_menu_resources(current_screen_width, current_screen_height)
+        menu_screen.load_menu_resources(current_screen_width, current_screen_height)  # Dla spójnego przycisku powrotu
+        instructions_screen.load_instructions_resources(current_screen_width, current_screen_height)
+        instructions_screen.setup_instructions_ui(current_screen_width, current_screen_height,
+                                                  menu_screen.BUTTON_FONT_MENU)
     elif game_state == "GETTING_PLAYER_NAMES":
-        import name_input_screen; name_input_screen.setup_name_input_screen(current_screen_width, current_screen_height)
+        import name_input_screen
+        name_input_screen.setup_name_input_screen(current_screen_width, current_screen_height)
 
 
 def initialize_gameplay():
-    global final_player_names;
+    """Przygotowuje wszystko do rozpoczęcia nowej gry, używając imion."""
+    global final_player_names
     print("Rozpoczynam inicjalizację rozgrywki...")
     question_manager.reset_available_questions()
     gameplay_screen.load_gameplay_resources(current_screen_width, current_screen_height)
@@ -85,34 +103,27 @@ def initialize_gameplay():
 
 
 def start_new_game(player_names_from_input):
-    global final_player_names;
+    """Przetwarza imiona i uruchamia grę."""
+    global final_player_names
     final_player_names = [name.strip() if name.strip() else f"Gracz {i + 1}" for i, name in
                           enumerate(player_names_from_input)]
-    print(f"Ostateczne imiona graczy: {final_player_names}");
+    print(f"Ostateczne imiona graczy: {final_player_names}")
     change_game_state("GAMEPLAY")
 
 
-# === PRZYWRÓCONA FUNKCJA ===
 def add_points_to_player(player_id, points_to_change):
-    """TYLKO aktualizuje logiczną wartość punktów w słowniku i zwraca faktyczną zmianę."""
+    """Aktualizuje logiczną wartość punktów i zwraca faktyczną zmianę."""
     global player_points
     current_points = player_points.get(player_id, 0)
-
-    # Oblicz, jaka będzie faktyczna zmiana, uwzględniając, że punkty nie mogą być ujemne
     actual_change = points_to_change
     if current_points + points_to_change < 0:
         actual_change = -current_points
-
     player_points[player_id] += actual_change
-
-    # Zwraca, o ile FAKTYCZNIE zmieniły się punkty
     return actual_change
 
 
-# ===========================
-
 def trigger_points_animation(player_id, points_value_to_show):
-    """Uruchamia animację "pływającego tekstu" w odpowiednim widgecie z DOKŁADNĄ wartością do pokazania."""
+    """Uruchamia animację "pływającego tekstu" w odpowiednim widgecie."""
     if points_value_to_show == 0: return
     try:
         player_index = int(player_id.split('_')[1]) - 1
@@ -122,26 +133,25 @@ def trigger_points_animation(player_id, points_value_to_show):
         print(f"Błąd przy uruchamianiu animacji punktów dla ID '{player_id}': {e}")
 
 
-def update_player_widgets_points():
-    """Aktualizuje wyświetlaną liczbę punktów w widgetach na podstawie słownika player_points."""
+def update_player_widgets_data():
+    """Aktualizuje DANE (punkty i życia) w widgetach."""
     if gameplay_screen.player_widgets:
-        for i, widget in enumerate(gameplay_screen.player_widgets):
-            player_id = f"player_{i + 1}"
-            widget.points = player_points.get(player_id, 0)
+        for widget in gameplay_screen.player_widgets:
+            widget.points = player_points.get(widget.player_id, 0)
+            widget.lives = player_lives.get(widget.player_id, 0)
 
 
 def update_active_pawn_indicator():
     """Ustawia flagę `is_active_turn` dla widgetów i pionków."""
-    # Aktualizuj widgety
     for widget in gameplay_screen.player_widgets:
         widget.set_active(widget.player_id == current_player_id)
-    # Aktualizuj obiekty pionków
     for pawn in all_pawn_objects:
         pawn.set_active(pawn.pawn_id == current_player_id)
 
 
 def initialize_game_logic_and_pawns():
-    global all_sprites_group, pawns_on_fields_map, all_pawn_objects, current_player_id, turn_phase, pawn_that_was_moving, player_points, professor_move_pending, points_to_animate
+    """Resetuje logikę gry i inicjalizuje pionki, punkty i życia."""
+    global all_sprites_group, pawns_on_fields_map, all_pawn_objects, current_player_id, turn_phase, pawn_that_was_moving, player_points, player_lives, global_turn_counter, professor_move_pending, points_to_animate
     all_sprites_group.empty();
     pawns_on_fields_map.clear();
     all_pawn_objects.clear()
@@ -149,9 +159,11 @@ def initialize_game_logic_and_pawns():
     turn_phase = 'WAITING_FOR_ROLL';
     pawn_that_was_moving = None
     professor_move_pending = 0;
+    global_turn_counter = 0;
     points_to_animate = 0
-    player_points = {"player_1": 0, "player_2": 0};
-    update_player_widgets_points()
+    player_points = {"player_1": 0, "player_2": 0}
+    player_lives = {"player_1": settings.INITIAL_PLAYER_LIVES, "player_2": settings.INITIAL_PLAYER_LIVES}
+    update_player_widgets_data()
     if gameplay_screen.game_board_instance:
         try:
             player1 = PlayerPawn(1, settings.IMAGE_PATH_PLAYER1_PAWN, 0, gameplay_screen.game_board_instance);
@@ -167,8 +179,8 @@ def initialize_game_logic_and_pawns():
             all_sprites_group.add(professor);
             all_pawn_objects.append(professor)
             start_pawns_repositioning_on_field(0);
-            update_active_pawn_indicator();
-            print("Logika gry i pionki zainicjalizowane.")
+            update_active_pawn_indicator()
+            print("Logika gry, pionki, punkty i życia zainicjalizowane.")
         except Exception as e:
             print(f"Błąd krytyczny podczas inicjalizacji pionków: {e}")
     else:
@@ -176,19 +188,52 @@ def initialize_game_logic_and_pawns():
 
 
 def move_professor(steps=1):
-    global turn_phase
+    """TYLKO rozpoczyna animację ruchu profesora."""
+    global turn_phase, professor_that_was_moving
     professor = next((p for p in all_pawn_objects if p.pawn_id == "professor"), None)
     if professor and gameplay_screen.game_board_instance:
-        total_fields = gameplay_screen.game_board_instance.get_total_fields();
+        total_fields = gameplay_screen.game_board_instance.get_total_fields()
         old_prof_index = professor.board_field_index
-        path = [(old_prof_index + i + 1) % total_fields for i in range(steps)];
-        if not path: turn_phase = 'PROCESSING_AFTER_ACTION'; return
-        professor.start_move_animation(path.copy())
+        path = [(old_prof_index + i + 1) % total_fields for i in range(steps)]
+        if not path:
+            turn_phase = 'PROCESSING_AFTER_ACTION';
+            return
+
+        professor_that_was_moving = professor
+        professor_that_was_moving.start_move_animation(path.copy())
         new_prof_index = path[-1]
-        remove_pawn_from_field_map(professor, old_prof_index);
+        remove_pawn_from_field_map(professor, old_prof_index)
         add_pawn_to_field_map(professor, new_prof_index)
-        turn_phase = 'PROCESSING_AFTER_ACTION'
-        print(f"Profesor przesuwa się na pole {new_prof_index}")
+        turn_phase = 'WAITING_FOR_PROFESSOR_MOVE'
+        print(f"Profesor rozpoczyna ruch na pole {new_prof_index}")
+
+
+def check_professor_capture():
+    """Sprawdza, czy profesor złapał graczy, odejmuje życia i punkty ECTS."""
+    global player_lives
+    professor = next((p for p in all_pawn_objects if p.pawn_id == "professor"), None)
+    if not professor: return
+
+    field_index = professor.board_field_index
+    pawns_on_field = get_pawn_objects_on_field(field_index)
+
+    for pawn in pawns_on_field:
+        if pawn.pawn_id.startswith("player_"):
+            if player_lives.get(pawn.pawn_id, 0) > 0:
+                player_lives[pawn.pawn_id] -= 1
+                widget_to_shake = next((w for w in gameplay_screen.player_widgets if w.player_id == pawn.pawn_id), None)
+                if widget_to_shake: widget_to_shake.start_lose_life_animation()
+                print(
+                    f"!!! Profesor złapał gracza {pawn.pawn_id}! Gracz traci życie. Pozostało: {player_lives[pawn.pawn_id]}")
+
+                actual_change = add_points_to_player(pawn.pawn_id, -1)
+                trigger_points_animation(pawn.pawn_id, actual_change)
+                print(f"!!! Gracz {pawn.pawn_id} traci również 1 punkt ECTS.")
+
+                update_player_widgets_data()
+
+                if player_lives[pawn.pawn_id] == 0:
+                    print(f"!!! Gracz {pawn.pawn_id} stracił wszystkie życia! Koniec gry dla niego.")
 
 
 def add_pawn_to_field_map(pawn_obj, field_index):
@@ -232,28 +277,42 @@ def start_pawn_move(roll_value):
 
 
 def switch_turn():
-    global current_player_id, turn_phase
+    global current_player_id, turn_phase, global_turn_counter, professor_move_pending
     if current_player_id == "player_1":
         current_player_id = "player_2"
     elif current_player_id == "player_2":
         current_player_id = "player_1"
-    print(f"--- Następna tura: Gracz {current_player_id} ---")
+
+    global_turn_counter += 1
+    print(f"--- Tura numer {global_turn_counter}. Następny: Gracz {current_player_id} ---")
+
+    if global_turn_counter > 0 and global_turn_counter % settings.PROFESSOR_BASE_MOVE_TURN_INTERVAL == 0:
+        print(f"Minęły {settings.PROFESSOR_BASE_MOVE_TURN_INTERVAL} tury, profesor musi się ruszyć.")
+        professor_move_pending += 1
+
     turn_phase = 'WAITING_FOR_ROLL';
     update_active_pawn_indicator()
 
 
 def process_player_answer(chosen_answer_index):
-    global turn_phase, active_question_card, professor_move_pending, points_to_animate
+    global turn_phase, active_question_card, professor_move_pending, points_to_animate, exam_correct_answers_count
     if not active_question_card: return
     active_question_card.show_result(chosen_answer_index)
     correct_index = active_question_card.question_data["correct_answer_index"]
+
     if chosen_answer_index == correct_index:
-        print("ODPOWIEDŹ POPRAWNA!");
-        points_to_animate = settings.POINTS_FOR_EXAM_CORRECT if exam_mode_active else settings.POINTS_FOR_CORRECT_ANSWER
+        print("ODPOWIEDŹ POPRAWNA!")
+        if exam_mode_active:
+            exam_correct_answers_count += 1
+            points_to_animate = settings.POINTS_FOR_EXAM_CORRECT
+        else:
+            points_to_animate = settings.POINTS_FOR_CORRECT_ANSWER
     else:
         print("ODPOWIEDŹ BŁĘDNA!");
-        professor_move_pending = 1
-        if exam_mode_active: points_to_animate = settings.POINTS_FOR_EXAM_INCORRECT
+        professor_move_pending += 1
+        if exam_mode_active:
+            points_to_animate = settings.POINTS_FOR_EXAM_INCORRECT
+
     turn_phase = 'SHOWING_RESULT_ON_CARD'
 
 
@@ -262,10 +321,10 @@ def ask_next_exam_question():
     if exam_questions_left > 0:
         question = question_manager.get_random_question_from_any_subject()
         if question:
-            exam_questions_left -= 1;
+            exam_questions_left -= 1
             subject_name = question.get("original_subject", "EGZAMIN")
             active_question_card = QuestionCard(question, subject_name)
-            turn_phase = 'SHOWING_QUESTION';
+            turn_phase = 'SHOWING_QUESTION'
             print(f"Pytanie egzaminacyjne ({3 - exam_questions_left}/3): {subject_name}")
         else:
             print("Brak więcej pytań w puli! Kończę egzamin."); end_exam_mode()
@@ -274,14 +333,28 @@ def ask_next_exam_question():
 
 
 def end_exam_mode():
-    global exam_mode_active, turn_phase;
-    print("Egzamin zakończony.");
+    """Kończy tryb egzaminu i przyznaje ewentualną nagrodę."""
+    global exam_mode_active, turn_phase, player_lives, exam_correct_answers_count
+    print("Egzamin zakończony.")
+
+    if exam_correct_answers_count >= 2:
+        widget_to_pulse = next((w for w in gameplay_screen.player_widgets if w.player_id == current_player_id), None)
+        if player_lives.get(current_player_id, 0) < settings.INITIAL_PLAYER_LIVES:
+            if widget_to_pulse:
+                widget_to_pulse.start_gain_life_animation(player_lives[current_player_id])
+            player_lives[current_player_id] += 1
+            update_player_widgets_data()
+            print(f"GRATULACJE! Gracz {current_player_id} zdobywa dodatkowe życie za zdany egzamin!")
+        else:
+            print(f"Gracz {current_player_id} zdał egzamin, ale ma już maksymalną liczbę żyć.")
+
     exam_mode_active = False;
+    exam_correct_answers_count = 0;
     turn_phase = 'PROCESSING_AFTER_ACTION'
 
 
 def handle_field_action():
-    global turn_phase, active_question_card, exam_mode_active, exam_questions_left, points_to_animate
+    global turn_phase, active_question_card, exam_mode_active, exam_questions_left, points_to_animate, exam_correct_answers_count
     active_pawn = next((p for p in all_pawn_objects if p.pawn_id == current_player_id), None)
     if not (active_pawn and gameplay_screen.game_board_instance): turn_phase = 'PROCESSING_AFTER_ACTION'; return
     field_data = gameplay_screen.game_board_instance.get_field_data(active_pawn.board_field_index)
@@ -296,8 +369,11 @@ def handle_field_action():
             points_to_animate = settings.POINTS_FOR_RETAKE;
             turn_phase = 'PROCESSING_AFTER_ACTION'
         elif subject_name == "EGZAMIN":
-            print(
-                "Pole specjalne: EGZAMIN! Czas na 3 pytania."); exam_mode_active = True; exam_questions_left = 3; ask_next_exam_question()
+            print("Pole specjalne: EGZAMIN! Czas na 3 pytania.");
+            exam_mode_active = True;
+            exam_questions_left = 3;
+            exam_correct_answers_count = 0
+            ask_next_exam_question()
         elif subject_name not in SPECIAL_FIELDS:
             question = question_manager.get_random_question_for_subject(subject_name)
             if question:
@@ -311,7 +387,7 @@ def handle_field_action():
 
 
 def update_game_logic(dt_seconds, dice_instance):
-    global turn_phase, pawn_that_was_moving, active_question_card, professor_move_pending, delay_timer, points_to_animate, exam_mode_active
+    global turn_phase, pawn_that_was_moving, active_question_card, professor_move_pending, delay_timer, points_to_animate, exam_mode_active, professor_that_was_moving
     all_sprites_group.update(dt_seconds);
     dice_instance.update(dt_seconds)
     if turn_phase == 'DICE_ROLLING' and not dice_instance.is_animating:
@@ -341,19 +417,25 @@ def update_game_logic(dt_seconds, dice_instance):
         any_pawn_moving = next((p for p in all_pawn_objects if p.is_moving or p.is_repositioning), None)
         if not any_pawn_moving:
             if points_to_animate != 0:
-                add_points_to_player(current_player_id, points_to_animate)
-                update_player_widgets_points()
-                trigger_points_animation(current_player_id, points_to_animate)
+                actual_change = add_points_to_player(current_player_id, points_to_animate)
+                update_player_widgets_data()
+                trigger_points_animation(current_player_id, actual_change)
                 points_to_animate = 0
             if professor_move_pending > 0:
                 move_professor(professor_move_pending);
                 professor_move_pending = 0
-                # Nie zmieniamy tu fazy, bo move_professor sam to zrobi
             elif exam_mode_active:
                 delay_timer = 0.0;
                 turn_phase = 'INTER_QUESTION_DELAY'
             else:
                 switch_turn()
+    elif turn_phase == 'WAITING_FOR_PROFESSOR_MOVE':
+        if professor_that_was_moving and not professor_that_was_moving.is_moving:
+            print("Profesor zakończył swój ruch.")
+            check_professor_capture()
+            start_pawns_repositioning_on_field(professor_that_was_moving.board_field_index)
+            professor_that_was_moving = None
+            turn_phase = 'PROCESSING_AFTER_ACTION'
     elif turn_phase == 'INTER_QUESTION_DELAY':
         delay_timer += dt_seconds
         if delay_timer >= settings.INTER_QUESTION_DELAY_SECONDS: ask_next_exam_question()

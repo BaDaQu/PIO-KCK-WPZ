@@ -2,77 +2,92 @@
 import pygame
 
 
-def render_text_in_rect(surface, text, font_path, initial_font_size, color, rect, vertical_align='center',
-                        line_spacing_multiplier=1.1, padding=5, min_font_size=14):
+def render_text_in_rect(surface, text, font_path, initial_font_size, color, rect, vertical_align='top',
+                        horizontal_align='center', line_spacing_multiplier=1.1, padding=5, min_font_size=14,
+                        return_final_y=False):
     """
-    Renderuje tekst wieloliniowy wewnątrz danego prostokąta, inteligentnie
-    dopasowując rozmiar czcionki, aby zmieścić cały tekst.
+    Renderuje tekst wieloliniowy, dynamicznie zmniejszając czcionkę, aby zmieścił się
+    w danym prostokącie. Obsługuje wyrównanie pionowe i poziome.
     """
-    max_width = rect.width - 2 * padding
-    max_height = rect.height - 2 * padding
-
-    # Krok 1: Przygotujmy tekst do łamania na linie
-    words = text.replace('\n', ' \n ').split(' ')
     current_font_size = initial_font_size
     font = pygame.font.Font(font_path, current_font_size)
 
-    # --- Sprawdzenie, czy najdłuższe słowo w ogóle ma szansę się zmieścić ---
-    # Jeśli nie, zmniejszamy czcionkę od razu.
-    longest_word = ""
-    if words:
-        longest_word = max(words, key=lambda w: font.size(w)[0])
+    # Pętla dopasowująca rozmiar czcionki
+    while current_font_size > min_font_size:
+        max_width = rect.width - 2 * padding
+        max_height = rect.height - 2 * padding
 
-    while current_font_size > min_font_size and font.size(longest_word)[0] > max_width:
-        current_font_size -= 1
-        font = pygame.font.Font(font_path, current_font_size)
+        # --- Sprawdzenie, czy najdłuższe słowo mieści się w szerokości ---
+        words = text.split(' ')
+        longest_word_width = 0
+        if words:
+            longest_word_width = max(font.size(word)[0] for word in words)
 
-    # --- Krok 2: Złamanie tekstu na linie przy użyciu bieżącej (potencjalnie już zmniejszonej) czcionki ---
-    lines_text_processed = []
-    current_line_text = ""
-    for word in words:
-        if word == '\n':
-            if current_line_text: lines_text_processed.append(current_line_text.strip())
-            lines_text_processed.append("")
-            current_line_text = ""
-            continue
+        if longest_word_width > max_width:
+            current_font_size -= 1
+            font = pygame.font.Font(font_path, current_font_size)
+            continue  # Spróbuj ponownie z mniejszą czcionką
 
-        test_line = current_line_text + word + " "
-        if font.size(test_line.strip())[0] <= max_width:
-            current_line_text = test_line
-        else:
-            if current_line_text.strip(): lines_text_processed.append(current_line_text.strip())
-            current_line_text = word + " "
-    if current_line_text.strip(): lines_text_processed.append(current_line_text.strip())
+        # --- Złamanie tekstu na linie dla bieżącej czcionki ---
+        lines_text_processed = []
+        current_line_text = ""
+        for word in words:
+            if word == '\n':
+                if current_line_text: lines_text_processed.append(current_line_text.strip())
+                lines_text_processed.append("")
+                current_line_text = ""
+                continue
+            test_line = current_line_text + word + " "
+            if font.size(test_line.strip())[0] <= max_width:
+                current_line_text = test_line
+            else:
+                if current_line_text.strip(): lines_text_processed.append(current_line_text.strip())
+                current_line_text = word + " "
+        if current_line_text.strip(): lines_text_processed.append(current_line_text.strip())
 
-    # --- Krok 3: Sprawdzenie wysokości i ostateczne dopasowanie rozmiaru czcionki ---
-    line_height = font.get_linesize() * line_spacing_multiplier
-    total_height_needed = len(lines_text_processed) * line_height
-
-    while total_height_needed > max_height and current_font_size > min_font_size:
-        current_font_size -= 1
-        font = pygame.font.Font(font_path, current_font_size)
+        # --- Sprawdzenie, czy złamane linie mieszczą się w pionie ---
         line_height = font.get_linesize() * line_spacing_multiplier
         total_height_needed = len(lines_text_processed) * line_height
 
-    # --- Krok 4: Renderowanie tekstu z optymalnie dobraną czcionką ---
+        if total_height_needed <= max_height:
+            break  # Znaleziono odpowiedni rozmiar
+        else:
+            current_font_size -= 1
+            if current_font_size < min_font_size: current_font_size = min_font_size
+            font = pygame.font.Font(font_path, current_font_size)
+            if current_font_size <= min_font_size: break
+
+    # --- Ostateczne renderowanie ---
     rendered_line_surfaces = [font.render(line, True, color) for line in lines_text_processed if line.strip()]
-    if not rendered_line_surfaces: return
+    if not rendered_line_surfaces:
+        if return_final_y:
+            return rect.top
+        else:
+            return
 
-    # Ponownie obliczamy wysokość dla finalnego rysowania
     final_line_height = font.get_linesize() * line_spacing_multiplier
-    final_total_height = len(rendered_line_surfaces) * final_line_height
+    final_total_height = (len(rendered_line_surfaces) - 1) * final_line_height + font.get_height()
 
-    # Obliczanie pozycji startowej Y w zależności od wyrównania
     if vertical_align == 'center':
         start_y = rect.centery - final_total_height / 2
     elif vertical_align == 'bottom':
         start_y = rect.bottom - final_total_height - padding
-    else:  # 'top'
+    else:
         start_y = rect.top + padding
 
+    final_y = start_y
     for i, line_surface in enumerate(rendered_line_surfaces):
-        line_rect = line_surface.get_rect(centerx=rect.centerx, top=start_y + i * final_line_height)
-        # Obcinanie, aby na pewno nie wyjść poza prostokąt
+        if horizontal_align == 'left':
+            line_rect = line_surface.get_rect(left=rect.left + padding, top=start_y + i * final_line_height)
+        elif horizontal_align == 'right':
+            line_rect = line_surface.get_rect(right=rect.right - padding, top=start_y + i * final_line_height)
+        else:  # 'center'
+            line_rect = line_surface.get_rect(centerx=rect.centerx, top=start_y + i * final_line_height)
+
+        final_y = line_rect.bottom
         clipped_rect = line_rect.clip(rect)
         if clipped_rect.width > 0 and clipped_rect.height > 0:
             surface.blit(line_surface, line_rect, area=clipped_rect.move(-line_rect.left, -line_rect.top))
+
+    if return_final_y:
+        return final_y
