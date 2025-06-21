@@ -23,7 +23,8 @@ def load_gameplay_resources(screen_width, screen_height):
         left_panel_background_img = pygame.transform.scale(left_panel_background_img,
                                                            (settings.LEFT_PANEL_WIDTH, screen_height))
     except Exception as e:
-        print(f"Błąd ładowania tła lewego panelu: {e}"); left_panel_background_img = None
+        print(f"Błąd ładowania tła lewego panelu: {e}");
+        left_panel_background_img = None
     try:
         info_font = pygame.font.Font(settings.FONT_PATH_PT_SERIF_REGULAR, settings.GAMEPLAY_PANEL_INFO_FONT_SIZE)
         button_font_gameplay = pygame.font.Font(settings.FONT_PATH_PT_SERIF_REGULAR,
@@ -102,7 +103,10 @@ def draw_gameplay_screen(surface, mouse_pos, dice_instance_to_draw):
     else:
         pygame.draw.rect(surface, settings.PANEL_BG_COLOR, (0, 0, settings.LEFT_PANEL_WIDTH, surface.get_height()))
     if game_board_instance: game_board_instance.draw(surface)
-    for widget in player_widgets: widget.draw(surface)
+
+    for widget in player_widgets:
+        widget.draw(surface)
+
     if dice_button_panel: dice_button_panel.update_hover(mouse_pos); dice_button_panel.draw(surface)
     if forfeit_button_panel: forfeit_button_panel.update_hover(mouse_pos); forfeit_button_panel.draw(surface)
     if dice_instance_to_draw and dice_button_panel:

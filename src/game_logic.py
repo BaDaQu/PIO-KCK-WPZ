@@ -7,6 +7,7 @@ import game_over_screen  # <-- NOWY IMPORT
 from pawn import PlayerPawn, ProfessorPawn
 import question_manager
 from question_screen import QuestionCard
+from effects import FloatingText
 
 # --- Stałe ---
 SPECIAL_FIELDS = ["START", "STYPENDIUM", "EGZAMIN", "POPRAWKA"]
@@ -55,6 +56,7 @@ def change_game_state(new_state, data=None):
         elif new_state == "GAMEPLAY": initialize_gameplay()
 
 def set_screen_mode(width, height):
+    """Zmienia tryb ekranu i deleguje inicjalizację zasobów."""
     global screen, current_screen_width, current_screen_height
     current_screen_width = width; current_screen_height = height
     screen = pygame.display.set_mode((current_screen_width, current_screen_height))
