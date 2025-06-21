@@ -11,7 +11,7 @@ left_panel_background_img = None
 info_font = None
 button_font_gameplay = None
 dice_button_panel = None
-exit_to_menu_button_panel = None
+forfeit_button_panel = None  # Zmieniono nazwę dla jasności
 player_widgets = []
 
 
@@ -36,31 +36,24 @@ def load_gameplay_resources(screen_width, screen_height):
 
 
 def setup_gameplay_ui_elements(screen_height_param, player_names):
-    global dice_button_panel, exit_to_menu_button_panel, player_widgets
+    global dice_button_panel, forfeit_button_panel, player_widgets
     player_widgets = []
     widget_start_x = settings.PLAYER_WIDGET_1_X_OFFSET
     widget_start_y = settings.PLAYER_WIDGET_1_Y_OFFSET
-
     if len(player_names) > 0:
-        p1_widget = PlayerInfoWidget(
-            x=widget_start_x, y=widget_start_y,
-            player_id="player_1", player_name=player_names[0],
-            image_path=settings.IMAGE_PATH_PLAYER_WIDGET_BG,
-            ects_icon_path=settings.IMAGE_PATH_ECTS_ICON,
-            heart_icon_path=settings.IMAGE_PATH_HEART_ICON,
-            empty_heart_icon_path=settings.IMAGE_PATH_EMPTY_HEART_ICON
-        )
+        p1_widget = PlayerInfoWidget(x=widget_start_x, y=widget_start_y, player_id="player_1",
+                                     player_name=player_names[0], image_path=settings.IMAGE_PATH_PLAYER_WIDGET_BG,
+                                     ects_icon_path=settings.IMAGE_PATH_ECTS_ICON,
+                                     heart_icon_path=settings.IMAGE_PATH_HEART_ICON,
+                                     empty_heart_icon_path=settings.IMAGE_PATH_EMPTY_HEART_ICON)
         player_widgets.append(p1_widget)
     if len(player_names) > 1:
         p2_y_pos = p1_widget.widget_rect.bottom + settings.PLAYER_WIDGET_VERTICAL_SPACING
-        p2_widget = PlayerInfoWidget(
-            x=widget_start_x, y=p2_y_pos,
-            player_id="player_2", player_name=player_names[1],
-            image_path=settings.IMAGE_PATH_PLAYER_WIDGET_BG_2,
-            ects_icon_path=settings.IMAGE_PATH_ECTS_ICON,
-            heart_icon_path=settings.IMAGE_PATH_HEART_ICON,
-            empty_heart_icon_path=settings.IMAGE_PATH_EMPTY_HEART_ICON
-        )
+        p2_widget = PlayerInfoWidget(x=widget_start_x, y=p2_y_pos, player_id="player_2", player_name=player_names[1],
+                                     image_path=settings.IMAGE_PATH_PLAYER_WIDGET_BG_2,
+                                     ects_icon_path=settings.IMAGE_PATH_ECTS_ICON,
+                                     heart_icon_path=settings.IMAGE_PATH_HEART_ICON,
+                                     empty_heart_icon_path=settings.IMAGE_PATH_EMPTY_HEART_ICON)
         player_widgets.append(p2_widget)
 
     btn_width = settings.GAMEPLAY_PANEL_BUTTON_WIDTH
@@ -74,22 +67,30 @@ def setup_gameplay_ui_elements(screen_height_param, player_names):
         base_color=settings.PANEL_BUTTON_BASE_COLOR, hover_color=settings.PANEL_BUTTON_HOVER_COLOR,
         text_color=settings.PANEL_BUTTON_TEXT_COLOR, action="ROLL_DICE_PANEL", border_radius=10
     )
-    exit_to_menu_button_panel = Button(
-        x=(settings.LEFT_PANEL_WIDTH - btn_width) // 2, y=dice_button_panel.rect.bottom + btn_spacing_panel,
-        width=btn_width, height=btn_height, text="Powrót do Menu", font=button_font_gameplay,
+
+    # Zmieniony przycisk
+    forfeit_button_panel = Button(
+        x=(settings.LEFT_PANEL_WIDTH - btn_width) // 2,
+        y=dice_button_panel.rect.bottom + btn_spacing_panel,
+        width=btn_width, height=btn_height,
+        text=settings.FORFEIT_BUTTON_TEXT,  # Używamy nowej stałej
+        font=button_font_gameplay,
         base_color=settings.PANEL_BUTTON_BASE_COLOR, hover_color=settings.PANEL_BUTTON_HOVER_COLOR,
-        text_color=settings.PANEL_BUTTON_TEXT_COLOR, action="BACK_TO_MENU", border_radius=10
+        text_color=settings.PANEL_BUTTON_TEXT_COLOR,
+        action="FORFEIT_GAME",  # Nowa akcja
+        border_radius=10
     )
 
 
 def handle_gameplay_input(event, mouse_pos):
-    if exit_to_menu_button_panel and exit_to_menu_button_panel.handle_event(event, mouse_pos): return "BACK_TO_MENU"
-    if dice_button_panel and dice_button_panel.handle_event(event, mouse_pos): return "ROLL_DICE_PANEL"
+    if forfeit_button_panel and forfeit_button_panel.handle_event(event, mouse_pos):
+        return "FORFEIT_GAME"
+    if dice_button_panel and dice_button_panel.handle_event(event, mouse_pos):
+        return "ROLL_DICE_PANEL"
     return None
 
 
 def update_gameplay_state(current_player_id, dt_seconds):
-    """Aktualizuje stan rozgrywki, w tym podświetlenie i animacje widgetów."""
     for widget in player_widgets:
         widget.set_active(widget.player_id == current_player_id)
         widget.update(dt_seconds)
@@ -107,9 +108,7 @@ def draw_gameplay_screen(surface, mouse_pos, dice_instance_to_draw):
         widget.draw(surface)
 
     if dice_button_panel: dice_button_panel.update_hover(mouse_pos); dice_button_panel.draw(surface)
-    if exit_to_menu_button_panel: exit_to_menu_button_panel.update_hover(mouse_pos); exit_to_menu_button_panel.draw(
-        surface)
-
+    if forfeit_button_panel: forfeit_button_panel.update_hover(mouse_pos); forfeit_button_panel.draw(surface)
     if dice_instance_to_draw and dice_button_panel:
         dice_instance_to_draw.dice_display_rect.centerx = dice_button_panel.rect.centerx
         dice_instance_to_draw.dice_display_rect.bottom = dice_button_panel.rect.top - 15

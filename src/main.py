@@ -6,6 +6,7 @@ import gameplay_screen
 import game_logic
 import name_input_screen
 import instructions_screen
+import game_over_screen
 from dice import Dice
 import settings
 
@@ -46,18 +47,24 @@ while running:
     current_game_state = game_logic.game_state
     current_turn_phase = game_logic.turn_phase
 
-    # Sprawdzenie, czy można obsługiwać input
+    # Sprawdzenie, czy można obsługiwać input (zapobiega klikaniu podczas animacji)
     pawn_in_motion = next((p for p in game_logic.all_pawn_objects if p.is_moving or p.is_repositioning), None)
     can_handle_input_main = not dice_instance.is_animating and not pawn_in_motion and not (
             current_turn_phase in ['SHOWING_RESULT_ON_CARD', 'PAWN_MOVING', 'PROCESSING_AFTER_ACTION',
                                    'INTER_QUESTION_DELAY', 'WAITING_FOR_PAWNS', 'WAITING_FOR_PROFESSOR_MOVE'])
 
+    # --- Pętla Obsługi Zdarzeń ---
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
         # --- Delegowanie Obsługi Zdarzeń do Odpowiednich Modułów ---
-        if current_game_state == "GAMEPLAY" and current_turn_phase == 'SHOWING_QUESTION':
+        if current_game_state == "GAME_OVER":
+            action = game_over_screen.handle_game_over_input(event, mouse_pos)
+            if action == "BACK_TO_MENU":
+                game_logic.change_game_state("MENU_GLOWNE")
+
+        elif current_game_state == "GAMEPLAY" and current_turn_phase == 'SHOWING_QUESTION':
             if game_logic.active_question_card:
                 chosen_answer_index = game_logic.active_question_card.handle_event(event, mouse_pos)
                 if chosen_answer_index is not None:
@@ -78,16 +85,19 @@ while running:
                         game_logic.change_game_state("INSTRUCTIONS")
                     elif action == "QUIT":
                         running = False
+
             elif current_game_state == "GETTING_PLAYER_NAMES":
                 action = name_input_screen.handle_name_input_events(event, mouse_pos)
-                if action == "START_GAME": game_logic.start_new_game(name_input_screen.player_names_input)
+                if action == "START_GAME":
+                    game_logic.start_new_game(name_input_screen.player_names_input)
+
             elif current_game_state == "GAMEPLAY" and current_turn_phase == 'WAITING_FOR_ROLL':
                 gameplay_action = gameplay_screen.handle_gameplay_input(event, mouse_pos)
                 if gameplay_action == "ROLL_DICE_PANEL":
-                    dice_instance.start_animation_and_roll();
+                    dice_instance.start_animation_and_roll()
                     game_logic.turn_phase = 'DICE_ROLLING'
-                elif gameplay_action == "BACK_TO_MENU":
-                    game_logic.change_game_state("MENU_GLOWNE")
+                elif gameplay_action == "FORFEIT_GAME":
+                    game_logic.forfeit_game()
 
     # --- Aktualizacja Logiki ---
     if current_game_state == "GAMEPLAY":
@@ -99,20 +109,26 @@ while running:
     # --- Rysowanie ---
     screen.fill(settings.DEFAULT_BG_COLOR)
 
-    if current_game_state == "MENU_GLOWNE":
-        menu_screen.draw_menu_screen(screen, game_logic.current_screen_width, game_logic.current_screen_height,
-                                     mouse_pos)
-    elif current_game_state == "GETTING_PLAYER_NAMES":
-        name_input_screen.draw_name_input_screen(screen, game_logic.current_screen_width,
-                                                 game_logic.current_screen_height, mouse_pos, dt_seconds)
-    elif current_game_state == "GAMEPLAY":
-        gameplay_screen.draw_gameplay_screen(screen, mouse_pos, dice_instance)
-        for pawn in game_logic.all_pawn_objects:
-            pawn.draw(screen)
-        if game_logic.active_question_card and game_logic.active_question_card.is_visible:
-            game_logic.active_question_card.draw(screen)
-    elif current_game_state == "INSTRUCTIONS":
-        instructions_screen.draw_instructions_screen(screen, mouse_pos)
+    # Rysuj stan gry, który jest "pod spodem"
+    if current_game_state in ["MENU_GLOWNE", "GETTING_PLAYER_NAMES", "INSTRUCTIONS", "GAMEPLAY"]:
+        if current_game_state == "MENU_GLOWNE":
+            menu_screen.draw_menu_screen(screen, game_logic.current_screen_width, game_logic.current_screen_height,
+                                         mouse_pos)
+        elif current_game_state == "GETTING_PLAYER_NAMES":
+            name_input_screen.draw_name_input_screen(screen, game_logic.current_screen_width,
+                                                     game_logic.current_screen_height, mouse_pos, dt_seconds)
+        elif current_game_state == "GAMEPLAY":
+            gameplay_screen.draw_gameplay_screen(screen, mouse_pos, dice_instance)
+            for pawn in game_logic.all_pawn_objects:
+                pawn.draw(screen)
+            if game_logic.active_question_card and game_logic.active_question_card.is_visible:
+                game_logic.active_question_card.draw(screen)
+        elif current_game_state == "INSTRUCTIONS":
+            instructions_screen.draw_instructions_screen(screen, mouse_pos)
+
+    # Ekran końca gry rysujemy ZAWSZE na wierzchu (jeśli jest aktywny), co tworzy efekt pop-upu
+    if current_game_state == "GAME_OVER":
+        game_over_screen.draw_game_over_screen(screen, mouse_pos)
 
     pygame.display.flip()
 
