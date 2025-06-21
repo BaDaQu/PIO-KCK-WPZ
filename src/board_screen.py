@@ -1,19 +1,26 @@
 # src/board_screen.py
 import pygame
-import settings  # <-- NOWY IMPORT
+import settings
+import os  # Dodajemy import os do pracy ze ścieżkami
+
+# Stałe dla kolorów etykiet (pozostają bez zmian)
+FIELD_LABEL_TEXT_COLOR = (10, 10, 10)
+FIELD_LABEL_BG_COLOR_SUBJECT = (230, 230, 210)
+FIELD_LABEL_BG_COLOR_SPECIAL = (200, 220, 240)
+FIELD_LABEL_BG_COLOR_START = (180, 240, 180)
 
 
 class Board:
     def __init__(self, screen_width_gameplay, screen_height_gameplay):
         self.board_render_width = settings.BOARD_RENDER_WIDTH
         self.board_render_height = settings.BOARD_RENDER_HEIGHT
-
         self.board_offset_x_on_screen = screen_width_gameplay - self.board_render_width
         self.board_offset_y_on_screen = (screen_height_gameplay - self.board_render_height) // 2
 
         self.background_image = None
         self.fields_data = []
         self.field_label_font = None
+        self.field_icons = {}  # <-- NOWY SŁOWNIK na załadowane obrazki ikonek
 
         self._load_assets()
         self._define_field_labels_and_geometry()
@@ -27,6 +34,7 @@ class Board:
             self.background_image = pygame.Surface((self.board_render_width, self.board_render_height))
             self.background_image.fill(settings.BOARD_BG_FALLBACK_COLOR)
 
+        # Ładowanie czcionki jest teraz potrzebne tylko jako fallback dla ikonek
         try:
             self.field_label_font = pygame.font.Font(settings.FONT_PATH_PT_SERIF_REGULAR,
                                                      settings.BOARD_LABEL_FONT_SIZE)
@@ -34,40 +42,31 @@ class Board:
             print(f"Błąd ładowania czcionki dla etykiet pól: {e}")
             self.field_label_font = pygame.font.SysFont(None, settings.BOARD_LABEL_FONT_SIZE + 4)
 
+        # --- NOWA LOGIKA: Ładowanie ikonek pól ---
+        for label, filename in settings.FIELD_ICON_MAPPING.items():
+            try:
+                path = os.path.join(settings.FIELD_ICONS_BASE_PATH, filename)
+                icon_image = pygame.image.load(path).convert_alpha()
+                self.field_icons[label] = icon_image
+                # print(f"Załadowano ikonkę dla: {label}") # Można odkomentować do debugowania
+            except Exception as e:
+                print(f"OSTRZEŻENIE: Nie można załadować ikonki dla '{label}' ze ścieżki '{path}'. Błąd: {e}")
+                # Jeśli ikonka się nie załaduje, self.field_icons[label] nie będzie istniało,
+                # co spowoduje użycie renderowania tekstu jako fallback.
+        # --- KONIEC NOWEJ LOGIKI ---
+
     def _define_field_labels_and_geometry(self):
+        # Ta funkcja pozostaje bez zmian - używa tych samych etykiet i prostokątów
+        # (cały kod z dokładnymi Rectami pozostaje taki sam)
         field_labels_text_internal = [
-            "START",
-            "ANALIZA MAT. I",
-            "ALGEBRA LINIOWA",
-            "OPROGRAMOWANIE UŻYTKOWE",
-            "STYPENDIUM",
-            "PROGRAMOWANIE SKRYPTOWE",
-            "BHP",
-            "FIZYKA",
-            "EGZAMIN",
-            "MATEMATYKA DYSKRETNA",
-            "PODSTAWY ELEKTROTECHNIKI",
-            "PODSTAWY PROGRAMOWANIA I",
-            "POPRAWKA",
-            "PODSTAWY PROGRAMOWANIA II",
-            "SYSTEMY OPERACYJNE I",
-            "ANALIZA MAT. II",
-            "EGZAMIN",
-            "PODSTAWY GRAFIKI KOMP.",
-            "SYSTEMY OPERACYJNE II",
-            "ALGORYTMY I STRUKTURY DANYCH",
-            "STYPENDIUM",
-            "METODY PROBABILISTYCZNE",
-            "METODY NUMERYCZNE",
-            "TECHNIKA CYFROWA",
-            "EGZAMIN",
-            "PROGRAMOWANIE OBIEKTOWE I",
-            "ARCHITEKTURA KOMPUTERÓW",
-            "DESIGN THINKING",
-            "POPRAWKA",
-            "JĘZYK ANGIELSKI",
-            "SIECI KOMPUTEROWE",
-            "BAZY DANYCH"
+            "START", "ANALIZA MAT. I", "ALGEBRA LINIOWA", "OPROGRAMOWANIE UŻYTKOWE", "STYPENDIUM",
+            "PROGRAMOWANIE SKRYPTOWE", "BHP", "FIZYKA", "EGZAMIN", "MATEMATYKA DYSKRETNA",
+            "PODSTAWY ELEKTROTECHNIKI", "PODSTAWY PROGRAMOWANIA I", "POPRAWKA", "PODSTAWY PROGRAMOWANIA II",
+            "SYSTEMY OPERACYJNE I", "ANALIZA MAT. II", "EGZAMIN", "PODSTAWY GRAFIKI KOMP.",
+            "SYSTEMY OPERACYJNE II", "ALGORYTMY I STRUKTURY DANYCH", "STYPENDIUM", "METODY PROBABILISTYCZNE",
+            "METODY NUMERYCZNE", "TECHNIKA CYFROWA", "EGZAMIN", "PROGRAMOWANIE OBIEKTOWE I",
+            "ARCHITEKTURA KOMPUTERÓW", "DESIGN THINKING", "POPRAWKA", "JĘZYK ANGIELSKI",
+            "SIECI KOMPUTEROWE", "BAZY DANYCH"
         ]
         self.fields_data = [
             {"rect": pygame.Rect(30, 30, 140, 140), "label": field_labels_text_internal[0]},
@@ -109,32 +108,30 @@ class Board:
 
     def _render_text_multiline(self, text, font, color, max_width, bg_color=None, line_spacing_multiplier=0.85,
                                padding=2):
-        words = text.replace('\n', ' \n ').split(' ')
-        lines_text_processed = []
+        # Ta funkcja jest teraz używana tylko jako fallback, więc pozostaje bez zmian
+        words = text.replace('\n', ' \n ').split(' ');
+        lines_text_processed = [];
         current_line_text = ""
         for word in words:
             if word == '\n':
                 if current_line_text: lines_text_processed.append(current_line_text.strip())
-                lines_text_processed.append("")
+                lines_text_processed.append("");
                 current_line_text = ""
                 continue
             test_line = current_line_text + word + " "
             if font.size(test_line.strip())[0] <= max_width - 2 * padding:
                 current_line_text = test_line
             else:
-                if current_line_text.strip():
-                    lines_text_processed.append(current_line_text.strip())
+                if current_line_text.strip(): lines_text_processed.append(current_line_text.strip())
                 if font.size(word)[0] > max_width - 2 * padding:
-                    lines_text_processed.append(word)
-                    current_line_text = ""
+                    lines_text_processed.append(word); current_line_text = ""
                 else:
                     current_line_text = word + " "
-        if current_line_text.strip():
-            lines_text_processed.append(current_line_text.strip())
+        if current_line_text.strip(): lines_text_processed.append(current_line_text.strip())
         if not lines_text_processed: return None
         rendered_line_surfaces = [font.render(line, True, color) for line in lines_text_processed if line.strip()]
         if not rendered_line_surfaces: return None
-        actual_line_height = font.get_linesize()
+        actual_line_height = font.get_linesize();
         line_height_with_spacing = int(actual_line_height * line_spacing_multiplier)
         final_surface_width = 0
         for surf in rendered_line_surfaces:
@@ -155,33 +152,44 @@ class Board:
         if self.background_image:
             surface.blit(self.background_image, (self.board_offset_x_on_screen, self.board_offset_y_on_screen))
 
-        if not self.field_label_font or not self.fields_data: return
+        if not self.fields_data: return
 
         for field_data in self.fields_data:
             local_field_rect = field_data["rect"]
             label_text = field_data["label"]
             field_screen_rect = local_field_rect.move(self.board_offset_x_on_screen, self.board_offset_y_on_screen)
 
-            label_bg_color = settings.FIELD_LABEL_BG_COLOR_SUBJECT  # Użyj stałych z settings
-            if "STYPENDIUM" in label_text.upper() or "START" in label_text.upper():
-                label_bg_color = settings.FIELD_LABEL_BG_COLOR_START
-            elif "POPRAWKA" in label_text.upper() or "EGZAMIN" in label_text.upper():
-                label_bg_color = settings.FIELD_LABEL_BG_COLOR_SPECIAL
+            # --- NOWA LOGIKA RYSOWANIA ---
+            # Sprawdź, czy mamy załadowaną ikonkę dla tego pola
+            if label_text in self.field_icons:
+                icon_image = self.field_icons[label_text]
+                # Skaluj ikonkę, aby pasowała do pola, zachowując proporcje
+                field_inner_rect = field_screen_rect.inflate(-10, -10)  # Mały margines
+                scaled_icon = pygame.transform.smoothscale(icon_image, field_inner_rect.size)
+                icon_rect = scaled_icon.get_rect(center=field_screen_rect.center)
+                surface.blit(scaled_icon, icon_rect)
+            else:
+                # --- FALLBACK: Rysuj tekst, jeśli nie ma ikonki ---
+                label_bg_color = settings.FIELD_LABEL_BG_COLOR_SUBJECT
+                if "STYPENDIUM" in label_text.upper() or "START" in label_text.upper():
+                    label_bg_color = settings.FIELD_LABEL_BG_COLOR_START
+                elif "POPRAWKA" in label_text.upper() or "EGZAMIN" in label_text.upper():
+                    label_bg_color = settings.FIELD_LABEL_BG_COLOR_SPECIAL
 
-            label_rect_for_text_bg = field_screen_rect.inflate(-8, -8)
-            pygame.draw.rect(surface, label_bg_color, label_rect_for_text_bg, border_radius=5)
-            pygame.draw.rect(surface, settings.FIELD_LABEL_TEXT_COLOR, label_rect_for_text_bg, 1, border_radius=5)
+                label_rect_for_text_bg = field_screen_rect.inflate(-8, -8)
+                pygame.draw.rect(surface, label_bg_color, label_rect_for_text_bg, border_radius=5)
+                pygame.draw.rect(surface, settings.FIELD_LABEL_TEXT_COLOR, label_rect_for_text_bg, 1, border_radius=5)
 
-            if label_text:
-                text_surface = self._render_text_multiline(label_text, self.field_label_font,
-                                                           settings.FIELD_LABEL_TEXT_COLOR,
-                                                           label_rect_for_text_bg.width,
-                                                           padding=2)
-                if text_surface:
-                    text_rect = text_surface.get_rect(center=label_rect_for_text_bg.center)
-                    surface.blit(text_surface, text_rect)
+                if label_text and self.field_label_font:
+                    text_surface = self._render_text_multiline(label_text, self.field_label_font,
+                                                               settings.FIELD_LABEL_TEXT_COLOR,
+                                                               label_rect_for_text_bg.width, padding=2)
+                    if text_surface:
+                        text_rect = text_surface.get_rect(center=label_rect_for_text_bg.center)
+                        surface.blit(text_surface, text_rect)
+            # --- KONIEC NOWEJ LOGIKI RYSOWANIA ---
 
-
+    # get_field_screen_rect, get_field_screen_center, get_total_fields, get_field_data POZOSTAJĄ BEZ ZMIAN
     def get_field_screen_rect(self, field_index):
         if 0 <= field_index < len(self.fields_data):
             local_field_rect = self.fields_data[field_index]["rect"]
@@ -197,7 +205,6 @@ class Board:
         return len(self.fields_data)
 
     def get_field_data(self, field_index):
-        """Zwraca cały słownik danych dla pola o danym indeksie."""
         if 0 <= field_index < len(self.fields_data):
             return self.fields_data[field_index]
         return None
