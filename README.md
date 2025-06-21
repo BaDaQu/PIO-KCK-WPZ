@@ -36,35 +36,42 @@ Głównym celem projektu "Wyścig po Zaliczenie" jest stworzenie **angażującej
 
 ## Opis i Zasady Gry
 
-"Wyścig po Zaliczenie" to cyfrowa gra planszowa dla dwóch graczy. Uczestnicy wcielają się w studentów-pionki, poruszających się po planszy symbolizującej ścieżkę edukacyjną.
+"Wyścig po Zaliczenie" to cyfrowa gra planszowa dla dwóch graczy, w której celem jest przetrwanie sesji i zdobycie przepustki na kolejny semestr. Uczestnicy wcielają się w studentów poruszających się po planszy symbolizującej ścieżkę edukacyjną, odpowiadając na pytania i stawiając czoła wyzwaniom akademickiego życia.
 
-**Cel Gry:**
-Dotrzyj do mety (ostatniego pola) przed przeciwnikiem i goniącym Cię Profesorem, zachowując przy tym jak najwięcej żyć i punktów ECTS.
+### Warunki Zwycięstwa i Porażki
 
-**Przebieg Tury:**
-1.  **Rzut Kostką:** W swojej turze kliknij przycisk "Rzuć Kostką". Twój pionek przesunie się o wylosowaną liczbę oczek.
+Grę można wygrać lub przegrać na dwa sposoby:
+
+*   **Zwycięstwo przez Punkty:** Pierwszy gracz, który zdobędzie **30 punktów ECTS**, wygrywa grę!
+*   **Porażka przez Utratę Żyć:** Każdy gracz rozpoczyna z **3 życiami** (sercami). Jeśli stracisz wszystkie życia (np. przez wielokrotne złapanie przez Profesora), przegrywasz, a Twój przeciwnik zostaje zwycięzcą.
+
+### Przebieg Tury
+
+1.  **Rzut Kostką:** W swojej turze kliknij przycisk **"Rzuć Kostką"**. Twój pionek przesunie się o wylosowaną liczbę oczek.
 2.  **Akcja Pola:** Po zatrzymaniu się na polu, następuje odpowiednia akcja:
-    *   **Pola Przedmiotowe** (np. "FIZYKA"): Pojawia się karta z pytaniem.
+    *   **Pola Przedmiotowe** (np. "FIZYKA", "BAZY DANYCH"): Na ekranie pojawia się karta z pytaniem z danej dziedziny.
         *   **Poprawna odpowiedź:** Zdobywasz **+1 punkt ECTS**.
-        *   **Błędna odpowiedź:** Nie zdobywasz punktów, a **Pionek Profesora przesuwa się o 1 pole do przodu!**
+        *   **Błędna odpowiedź:** Nie zdobywasz punktów, a **Pionek Profesora natychmiast przesuwa się o 1 pole do przodu!**
     *   **Pola Specjalne:**
         *   **START:** Twoja przygoda zaczyna się tutaj.
-        *   **STYPENDIUM:** Otrzymujesz **+2 punkty ECTS**.
-        *   **POPRAWKA:** Tracisz **-2 punkty ECTS**.
-        *   **EGZAMIN:** Odpowiadasz na 3 losowe pytania z całej puli przedmiotów.
+        *   **STYPENDIUM:** Za ciężką pracę otrzymujesz premię **+2 punkty ECTS**.
+        *   **POPRAWKA:** Niestety, coś poszło nie tak. Tracisz **-2 punkty ECTS**.
+        *   **EGZAMIN:** Czas na test! Odpowiadasz na 3 losowe pytania z całej puli przedmiotów.
             *   **+1 ECTS** za każdą poprawną odpowiedź.
             *   **-1 ECTS** i **ruch Profesora o 1 pole** za każdą błędną.
-            *   **Nagroda:** Za minimum 2 poprawne odpowiedzi odzyskujesz **1 życie**.
+            *   **Nagroda:** Za minimum 2 poprawne odpowiedzi odzyskujesz **1 życie** (jeśli masz mniej niż 3).
 
-**Pionek Profesora:**
-Profesor to Twoje największe zmartwienie! Nieustannie goni graczy.
-*   **Ruch Podstawowy:** Przesuwa się o 1 pole co 3 tury graczy.
-*   **Ruch za Karę:** Przesuwa się o 1 pole za każdą błędną odpowiedź.
-*   **Złapanie przez Profesora:** Jeśli Profesor wyląduje na Twoim polu, tracisz **1 życie** oraz **1 punkt ECTS**.
+### Pionek Profesora - Nieustanne Zagrożenie
 
-**System Żyć:**
-*   Każdy gracz rozpoczyna grę z **3 życiami** (sercami).
-*   Jeśli stracisz wszystkie życia, przegrywasz!
+Profesor to Twój największy rywal, który nieustannie depcze Ci po piętach. Jego celem jest utrudnienie Ci drogi do zaliczenia.
+
+*   **Ruch Podstawowy:** Przesuwa się o 1 pole co **3 tury graczy** (po turze drugiego gracza, jeśli licznik się zgadza).
+*   **Ruch za Karę:** Przesuwa się o 1 pole za **każdą błędną odpowiedź** gracza.
+*   **Złapanie przez Profesora:** Jeśli Profesor wyląduje na polu, na którym stoisz, ponosisz surowe konsekwencje: tracisz **1 życie** oraz **1 punkt ECTS**.
+
+### Poddanie Gry
+
+Jeśli presja okaże się zbyt duża, możesz w każdej chwili poddać grę, używając przycisku **"Zakończ Grę"** w panelu bocznym. Zwycięstwo zostanie wtedy przyznane Twojemu przeciwnikowi.
 
 ## Technologie
 
