@@ -40,6 +40,37 @@ ANSWER_INCORRECT_COLOR = (255, 105, 97, 150)
 
 # --- Ścieżki do Zasobów ---
 BASE_ASSET_PATH = "../assets/"
+FIELD_ICONS_BASE_PATH = BASE_ASSET_PATH + "images/field_icons/"
+FIELD_ICON_MAPPING = {
+    "START": "start.png",
+    "ANALIZA MAT. I": "analiza_mat_i.png",
+    "ALGEBRA LINIOWA": "algebra_liniowa.png",
+    "OPROGRAMOWANIE UŻYTKOWE": "oprogramowanie_uzytkowe.png",
+    "STYPENDIUM": "stypendium.png",
+    "PROGRAMOWANIE SKRYPTOWE": "programowanie_skryptowe.png",
+    "BHP": "bhp.png",
+    "FIZYKA": "fizyka.png",
+    "EGZAMIN": "egzamin.png",
+    "MATEMATYKA DYSKRETNA": "matematyka_dyskretna.png",
+    "PODSTAWY ELEKTROTECHNIKI": "podstawy_elektrotechniki.png",
+    "PODSTAWY PROGRAMOWANIA I": "podstawy_programowania_i.png",
+    "POPRAWKA": "poprawka.png",
+    "PODSTAWY PROGRAMOWANIA II": "podstawy_programowania_ii.png",
+    "SYSTEMY OPERACYJNE I": "systemy_operacyjne_i.png",
+    "ANALIZA MAT. II": "analiza_mat_ii.png",
+    "PODSTAWY GRAFIKI KOMP.": "podstawy_grafiki_komp.png",
+    "SYSTEMY OPERACYJNE II": "systemy_operacyjne_ii.png",
+    "ALGORYTMY I STRUKTURY DANYCH": "algorytmy_i_struktury_danych.png",
+    "METODY PROBABILISTYCZNE": "metody_probabilistyczne.png",
+    "METODY NUMERYCZNE": "metody_numeryczne.png",
+    "TECHNIKA CYFROWA": "technika_cyfrowa.png",
+    "PROGRAMOWANIE OBIEKTOWE I": "programowanie_obiektowe_i.png",
+    "ARCHITEKTURA KOMPUTERÓW": "architektura_komputerow.png",
+    "DESIGN THINKING": "design_thinking.png",
+    "JĘZYK ANGIELSKI": "jezyk_angielski.png",
+    "SIECI KOMPUTEROWE": "sieci_komputerowe.png",
+    "BAZY DANYCH": "bazy_danych.png"
+}
 FONT_PATH_PT_SERIF_REGULAR = BASE_ASSET_PATH + "fonts/PTSerif-Regular.ttf"
 FONT_PATH_NOTO_SERIF_REGULAR = BASE_ASSET_PATH + "fonts/NotoSerif_Condensed-Black.ttf"
 FONT_PATH_HUNINN_REGULAR = BASE_ASSET_PATH + "fonts/Huninn-Regular.ttf"
@@ -73,6 +104,11 @@ NAME_ERROR_FONT_SIZE = 24
 QUESTION_CARD_QUESTION_FONT_SIZE = 32
 QUESTION_CARD_ANSWER_FONT_SIZE = 28
 QUESTION_CARD_ANSWER_LABEL_FONT_SIZE = 48
+# === Dodane brakujące stałe czcionek dla instrukcji ===
+INSTRUCTIONS_TITLE_FONT_SIZE = 80
+INSTRUCTIONS_HEADER_FONT_SIZE = 42
+INSTRUCTIONS_BODY_FONT_SIZE = 28
+# =================================================
 
 # --- Ustawienia Punktacji i Żyć ---
 INITIAL_PLAYER_LIVES = 3
@@ -165,23 +201,20 @@ WIDGET_PULSE_SPEED = 5.0
 # --- Ustawienia Profesora ---
 PROFESSOR_BASE_MOVE_TURN_INTERVAL = 3
 
-# === NOWA, POPRAWNA SEKCJA DLA EKRANU INSTRUKCJI ===
-# Zastępuje poprzednie, potencjalnie błędne wpisy
-
+# === Ustawienia dla Ekranu Instrukcji ===
 # Kolory dla pełnoekranowej instrukcji
 INSTRUCTIONS_FALLBACK_BG_COLOR = (40, 30, 20)
 INSTRUCTIONS_TITLE_COLOR = (240, 190, 100)
 INSTRUCTIONS_HEADER_COLOR = (220, 220, 200)
 INSTRUCTIONS_BODY_COLOR = (200, 200, 180)
-
-# Czcionki dla instrukcji (dodane do głównej sekcji czcionek wyżej)
-INSTRUCTIONS_TITLE_FONT_SIZE = 80
-INSTRUCTIONS_HEADER_FONT_SIZE = 42
-INSTRUCTIONS_BODY_FONT_SIZE = 28
+# === DODANE BRAKUJĄCE STAŁE ===
+INSTRUCTIONS_OUTLINE_COLOR = BLACK
+INSTRUCTIONS_OUTLINE_WIDTH = 1
+# ===============================
 
 # Pozycjonowanie na pełnym ekranie
-INSTRUCTIONS_TITLE_Y = 80
-INSTRUCTIONS_CONTENT_START_Y = 140
+INSTRUCTIONS_TITLE_Y = 30
+INSTRUCTIONS_CONTENT_START_Y = 100
 INSTRUCTIONS_CONTENT_X_PADDING = 100
 INSTRUCTIONS_LINE_SPACING = 1.3
 INSTRUCTIONS_SECTION_SPACING = 3
@@ -191,4 +224,3 @@ INSTRUCTIONS_BULLET_INDENT = 40
 INSTRUCTIONS_BACK_BUTTON_WIDTH = 300
 INSTRUCTIONS_BACK_BUTTON_HEIGHT = 80
 INSTRUCTIONS_BACK_BUTTON_Y_OFFSET = -60
-# ===================================================

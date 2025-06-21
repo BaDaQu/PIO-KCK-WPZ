@@ -1,5 +1,6 @@
 # src/text_utility.py
 import pygame
+import settings
 
 
 def render_text_in_rect(surface, text, font_path, initial_font_size, color, rect, vertical_align='top',
@@ -26,7 +27,7 @@ def render_text_in_rect(surface, text, font_path, initial_font_size, color, rect
         if longest_word_width > max_width:
             current_font_size -= 1
             font = pygame.font.Font(font_path, current_font_size)
-            continue  # Spróbuj ponownie z mniejszą czcionką
+            continue
 
         # --- Złamanie tekstu na linie dla bieżącej czcionki ---
         lines_text_processed = []
@@ -50,7 +51,7 @@ def render_text_in_rect(surface, text, font_path, initial_font_size, color, rect
         total_height_needed = len(lines_text_processed) * line_height
 
         if total_height_needed <= max_height:
-            break  # Znaleziono odpowiedni rozmiar
+            break
         else:
             current_font_size -= 1
             if current_font_size < min_font_size: current_font_size = min_font_size
@@ -91,3 +92,35 @@ def render_text_in_rect(surface, text, font_path, initial_font_size, color, rect
 
     if return_final_y:
         return final_y
+
+
+def render_text_with_outline(font, text, base_color, outline_color, outline_width=2):
+    """
+    Renderuje tekst z obrysem. Zwraca jedną powierzchnię z efektem.
+    """
+    # 1. Renderuj tekst obrysu
+    outline_surface = font.render(text, True, outline_color)
+
+    # 2. Renderuj główny tekst
+    base_surface = font.render(text, True, base_color)
+
+    # 3. Stwórz nową, większą powierzchnię, która pomieści tekst i obrys
+    w = base_surface.get_width() + 2 * outline_width
+    h = base_surface.get_height() + 2 * outline_width
+    final_surface = pygame.Surface((w, h), pygame.SRCALPHA)
+    final_surface.fill((0, 0, 0, 0))  # Wypełnij przezroczystością
+
+    # 4. Narysuj tekst obrysu kilka razy z przesunięciem (8 kierunków)
+    offsets = [
+        (outline_width, 0), (-outline_width, 0), (0, outline_width), (0, -outline_width),
+        (outline_width, outline_width), (-outline_width, -outline_width),
+        (outline_width, -outline_width), (-outline_width, outline_width)
+    ]
+
+    for dx, dy in offsets:
+        final_surface.blit(outline_surface, (outline_width + dx, outline_width + dy))
+
+    # 5. Narysuj główny tekst na wierzchu
+    final_surface.blit(base_surface, (outline_width, outline_width))
+
+    return final_surface

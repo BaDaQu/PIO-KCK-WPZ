@@ -5,12 +5,13 @@ import text_utility
 from button import Button
 
 # Zmienne Modułu
-background_image = None  # Będzie teraz pełnoekranowe
+background_image = None
 title_font = None
 header_font = None
 body_font = None
 back_button = None
 
+# Treść zasad
 RULES_TEXT = [
     ("Cel Gry", "header"),
     ("Dotrzyj do mety przed przeciwnikiem i goniącym Cię Profesorem, zachowując przy tym jak najwięcej żyć i punktów ECTS.",
@@ -32,7 +33,6 @@ def load_instructions_resources(screen_width, screen_height):
     """Ładuje zasoby potrzebne dla PEŁNOEKRANOWEJ instrukcji."""
     global background_image, title_font, header_font, body_font
     try:
-        # Ładujemy dedykowane tło dla instrukcji
         bg_image_raw = pygame.image.load(settings.IMAGE_PATH_INSTRUCTIONS_BG).convert()
         background_image = pygame.transform.scale(bg_image_raw, (screen_width, screen_height))
     except Exception as e:
@@ -79,63 +79,72 @@ def handle_instructions_input(event, mouse_pos):
 
 
 def draw_instructions_screen(surface, mouse_pos):
-    """Rysuje cały, pełnoekranowy widok instrukcji."""
-    # Rysowanie tła
+    """Rysuje cały, pełnoekranowy widok instrukcji z tekstem z obrysem."""
     if background_image:
         surface.blit(background_image, (0, 0))
     else:
-        surface.fill(settings.INSTRUCTIONS_FALLBACK_BG_COLOR)  # Użyj neutralnego koloru
+        surface.fill(settings.INSTRUCTIONS_FALLBACK_BG_COLOR)
 
-    # Rysowanie tytułu
-    title_surf = title_font.render("Instrukcja Gry", True, settings.INSTRUCTIONS_TITLE_COLOR)
+    # Rysowanie tytułu z obrysem
+    title_surf = text_utility.render_text_with_outline(
+        font=title_font,
+        text="Instrukcja Gry",
+        base_color=settings.INSTRUCTIONS_TITLE_COLOR,
+        outline_color=settings.INSTRUCTIONS_OUTLINE_COLOR,
+        outline_width=settings.INSTRUCTIONS_OUTLINE_WIDTH
+    )
     title_rect = title_surf.get_rect(centerx=surface.get_rect().centerx, top=settings.INSTRUCTIONS_TITLE_Y)
     surface.blit(title_surf, title_rect)
 
-    # Rysowanie treści zasad
+    # Rysowanie treści zasad z obrysem
     current_y = settings.INSTRUCTIONS_CONTENT_START_Y
     text_area_width = surface.get_width() - 2 * settings.INSTRUCTIONS_CONTENT_X_PADDING
 
     for text, style in RULES_TEXT:
         if style == "header":
-            font_size = settings.INSTRUCTIONS_HEADER_FONT_SIZE
+            font = header_font
             color = settings.INSTRUCTIONS_HEADER_COLOR
-            align = 'left'
             y_spacing = settings.INSTRUCTIONS_SECTION_SPACING
             indent = 0
         elif style == "body_bullet":
-            font_size = settings.INSTRUCTIONS_BODY_FONT_SIZE
+            font = body_font
             color = settings.INSTRUCTIONS_BODY_COLOR
-            align = 'left'
             text = "• " + text
-            y_spacing = 5  # Mniejszy odstęp dla wypunktowań
+            y_spacing = 5
             indent = settings.INSTRUCTIONS_BULLET_INDENT
         else:  # "body"
-            font_size = settings.INSTRUCTIONS_BODY_FONT_SIZE
+            font = body_font
             color = settings.INSTRUCTIONS_BODY_COLOR
-            align = 'left'
-            y_spacing = 15  # Większy odstęp dla zwykłych akapitów
+            y_spacing = 15
             indent = 0
 
         current_y += y_spacing
 
-        text_area_rect = pygame.Rect(
-            settings.INSTRUCTIONS_CONTENT_X_PADDING + indent,
-            current_y,
-            text_area_width - indent,
-            surface.get_height()
-        )
+        # Łamanie tekstu na linie
+        words = text.split(' ')
+        lines = []
+        current_line = ""
+        max_width = text_area_width - indent
+        for word in words:
+            test_line = current_line + word + " "
+            if font.size(test_line.strip())[0] <= max_width:
+                current_line = test_line
+            else:
+                lines.append(current_line.strip())
+                current_line = word + " "
+        lines.append(current_line.strip())
 
-        current_y = text_utility.render_text_in_rect(
-            surface=surface, text=text,
-            font_path=settings.FONT_PATH_PT_SERIF_REGULAR,
-            initial_font_size=font_size,
-            color=color,
-            rect=text_area_rect,
-            vertical_align='top',
-            horizontal_align=align,
-            line_spacing_multiplier=settings.INSTRUCTIONS_LINE_SPACING,
-            return_final_y=True
-        )
+        # Rysowanie każdej linii z obrysem
+        for line_text in lines:
+            if not line_text: continue
+            line_surface = text_utility.render_text_with_outline(
+                font, line_text, color,
+                settings.INSTRUCTIONS_OUTLINE_COLOR,
+                settings.INSTRUCTIONS_OUTLINE_WIDTH
+            )
+            line_rect = line_surface.get_rect(left=settings.INSTRUCTIONS_CONTENT_X_PADDING + indent, top=current_y)
+            surface.blit(line_surface, line_rect)
+            current_y += int(font.get_linesize() * settings.INSTRUCTIONS_LINE_SPACING)
 
     # Rysowanie przycisku powrotu
     if back_button:
