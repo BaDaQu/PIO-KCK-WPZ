@@ -62,7 +62,7 @@ while running:
         if current_game_state == "GAME_OVER":
             action = game_over_screen.handle_game_over_input(event, mouse_pos)
             if action == "BACK_TO_MENU":
-                game_logic.change_game_state("MENU_GLOWNE")
+                game_logic.reset_to_main_menu()  # Używamy nowej funkcji resetującej
 
         elif current_game_state == "GAMEPLAY" and current_turn_phase == 'SHOWING_QUESTION':
             if game_logic.active_question_card:
@@ -73,7 +73,7 @@ while running:
         elif current_game_state == "INSTRUCTIONS":
             action = instructions_screen.handle_instructions_input(event, mouse_pos)
             if action == "BACK_TO_MENU":
-                game_logic.change_game_state("MENU_GLOWNE")
+                game_logic.reset_to_main_menu()  # Używamy nowej funkcji resetującej
 
         elif can_handle_input_main:
             if current_game_state == "MENU_GLOWNE":
@@ -85,12 +85,10 @@ while running:
                         game_logic.change_game_state("INSTRUCTIONS")
                     elif action == "QUIT":
                         running = False
-
             elif current_game_state == "GETTING_PLAYER_NAMES":
                 action = name_input_screen.handle_name_input_events(event, mouse_pos)
                 if action == "START_GAME":
                     game_logic.start_new_game(name_input_screen.player_names_input)
-
             elif current_game_state == "GAMEPLAY" and current_turn_phase == 'WAITING_FOR_ROLL':
                 gameplay_action = gameplay_screen.handle_gameplay_input(event, mouse_pos)
                 if gameplay_action == "ROLL_DICE_PANEL":
@@ -105,28 +103,33 @@ while running:
         gameplay_screen.update_gameplay_state(game_logic.current_player_id, dt_seconds)
         if game_logic.active_question_card:
             game_logic.active_question_card.update_hover(mouse_pos)
+    elif current_game_state == "GAME_OVER":
+        game_over_screen.update_game_over_screen(dt_seconds)
 
     # --- Rysowanie ---
     screen.fill(settings.DEFAULT_BG_COLOR)
 
     # Rysuj stan gry, który jest "pod spodem"
-    if current_game_state in ["MENU_GLOWNE", "GETTING_PLAYER_NAMES", "INSTRUCTIONS", "GAMEPLAY"]:
-        if current_game_state == "MENU_GLOWNE":
-            menu_screen.draw_menu_screen(screen, game_logic.current_screen_width, game_logic.current_screen_height,
-                                         mouse_pos)
-        elif current_game_state == "GETTING_PLAYER_NAMES":
-            name_input_screen.draw_name_input_screen(screen, game_logic.current_screen_width,
-                                                     game_logic.current_screen_height, mouse_pos, dt_seconds)
-        elif current_game_state == "GAMEPLAY":
-            gameplay_screen.draw_gameplay_screen(screen, mouse_pos, dice_instance)
-            for pawn in game_logic.all_pawn_objects:
-                pawn.draw(screen)
-            if game_logic.active_question_card and game_logic.active_question_card.is_visible:
-                game_logic.active_question_card.draw(screen)
-        elif current_game_state == "INSTRUCTIONS":
-            instructions_screen.draw_instructions_screen(screen, mouse_pos)
+    # Ekran końca gry rysuje się na wierzchu ekranu rozgrywki
+    if current_game_state in ["GAMEPLAY", "GAME_OVER"]:
+        gameplay_screen.draw_gameplay_screen(screen, mouse_pos, dice_instance)
+        # Rysujemy pionki, metoda draw w Pawn jest teraz bardziej rozbudowana
+        for pawn in game_logic.all_pawn_objects:
+            pawn.draw(screen)
+        # Karta pytania jest rysowana, jeśli jest aktywna
+        if game_logic.active_question_card and game_logic.active_question_card.is_visible:
+            game_logic.active_question_card.draw(screen)
 
-    # Ekran końca gry rysujemy ZAWSZE na wierzchu (jeśli jest aktywny), co tworzy efekt pop-upu
+    elif current_game_state == "MENU_GLOWNE":
+        menu_screen.draw_menu_screen(screen, game_logic.current_screen_width, game_logic.current_screen_height,
+                                     mouse_pos)
+    elif current_game_state == "GETTING_PLAYER_NAMES":
+        name_input_screen.draw_name_input_screen(screen, game_logic.current_screen_width,
+                                                 game_logic.current_screen_height, mouse_pos, dt_seconds)
+    elif current_game_state == "INSTRUCTIONS":
+        instructions_screen.draw_instructions_screen(screen, mouse_pos)
+
+    # Ekran końca gry rysujemy na wierzchu wszystkiego, co było pod nim (czyli gameplay lub inny stan)
     if current_game_state == "GAME_OVER":
         game_over_screen.draw_game_over_screen(screen, mouse_pos)
 

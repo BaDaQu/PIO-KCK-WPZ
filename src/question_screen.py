@@ -4,7 +4,7 @@ import settings
 import text_utility
 
 
-# --- Funkcja Pomocnicza (bez zmian) ---
+# Funkcja apply_rounded_corners_mask pozostaje bez zmian
 def apply_rounded_corners_mask(image, radius):
     if radius <= 0: return image.copy()
     rounded_image = pygame.Surface(image.get_size(), pygame.SRCALPHA)
@@ -42,8 +42,6 @@ class QuestionCard:
                                                 pygame.SRCALPHA)
             pygame.draw.rect(self.card_bg_image, settings.QUESTION_CARD_BG_COLOR, self.card_bg_image.get_rect(),
                              border_radius=settings.QUESTION_CARD_BORDER_RADIUS)
-
-        # Ładowanie czcionki dla etykiet A, B, C, D (pozostaje bez zmian)
         try:
             self.answer_label_font = pygame.font.Font(settings.FONT_PATH_PT_SERIF_REGULAR,
                                                       settings.QUESTION_CARD_ANSWER_LABEL_FONT_SIZE)
@@ -54,8 +52,7 @@ class QuestionCard:
     def _setup_layout(self):
         # Ta funkcja pozostaje bez zmian
         self.card_rect = self.card_bg_image.get_rect(
-            center=(settings.GAMEPLAY_SCREEN_WIDTH // 2, settings.GAMEPLAY_SCREEN_HEIGHT // 2)
-        )
+            center=(settings.GAMEPLAY_SCREEN_WIDTH // 2, settings.GAMEPLAY_SCREEN_HEIGHT // 2))
         self.question_text_screen_rect = settings.QUESTION_TEXT_AREA_RECT.move(self.card_rect.left, self.card_rect.top)
         self.answer_buttons = []
         local_answer_rects = [
@@ -67,42 +64,46 @@ class QuestionCard:
             self.answer_buttons.append({"rect": screen_rect, "index": i, "hover": False})
 
     def show_result(self, player_choice_idx):
+        # Ta funkcja pozostaje bez zmian
         self.state = 'SHOWING_RESULT'
         self.player_choice_index = player_choice_idx
         self.result_timer = 0.0
 
     def update(self, dt_seconds):
+        # Ta funkcja pozostaje bez zmian
         if self.state == 'SHOWING_RESULT':
             self.result_timer += dt_seconds
             if self.result_timer >= settings.FEEDBACK_DURATION_SECONDS:
                 self.is_visible = False
 
     def handle_event(self, event, mouse_pos):
+        # Ta funkcja pozostaje bez zmian
         if not self.is_visible or self.state != 'ANSWERING': return None
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             for button in self.answer_buttons:
-                if button["rect"].collidepoint(mouse_pos):
-                    return button["index"]
+                if button["rect"].collidepoint(mouse_pos): return button["index"]
         return None
 
     def update_hover(self, mouse_pos):
+        # Ta funkcja pozostaje bez zmian
         if not self.is_visible or self.state != 'ANSWERING': return
         for button in self.answer_buttons:
             button["hover"] = button["rect"].collidepoint(mouse_pos)
 
     def draw(self, surface):
+        """Rysuje kartę pytania na podanej powierzchni, używając nowej funkcji renderującej."""
         if not self.is_visible: return
 
-        overlay = pygame.Surface(surface.get_size(), pygame.SRCALPHA)
-        overlay.fill((0, 0, 0, 180))
+        overlay = pygame.Surface(surface.get_size(), pygame.SRCALPHA);
+        overlay.fill((0, 0, 0, 180));
         surface.blit(overlay, (0, 0))
         surface.blit(self.card_bg_image, self.card_rect)
 
-        # --- ZMIANA: Używamy FONT_PATH_HUNINN_REGULAR dla pytania ---
-        text_utility.render_text_in_rect(
+        # --- ZMIANA: Wywołujemy nową, uniwersalną funkcję `render_text` ---
+        text_utility.render_text(
             surface=surface,
             text=self.question_data["question_text"],
-            font_path=settings.FONT_PATH_HUNINN_REGULAR,  # <-- ZMIANA CZCIONKI
+            font_path=settings.FONT_PATH_HUNINN_REGULAR,
             initial_font_size=settings.QUESTION_CARD_QUESTION_FONT_SIZE,
             color=settings.QUESTION_CARD_TEXT_COLOR,
             rect=self.question_text_screen_rect,
@@ -111,7 +112,6 @@ class QuestionCard:
 
         answer_labels = ["A", "B", "C", "D"]
         correct_answer_idx = self.question_data["correct_answer_index"]
-
         for i, answer_text in enumerate(self.question_data["answers"]):
             button_info = self.answer_buttons[i]
 
@@ -126,7 +126,6 @@ class QuestionCard:
                 pygame.draw.rect(surface, settings.ANSWER_BUTTON_HOVER_COLOR, button_info["rect"],
                                  border_radius=settings.ANSWER_HOVER_BORDER_RADIUS)
 
-            # Rysowanie etykiet A, B, C, D (czcionka bez zmian)
             label_surf = self.answer_label_font.render(answer_labels[i], True, settings.QUESTION_CARD_TEXT_COLOR)
             label_rect = label_surf.get_rect(centerx=button_info["rect"].left + settings.ANSWER_LABEL_CENTER_X,
                                              centery=button_info["rect"].centery)
@@ -136,11 +135,11 @@ class QuestionCard:
                                                            -settings.ANSWER_TEXT_AREA_PADDING_Y * 2)
             answer_text_area.left = button_info["rect"].left + settings.ANSWER_TEXT_AREA_PADDING_X
 
-            # --- ZMIANA: Używamy FONT_PATH_HUNINN_REGULAR dla odpowiedzi ---
-            text_utility.render_text_in_rect(
+            # --- ZMIANA: Wywołujemy nową, uniwersalną funkcję `render_text` ---
+            text_utility.render_text(
                 surface=surface,
                 text=answer_text,
-                font_path=settings.FONT_PATH_HUNINN_REGULAR,  # <-- ZMIANA CZCIONKI
+                font_path=settings.FONT_PATH_HUNINN_REGULAR,
                 initial_font_size=settings.QUESTION_CARD_ANSWER_FONT_SIZE,
                 color=settings.QUESTION_CARD_TEXT_COLOR,
                 rect=answer_text_area,
