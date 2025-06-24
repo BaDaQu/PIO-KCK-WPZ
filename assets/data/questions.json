@@ -21,16 +21,6 @@
       "correct_answer_index": 0
     },
     {
-      "question_text": "Granica funkcji f(x) = (x² - 1)/(x - 1) dla x → 1 wynosi:",
-      "answers": [
-        "2",
-        "0",
-        "1",
-        "nie istnieje"
-      ],
-      "correct_answer_index": 0
-    },
-    {
       "question_text": "Granica ciągu a_n = (n+1)/n dla n → ∞ to:",
       "answers": [
         "0",
@@ -273,16 +263,6 @@
       "correct_answer_index": 3
     },
     {
-      "question_text": "Macierz A ma wymiar 3x2, a B 2x4. Jaki wymiar ma macierz C = A * B?",
-      "answers": [
-        "3x2",
-        "2x2",
-        "3x4",
-        "4x3"
-      ],
-      "correct_answer_index": 2
-    },
-    {
       "question_text": "Co oznacza, że układ równań jest oznaczony?",
       "answers": [
         "Nie da się go rozwiązać",
@@ -457,26 +437,6 @@
   ],
   "PROGRAMOWANIE SKRYPTOWE": [
     {
-      "question_text": "Co wypisze poniższy kod?\n\n```python\nx = [1, 2, 3]\nprint(x[-1])\n```",
-      "answers": [
-        "1",
-        "2",
-        "3",
-        "Błąd indeksu"
-      ],
-      "correct_answer_index": 2
-    },
-    {
-      "question_text": "Jaką strukturę danych tworzy poniższy kod?\n\n```python\nx = {}\n```",
-      "answers": [
-        "Lista",
-        "Krotka",
-        "Słownik",
-        "Zbiór"
-      ],
-      "correct_answer_index": 2
-    },
-    {
       "question_text": "Która funkcja zwraca długość listy w Pythonie?",
       "answers": [
         "count()",
@@ -505,16 +465,6 @@
         "fun"
       ],
       "correct_answer_index": 2
-    },
-    {
-      "question_text": "Jakie będzie wyjście programu?\n\n```python\nfor i in range(3):\n    print(i)\n```",
-      "answers": [
-        "1 2 3",
-        "0 1 2",
-        "0 1 2 3",
-        "1 2"
-      ],
-      "correct_answer_index": 1
     },
     {
       "question_text": "Które wyrażenie tworzy listę liczb od 0 do 9?",
@@ -555,16 +505,6 @@
         "Krotki zajmują więcej pamięci"
       ],
       "correct_answer_index": 1
-    },
-    {
-      "question_text": "Która z poniższych instrukcji wypisze każdy znak w stringu `s = \"Python\"`?",
-      "answers": [
-        "for c in s: print(c)",
-        "for s in c: print(c)",
-        "for print in s: c",
-        "while s: print(c)"
-      ],
-      "correct_answer_index": 0
     },
     {
       "question_text": "Która metoda usuwa element z listy po indeksie?",
@@ -625,16 +565,6 @@
         "Kontakt z substancjami toksycznymi",
         "Długotrwała praca przy komputerze",
         "Hałas przemysłowy"
-      ],
-      "correct_answer_index": 2
-    },
-    {
-      "question_text": "Ile wynosi maksymalny czas ciągłej pracy przy komputerze bez przerwy, zgodnie z przepisami BHP?",
-      "answers": [
-        "2 godziny",
-        "4 godziny",
-        "50 minut",
-        "8 godzin"
       ],
       "correct_answer_index": 2
     },
@@ -861,16 +791,6 @@
       "correct_answer_index": 1
     },
     {
-      "question_text": "Wzór na opór zastępczy dla połączenia równoległego dwóch oporników R1 i R2 to:",
-      "answers": [
-        "R = R1 + R2",
-        "R = 1 / (1/R1 + 1/R2)",
-        "R = R1 * R2",
-        "R = (R1 - R2)^2"
-      ],
-      "correct_answer_index": 1
-    },
-    {
       "question_text": "Które zjawisko powoduje zmianę kierunku fali na granicy ośrodków?",
       "answers": [
         "Załamanie",
@@ -991,16 +911,6 @@
         "Grafem skierowanym"
       ],
       "correct_answer_index": 2
-    },
-    {
-      "question_text": "Jaki jest wynik iloczynu kartezjańskiego A × B dla |A|=2 i |B|=3?",
-      "answers": [
-        "6",
-        "5",
-        "3",
-        "2"
-      ],
-      "correct_answer_index": 0
     },
     {
       "question_text": "Co opisuje funkcja tworząca?",
@@ -1197,82 +1107,12 @@
   ],
   "PODSTAWY PROGRAMOWANIA I": [
     {
-      "question_text": "Co wykona poniższy program:\n\n```c\n#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char zrodlo[] = \"To jest test\";\n    char cel[100];\n\n    strcpy(cel, zrodlo);\n\n    printf(\"Zrodlo: %s\\n\", zrodlo);\n    printf(\"Cel:    %s\\n\", cel);\n\n    return 0;\n}\n```",
-      "answers": [
-        "Przeniesienie zrodla do celu",
-        "Skopiowanie zrodla do celu",
-        "Połączenie zawartości zrodlo i cel w jeden ciąg",
-        "Zastąpienie każdego znaku w zrodlo znakiem z cel"
-      ],
-      "correct_answer_index": 1
-    },
-    {
       "question_text": "Co robi funkcja `strlen()` w języku C?",
       "answers": [
         "Zwraca liczbę znaków włącznie z '\\0'",
         "Zwraca długość tekstu bez znaku końca",
         "Zamienia tekst na długość",
         "Kopiuje zawartość łańcucha znaków"
-      ],
-      "correct_answer_index": 1
-    },
-    {
-      "question_text": "Co wykona poniższy program?\n\n```c\n#include <stdio.h>\n\nint main() {\n    int tab[5] = {1, 2, 3, 4, 5};\n    printf(\"%d\\n\", tab[2]);\n    return 0;\n}\n```",
-      "answers": [
-        "Wyświetli wartość ostatniego elementu tablicy",
-        "Wyświetli indeks elementu równego 2",
-        "Wyświetli trzeci element tablicy",
-        "Wyświetli liczbę elementów tablicy"
-      ],
-      "correct_answer_index": 2
-    },
-    {
-      "question_text": "Co wypisze poniższy kod?\n\n```c\nint tab[] = {10, 20, 30};\nprintf(\"%d\", tab[1]);\n```",
-      "answers": [
-        "10",
-        "20",
-        "30",
-        "Błąd kompilacji"
-      ],
-      "correct_answer_index": 1
-    },
-    {
-      "question_text": "Co wypisze poniższy program?\n\n```c\n#include <stdio.h>\n\nint main() {\n    int x = 42;\n    int *p = &x;\n    x = x + 1;\n    printf(\"%d\\n\", *p);\n    return 0;\n}\n```",
-      "answers": [
-        "42",
-        "Adres x",
-        "43",
-        "Błąd kompilacji"
-      ],
-      "correct_answer_index": 2
-    },
-    {
-      "question_text": "Jaki będzie wynik działania tego programu, jeśli użytkownik poda `1A` jako wejście?\n\n```c\n#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n    char hex_input[20];\n    unsigned int value;\n\n    printf(\"Podaj liczbe heksadecymalna (np. 0x1A lub 1A): \");\n    scanf(\"%s\", hex_input);\n\n    value = (unsigned int)strtoul(hex_input, NULL, 16);\n\n    printf(\"Wartosc dziesietna: %u\\n\", value);\n    printf(\"Wartosc heksadecymalna: 0x%X\\n\", value);\n\n    return 0;\n}\n```",
-      "answers": [
-        "Wyświetli wartość dziesiętną i heksadecymalną liczby",
-        "Zamieni wartość na binarną",
-        "Wyświetli tylko tekst wejściowy",
-        "Zgłosi błąd konwersji"
-      ],
-      "correct_answer_index": 0
-    },
-    {
-      "question_text": "Co wypisze poniższy program?\n\n```c\n#include <stdio.h>\n\nint main() {\n    int macierz[2][3] = {{1, 2, 3}, {4, 5, 6}};\n    int suma = 0;\n\n    for(int i = 0; i < 2; i++)\n        for(int j = 0; j < 3; j++)\n            suma += macierz[i][j];\n\n    printf(\"%d\\n\", suma);\n    return 0;\n}\n```",
-      "answers": [
-        "12",
-        "15",
-        "21",
-        "9"
-      ],
-      "correct_answer_index": 2
-    },
-    {
-      "question_text": "Co robi poniższy program?\n\n```c\n#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char napis[20] = \"informatyka\";\n    napis[4] = '\\0';\n    printf(\"%s\\n\", napis);\n    return 0;\n}\n```",
-      "answers": [
-        "Wypisuje cały napis „informatyka”",
-        "Wypisuje „info”",
-        "Wypisuje „matyka”",
-        "Program nie skompiluje się"
       ],
       "correct_answer_index": 1
     },
@@ -1285,36 +1125,6 @@
         "122"
       ],
       "correct_answer_index": 2
-    },
-    {
-      "question_text": "Co wypisze program?\n\n```c\nchar ch = 75;\nprintf(\"%c\", ch);\n```",
-      "answers": [
-        "k",
-        "K",
-        "L",
-        "M"
-      ],
-      "correct_answer_index": 1
-    },
-    {
-      "question_text": "Która z poniższych funkcji sortuje tablicę rosnąco?\n\n```c\nvoid sort(int t[], int n) {\n    for(int i = 0; i < n-1; i++)\n        for(int j = 0; j < n-i-1; j++)\n            if(t[j] > t[j+1]) {\n                int temp = t[j];\n                t[j] = t[j+1];\n                t[j+1] = temp;\n            }\n}\n```",
-      "answers": [
-        "Wykorzystuje sortowanie przez wybieranie",
-        "Wykorzystuje rekurencję do sortowania",
-        "Wykorzystuje sortowanie bąbelkowe",
-        "Funkcja niczego nie sortuje"
-      ],
-      "correct_answer_index": 2
-    },
-    {
-      "question_text": "Które z poniższych wyrażeń definiuje funkcję przyjmującą dwa argumenty typu int i zwracającą int?",
-      "answers": [
-        "int suma(a, b) { return a + b; }",
-        "int suma(int a, int b) { return a + b; }",
-        "void suma(int a, int b) { return a + b; }",
-        "suma(int a, int b) { return a + b; }"
-      ],
-      "correct_answer_index": 1
     },
     {
       "question_text": "Jakiego typu jest wynik działania funkcji `strcmp()`?",
@@ -1477,16 +1287,6 @@
         "Serwisem WWW",
         "Usługą katalogową systemu Windows Server",
         "Zastępczym dyskiem twardym"
-      ],
-      "correct_answer_index": 2
-    },
-    {
-      "question_text": "Jakie polecenie w Linuxie pozwala na instalację pakietów w systemach opartych na Debianie?",
-      "answers": [
-        "yum install",
-        "rpm install",
-        "apt install",
-        "dnf install"
       ],
       "correct_answer_index": 2
     },
@@ -1723,16 +1523,6 @@
       "correct_answer_index": 0
     },
     {
-      "question_text": "Jeśli pochodna funkcji zmienia znak z dodatniego na ujemny w punkcie x₀, to:",
-      "answers": [
-        "x₀ nie jest ekstremum",
-        "x₀ jest minimum lokalnym",
-        "x₀ jest punktem przegięcia",
-        "x₀ jest maksimum lokalnym"
-      ],
-      "correct_answer_index": 3
-    },
-    {
       "question_text": "Jaki jest warunek drugiego rzędu dla minimum funkcji?",
       "answers": [
         "f''(x) < 0",
@@ -1855,16 +1645,6 @@
       "correct_answer_index": 0
     },
     {
-      "question_text": "Jaka technika pozwala zwiększyć płynność animacji przez interpolację między kluczowymi klatkami?",
-      "answers": [
-        "Rasteryzacja",
-        "Keyframing",
-        "Tweening",
-        "Sampling"
-      ],
-      "correct_answer_index": 2
-    },
-    {
       "question_text": "Jakie wartości opisują kolor w przestrzeni HSV?",
       "answers": [
         "Hue, Saturation, Value",
@@ -1893,16 +1673,6 @@
         "Kolor światła"
       ],
       "correct_answer_index": 2
-    },
-    {
-      "question_text": "Jak nazywa się technika polegająca na podmianie tekstur w czasie rzeczywistym w grze komputerowej?",
-      "answers": [
-        "Raycasting",
-        "Texture swapping",
-        "Shadow mapping",
-        "Multisampling"
-      ],
-      "correct_answer_index": 1
     }
   ],
   "SYSTEMY OPERACYJNE II": [
@@ -2159,16 +1929,6 @@
       "correct_answer_index": 2
     },
     {
-      "question_text": "Który algorytm może być użyty do znajdowania najkrótszej ścieżki w grafie bez ujemnych wag?",
-      "answers": [
-        "DFS",
-        "BFS",
-        "Dijkstra",
-        "Bellman-Ford"
-      ],
-      "correct_answer_index": 2
-    },
-    {
       "question_text": "Jakie operacje w drzewie BST są typowo wykonywane w czasie O(log n)?",
       "answers": [
         "Wstawianie, wyszukiwanie, usuwanie",
@@ -2209,26 +1969,6 @@
         "Rozstęp"
       ],
       "correct_answer_index": 2
-    },
-    {
-      "question_text": "Jeśli średnia z próby wynosi 10, a wariancja 4, to odchylenie standardowe wynosi:",
-      "answers": [
-        "2",
-        "4",
-        "16",
-        "8"
-      ],
-      "correct_answer_index": 0
-    },
-    {
-      "question_text": "Jakie jest prawdopodobieństwo wyrzucenia liczby większej niż 4 przy rzucie uczciwą kostką?",
-      "answers": [
-        "1/3",
-        "2/3",
-        "1/6",
-        "2/6"
-      ],
-      "correct_answer_index": 0
     },
     {
       "question_text": "W histogramie liczba obserwacji w przedziale to:",
@@ -2299,16 +2039,6 @@
         "Zależność losowa"
       ],
       "correct_answer_index": 2
-    },
-    {
-      "question_text": "Jeśli próbka ma rozmiar 100 i suma wszystkich wartości to 500, to średnia wynosi:",
-      "answers": [
-        "50",
-        "5",
-        "500",
-        "100"
-      ],
-      "correct_answer_index": 1
     },
     {
       "question_text": "Do czego służy test chi-kwadrat?",
@@ -2555,16 +2285,6 @@
       "correct_answer_index": 1
     },
     {
-      "question_text": "Jak nazywa się automat skończony, który nie posiada wyjścia zależnego od wejścia, a tylko od stanu?",
-      "answers": [
-        "Automat Mealy'ego",
-        "Automat Moore'a",
-        "Automat kombinacyjny",
-        "Rejestr"
-      ],
-      "correct_answer_index": 1
-    },
-    {
       "question_text": "Co to jest tablica Karnaugha?",
       "answers": [
         "Schemat połączeń bramek",
@@ -2573,16 +2293,6 @@
         "Sposób konfiguracji FPGA"
       ],
       "correct_answer_index": 2
-    },
-    {
-      "question_text": "Ile wynosi wartość logiczna wyrażenia: A = 1, B = 0 dla A AND B?",
-      "answers": [
-        "1",
-        "0",
-        "Nieokreślona",
-        "Zależy od poprzedniego stanu"
-      ],
-      "correct_answer_index": 1
     },
     {
       "question_text": "Które z poniższych wyrażeń reprezentuje funkcję NOR?",
@@ -2757,16 +2467,6 @@
         "jr"
       ],
       "correct_answer_index": 1
-    },
-    {
-      "question_text": "W jaki sposób zapisujemy liczbę -5 w kodzie U2 (uzupełnienie do dwóch)? (8 bitów)",
-      "answers": [
-        "11111011",
-        "00000101",
-        "11111101",
-        "10000011"
-      ],
-      "correct_answer_index": 0
     },
     {
       "question_text": "Czym różni się architektura single-cycle od multi-cycle?",
@@ -3033,16 +2733,6 @@
       "correct_answer_index": 1
     },
     {
-      "question_text": "In a business meeting, asking 'Would you mind if I asked a question?' is an example of:",
-      "answers": [
-        "Clarification",
-        "Interrupting rudely",
-        "Polite interruption",
-        "Criticism"
-      ],
-      "correct_answer_index": 2
-    },
-    {
       "question_text": "Which phrase is best for describing survey findings?",
       "answers": [
         "Let's brainstorm this",
@@ -3243,16 +2933,6 @@
       "correct_answer_index": 0
     },
     {
-      "question_text": "In business writing, 'I would appreciate it if you could…' is an example of:",
-      "answers": [
-        "A threat",
-        "A command",
-        "A polite request",
-        "A complaint"
-      ],
-      "correct_answer_index": 2
-    },
-    {
       "question_text": "In Unit 4, climate change is linked to which business concept?",
       "answers": [
         "Sustainability",
@@ -3321,16 +3001,6 @@
         "A retirement plan"
       ],
       "correct_answer_index": 1
-    },
-    {
-      "question_text": "Which word best fits: 'The company is trying to ____ talent by offering flexible working.'",
-      "answers": [
-        "retain",
-        "refuse",
-        "remove",
-        "resign"
-      ],
-      "correct_answer_index": 0
     },
     {
       "question_text": "When giving feedback, you should:",
@@ -3695,16 +3365,6 @@
         "JOIN"
       ],
       "correct_answer_index": 0
-    },
-    {
-      "question_text": "Jak nazywa się ograniczenie zapewniające, że dane w kolumnie nie będą się powtarzać?",
-      "answers": [
-        "PRIMARY KEY",
-        "FOREIGN KEY",
-        "UNIQUE",
-        "NOT NULL"
-      ],
-      "correct_answer_index": 2
     },
     {
       "question_text": "Który typ relacji występuje w bazie danych najczęściej?",

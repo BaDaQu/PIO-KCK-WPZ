@@ -45,9 +45,29 @@ GAME_OVER_TEXT_COLOR = (240, 190, 100)
 GAME_OVER_WIN_TEXT = "ZWYCIĘSTWO!"
 GAME_OVER_LOSE_TEXT = "PORAŻKA..."
 
+# --- Ustawienia Dźwięku ---
+DEFAULT_MASTER_VOLUME = 0.4
+DEFAULT_MUSIC_VOLUME = 0.4
+DEFAULT_SFX_VOLUME = 0.4
+
 # --- Ścieżki do Zasobów ---
 BASE_ASSET_PATH = "../assets/"
 FIELD_ICONS_BASE_PATH = BASE_ASSET_PATH + "images/field_icons/"
+SOUND_ASSET_PATH = BASE_ASSET_PATH + "sounds/"
+SOUND_PATHS = {
+    'button_click': 'button_click.wav',
+    'dice_roll':    'dice_roll_loop.wav',
+    'pawn_move':    'pawn_move_step.wav',
+    'correct':      'answer_correct.wav',
+    'wrong':        'answer_wrong.wav',
+    'lose_life':    'lose_life.wav',
+    'gain_points':  'points_gain.wav',
+    'lose_points': 'points_lose.wav',
+    'typing': 'typing_key.wav',
+    'backspace': 'typing_backspace.wav',
+    'game_win': 'game_win.wav',
+    'game_lose': 'game_lose.wav'
+}
 FIELD_ICON_MAPPING = {
     "START": "start.png", "ANALIZA MAT. I": "analiza_mat_i.png",
     "ALGEBRA LINIOWA": "algebra_liniowa.png", "OPROGRAMOWANIE UŻYTKOWE": "oprogramowanie_uzytkowe.png",
@@ -64,6 +84,9 @@ FIELD_ICON_MAPPING = {
     "JĘZYK ANGIELSKI": "jezyk_angielski.png", "SIECI KOMPUTEROWE": "sieci_komputerowe.png",
     "BAZY DANYCH": "bazy_danych.png"
 }
+MUSIC_PATH_MENU = BASE_ASSET_PATH + "sounds/music_menu.mp3"
+MUSIC_PATH_MENU = BASE_ASSET_PATH + "sounds/music_menu.mp3"
+MUSIC_PATH_GAMEPLAY = BASE_ASSET_PATH + "sounds/music_gameplay.wav"
 FONT_PATH_PT_SERIF_REGULAR = BASE_ASSET_PATH + "fonts/PTSerif-Regular.ttf"
 FONT_PATH_NOTO_SERIF_REGULAR = BASE_ASSET_PATH + "fonts/NotoSerif_Condensed-Black.ttf"
 FONT_PATH_HUNINN_REGULAR = BASE_ASSET_PATH + "fonts/Huninn-Regular.ttf"
@@ -84,6 +107,7 @@ IMAGE_PATH_INSTRUCTIONS_BG = BASE_ASSET_PATH + "images/INSTRUCTIONS_BG.png"
 IMAGE_PATH_NAME_INPUT_BG = BASE_ASSET_PATH + "images/NAME_INPUT_BG.png"
 IMAGE_PATH_GAME_OVER_BG = BASE_ASSET_PATH + "images/INSTRUCTIONS_BG.png"
 IMAGE_PATH_WINNER_CROWN = BASE_ASSET_PATH + "images/KORONA.png"
+IMAGE_PATH_SETTINGS_ICON = BASE_ASSET_PATH + "images/SETTINGS_ICON.png"
 DICE_IMAGES_BASE_PATH = BASE_ASSET_PATH + "images/"
 
 # --- Ustawienia Czcionek ---
@@ -95,7 +119,7 @@ QUESTION_CARD_ANSWER_LABEL_FONT_SIZE = 48; INSTRUCTIONS_TITLE_FONT_SIZE = 70
 INSTRUCTIONS_HEADER_FONT_SIZE = 45; INSTRUCTIONS_BODY_FONT_SIZE = 25
 GAME_OVER_TITLE_FONT_SIZE = 100
 GAME_OVER_SUBTITLE_FONT_SIZE = 40
-GAME_OVER_REASON_FONT_SIZE = 40 # *** DODANA BRAKUJĄCA STAŁA ***
+GAME_OVER_REASON_FONT_SIZE = 40
 
 # --- Ustawienia Punktacji i Żyć ---
 INITIAL_PLAYER_LIVES = 3; POINTS_FOR_CORRECT_ANSWER = 1; POINTS_FOR_SCHOLARSHIP = 2
@@ -109,6 +133,14 @@ MENU_BUTTON_START_Y_OFFSET_PERCENTAGE = 0.59; MENU_BUTTON_CENTER_X_OFFSET = -140
 # --- Ustawienia Przycisków Panelu Gameplay ---
 GAMEPLAY_PANEL_BUTTON_WIDTH = 220; GAMEPLAY_PANEL_BUTTON_HEIGHT = 70; GAMEPLAY_PANEL_BUTTON_SPACING = 20
 MAX_PLAYER_NAME_LENGTH = 20; FORFEIT_BUTTON_TEXT = "Zakończ Grę"
+GAMEPLAY_SETTINGS_ICON_SIZE = 80
+GAMEPLAY_SETTINGS_ICON_X = 20
+GAMEPLAY_SETTINGS_ICON_Y = 900
+GAMEPLAY_SETTINGS_ICON_HOVER_BG_COLOR = (255, 255, 255, 50)  # Taki sam jak w menu
+GAMEPLAY_SETTINGS_ICON_HOVER_OUTLINE_COLOR = (255, 255, 255, 180) # Taki sam jak w menu
+GAMEPLAY_SETTINGS_ICON_HOVER_OUTLINE_WIDTH = 2 # Taki sam jak w menu
+GAMEPLAY_SETTINGS_ICON_HOVER_BORDER_RADIUS = 10 # Taki sam jak w menu
+
 
 # --- Ustawienia Ekranu Wprowadzania Imion ---
 NAME_INPUT_BOX_WIDTH = 450; NAME_INPUT_BOX_HEIGHT = 60; NAME_INPUT_LABEL_Y_OFFSET = -50
@@ -166,3 +198,19 @@ CROWN_ANIM_AMPLITUDE = 15
 GAMEOVER_TITLE_Y_OFFSET = -400
 GAMEOVER_REASON_Y_OFFSET = 200
 GAMEOVER_BUTTON_Y_OFFSET = 350
+GAME_OVER_DELAY_SECONDS = 0.7
+
+# --- Ustawienia dla Ekranu Ustawień ---
+SETTINGS_ICON_SIZE = 80
+SETTINGS_ICON_X_OFFSET = 20
+SETTINGS_ICON_Y_OFFSET = 900
+SETTINGS_ICON_HOVER_BG_COLOR = (255, 255, 255, 50)
+SETTINGS_ICON_HOVER_OUTLINE_COLOR = (255, 255, 255, 180)
+SETTINGS_ICON_HOVER_OUTLINE_WIDTH = 2
+SETTINGS_ICON_HOVER_BORDER_RADIUS = 10
+SLIDER_WIDTH = 500
+SLIDER_HEIGHT = 31
+SLIDER_START_Y = 300
+SLIDER_Y_SPACING = 120
+
+
