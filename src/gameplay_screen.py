@@ -4,28 +4,25 @@ from board_screen import Board
 from button import Button
 from player_widget import PlayerInfoWidget
 import settings
-import sound_manager  # Dodano na wypadek przyszłych dźwięków specyficznych dla tego ekranu
+import sound_manager  # Dodajemy import
 
 # Zmienne globalne modułu
 game_board_instance = None
 left_panel_background_img = None
-info_font = None  # Ogólna czcionka dla informacji w panelu
-button_font_gameplay = None  # Czcionka dla standardowych przycisków w panelu
-player_widgets = []  # Lista obiektów PlayerInfoWidget
-
-# Elementy UI Panelu
-dice_button_panel = None  # Przycisk "Rzuć Kostką"
-forfeit_button_panel = None  # Przycisk "Zakończ Grę / Powrót do Menu"
-settings_button_panel = None  # Przycisk ikonki Ustawień
-settings_button_icon = None  # Załadowany obrazek ikonki Ustawień
+info_font = None
+button_font_gameplay = None
+dice_button_panel = None
+forfeit_button_panel = None
+settings_button_panel = None
+settings_button_icon = None
+player_widgets = []
+mute_icon_overlay_img_gameplay = None  # Dla ikonki wyciszenia specyficznej dla tego ekranu
 
 
 def load_gameplay_resources(screen_width, screen_height):
     """Ładuje wszystkie zasoby potrzebne dla ekranu rozgrywki."""
-    global game_board_instance, left_panel_background_img, info_font, button_font_gameplay, settings_button_icon
+    global game_board_instance, left_panel_background_img, info_font, button_font_gameplay, settings_button_icon, mute_icon_overlay_img_gameplay
 
-    # Inicjalizuj planszę z poprawnymi wymiarami ekranu rozgrywki
-    # screen_width tutaj to GAMEPLAY_SCREEN_WIDTH z main.py
     game_board_instance = Board(screen_width, screen_height)
 
     try:
@@ -45,7 +42,6 @@ def load_gameplay_resources(screen_width, screen_height):
         info_font = pygame.font.SysFont(None, settings.GAMEPLAY_PANEL_INFO_FONT_SIZE + 2)
         button_font_gameplay = pygame.font.SysFont(None, settings.GAMEPLAY_PANEL_BUTTON_FONT_SIZE + 2)
 
-    # Ładowanie ikonki ustawień
     try:
         icon_img_raw = pygame.image.load(settings.IMAGE_PATH_SETTINGS_ICON).convert_alpha()
         settings_button_icon = pygame.transform.scale(icon_img_raw,
@@ -55,14 +51,26 @@ def load_gameplay_resources(screen_width, screen_height):
         print(f"Błąd ładowania ikonki ustawień dla gameplay: {e}")
         settings_button_icon = None
 
+    # Ładowanie ikonki MUTE dla gameplay
+    try:
+        mute_raw = pygame.image.load(settings.IMAGE_PATH_MUTE_ICON_OVERLAY).convert_alpha()
+        mute_icon_overlay_img_gameplay = pygame.transform.smoothscale(mute_raw,
+                                                                      (int(
+                                                                          settings.GAMEPLAY_SETTINGS_ICON_SIZE * settings.MUTE_ICON_OVERLAY_SCALE_FACTOR),
+                                                                       int(settings.GAMEPLAY_SETTINGS_ICON_SIZE * settings.MUTE_ICON_OVERLAY_SCALE_FACTOR)))
+    except Exception as e:
+        print(f"Błąd ładowania ikonki wyciszenia dla gameplay: {e}")
+        mute_icon_overlay_img_gameplay = None
+
 
 def setup_gameplay_ui_elements(screen_height_param, player_names):
+    """Konfiguruje elementy UI panelu bocznego, w tym widgety graczy i przyciski."""
     global dice_button_panel, forfeit_button_panel, player_widgets, settings_button_panel
 
-    # --- Konfiguracja Widgetów Graczy (pozostaje bez zmian) ---
     player_widgets = []
     widget_start_x = settings.PLAYER_WIDGET_1_X_OFFSET
     widget_start_y = settings.PLAYER_WIDGET_1_Y_OFFSET
+
     if len(player_names) > 0:
         p1_widget = PlayerInfoWidget(
             x=widget_start_x, y=widget_start_y,
@@ -85,17 +93,13 @@ def setup_gameplay_ui_elements(screen_height_param, player_names):
         )
         player_widgets.append(p2_widget)
 
-    # --- Konfiguracja Przycisków Panelu ---
     btn_width = settings.GAMEPLAY_PANEL_BUTTON_WIDTH
     btn_height = settings.GAMEPLAY_PANEL_BUTTON_HEIGHT
     btn_spacing_panel = settings.GAMEPLAY_PANEL_BUTTON_SPACING
-
-    # Definiujemy przesunięcie tylko dla tych dwóch przycisków
     horizontal_offset_for_dice_and_forfeit = 45
 
-    # Przycisk "Rzuć Kostką"
     dice_button_panel = Button(
-        x=(settings.LEFT_PANEL_WIDTH - btn_width) // 2 + horizontal_offset_for_dice_and_forfeit, # <-- DODANO PRZESUNIĘCIE
+        x=(settings.LEFT_PANEL_WIDTH - btn_width) // 2 + horizontal_offset_for_dice_and_forfeit,
         y=screen_height_param - (btn_height * 2) - btn_spacing_panel - 50,
         width=btn_width, height=btn_height,
         text="Rzuć Kostką", font=button_font_gameplay,
@@ -103,9 +107,8 @@ def setup_gameplay_ui_elements(screen_height_param, player_names):
         text_color=settings.PANEL_BUTTON_TEXT_COLOR, action="ROLL_DICE_PANEL", border_radius=10
     )
 
-    # Przycisk "Zakończ Grę"
     forfeit_button_panel = Button(
-        x=(settings.LEFT_PANEL_WIDTH - btn_width) // 2 + horizontal_offset_for_dice_and_forfeit, # <-- DODANO PRZESUNIĘCIE
+        x=(settings.LEFT_PANEL_WIDTH - btn_width) // 2 + horizontal_offset_for_dice_and_forfeit,
         y=dice_button_panel.rect.bottom + btn_spacing_panel,
         width=btn_width, height=btn_height,
         text=settings.FORFEIT_BUTTON_TEXT,
@@ -116,16 +119,15 @@ def setup_gameplay_ui_elements(screen_height_param, player_names):
         border_radius=10
     )
 
-    # Przycisk Ustawień (zębatka) - jego pozycja X pozostaje bez zmian (sterowana przez settings.py)
     settings_button_panel = Button(
         x=settings.GAMEPLAY_SETTINGS_ICON_X,
         y=settings.GAMEPLAY_SETTINGS_ICON_Y,
         width=settings.GAMEPLAY_SETTINGS_ICON_SIZE,
         height=settings.GAMEPLAY_SETTINGS_ICON_SIZE,
         text="", font=None,
-        base_color=(0,0,0,0),
+        base_color=(0, 0, 0, 0),
         hover_color=settings.GAMEPLAY_SETTINGS_ICON_HOVER_BG_COLOR,
-        text_color=(0,0,0),
+        text_color=(0, 0, 0),
         action="OPEN_SETTINGS_OVERLAY",
         border_radius=settings.GAMEPLAY_SETTINGS_ICON_HOVER_BORDER_RADIUS,
         image=settings_button_icon
@@ -133,19 +135,17 @@ def setup_gameplay_ui_elements(screen_height_param, player_names):
 
 
 def handle_gameplay_input(event, mouse_pos):
-    """Obsługuje input dla wszystkich przycisków w panelu rozgrywki."""
-    # Przycisk ustawień ma priorytet, bo może być kliknięty zawsze
-    if settings_button_panel:
-        action = settings_button_panel.handle_event(event, mouse_pos)
-        if action: return action
+    """Obsługuje input dla wszystkich przycisków w panelu rozgrywki oraz klawisze Enter/Spacja dla rzutu kostką."""
+    if settings_button_panel and settings_button_panel.handle_event(event, mouse_pos):
+        return "OPEN_SETTINGS_OVERLAY"
+    if forfeit_button_panel and forfeit_button_panel.handle_event(event, mouse_pos):
+        return "FORFEIT_GAME"
+    if dice_button_panel and dice_button_panel.handle_event(event, mouse_pos):
+        return "ROLL_DICE_PANEL"
 
-    if forfeit_button_panel:
-        action = forfeit_button_panel.handle_event(event, mouse_pos)
-        if action: return action
-
-    if dice_button_panel:
-        action = dice_button_panel.handle_event(event, mouse_pos)
-        if action: return action
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER or event.key == pygame.K_SPACE:
+            return "ROLL_DICE_PANEL"
 
     return None
 
@@ -159,23 +159,20 @@ def update_gameplay_state(current_player_id, dt_seconds):
 
 def draw_gameplay_screen(surface, mouse_pos, dice_instance_to_draw):
     """Rysuje cały ekran rozgrywki: panel boczny, planszę, UI i kostkę."""
+    global settings_button_panel  # Potrzebny do pobrania rect przycisku
     surface.fill(settings.DEFAULT_BG_COLOR)
 
-    # Rysowanie lewego panelu
     if left_panel_background_img:
         surface.blit(left_panel_background_img, (0, 0))
     else:
         pygame.draw.rect(surface, settings.PANEL_BG_COLOR, (0, 0, settings.LEFT_PANEL_WIDTH, surface.get_height()))
 
-    # Rysowanie planszy gry
     if game_board_instance:
-        game_board_instance.draw(surface)  # Plansza sama wie, gdzie się narysować
+        game_board_instance.draw(surface)
 
-    # Rysowanie widgetów graczy
     for widget in player_widgets:
         widget.draw(surface)
 
-    # Rysowanie przycisków panelu
     if dice_button_panel:
         dice_button_panel.update_hover(mouse_pos)
         dice_button_panel.draw(surface)
@@ -184,24 +181,27 @@ def draw_gameplay_screen(surface, mouse_pos, dice_instance_to_draw):
         forfeit_button_panel.update_hover(mouse_pos)
         forfeit_button_panel.draw(surface)
 
-    # Dedykowana logika rysowania dla przycisku ustawień z ikonką
-    if settings_button_panel and settings_button_icon:
+    if settings_button_panel:  # Sprawdź, czy przycisk ustawień istnieje
         settings_button_panel.update_hover(mouse_pos)
         # Rysuj podświetlenie i ramkę tylko, gdy jest hover
         if settings_button_panel.is_hovered:
             hover_surface = pygame.Surface(settings_button_panel.rect.size, pygame.SRCALPHA)
-            hover_surface.fill(settings.GAMEPLAY_SETTINGS_ICON_HOVER_BG_COLOR)
+            hover_surface.fill(settings_button_panel.hover_color)
             surface.blit(hover_surface, settings_button_panel.rect)
 
             pygame.draw.rect(surface, settings.GAMEPLAY_SETTINGS_ICON_HOVER_OUTLINE_COLOR, settings_button_panel.rect,
                              settings.GAMEPLAY_SETTINGS_ICON_HOVER_OUTLINE_WIDTH,
                              border_radius=settings.GAMEPLAY_SETTINGS_ICON_HOVER_BORDER_RADIUS)
-        # Zawsze rysuj ikonkę na wierzchu
-        surface.blit(settings_button_icon, settings_button_panel.rect)
+        # Zawsze rysuj ikonkę na wierzchu (jeśli przycisk ją ma)
+        if settings_button_panel.image:  # Jeśli przycisk ma własny obrazek (ikonkę)
+            surface.blit(settings_button_panel.image, settings_button_panel.rect)
 
-    # Rysowanie samego obrazka kostki (przekazanej z main.py)
+        # Rysowanie ikonki MUTE na przycisku ustawień
+        if sound_manager.is_effectively_muted() and mute_icon_overlay_img_gameplay:
+            mute_rect = mute_icon_overlay_img_gameplay.get_rect(center=settings_button_panel.rect.center)
+            surface.blit(mute_icon_overlay_img_gameplay, mute_rect)
+
     if dice_instance_to_draw and dice_button_panel:
-        # Pozycjonuj obrazek kostki nad przyciskiem "Rzuć Kostką"
         dice_instance_to_draw.dice_display_rect.centerx = dice_button_panel.rect.centerx
-        dice_instance_to_draw.dice_display_rect.bottom = dice_button_panel.rect.top - 15  # 15px odstępu
+        dice_instance_to_draw.dice_display_rect.bottom = dice_button_panel.rect.top - 15
         dice_instance_to_draw.draw(surface)
