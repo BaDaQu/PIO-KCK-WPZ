@@ -54,38 +54,10 @@ DEFAULT_SFX_VOLUME = 0.4
 BASE_ASSET_PATH = "../assets/"
 FIELD_ICONS_BASE_PATH = BASE_ASSET_PATH + "images/field_icons/"
 SOUND_ASSET_PATH = BASE_ASSET_PATH + "sounds/"
-SOUND_PATHS = {
-    'button_click': 'button_click.wav',
-    'dice_roll':    'dice_roll_loop.wav',
-    'pawn_move':    'pawn_move_step.wav',
-    'correct':      'answer_correct.wav',
-    'wrong':        'answer_wrong.wav',
-    'lose_life':    'lose_life.wav',
-    'gain_points':  'points_gain.wav',
-    'lose_points': 'points_lose.wav',
-    'typing': 'typing_key.wav',
-    'backspace': 'typing_backspace.wav',
-    'game_win': 'game_win.wav',
-    'game_lose': 'game_lose.wav'
-}
-FIELD_ICON_MAPPING = {
-    "START": "start.png", "ANALIZA MAT. I": "analiza_mat_i.png",
-    "ALGEBRA LINIOWA": "algebra_liniowa.png", "OPROGRAMOWANIE UŻYTKOWE": "oprogramowanie_uzytkowe.png",
-    "STYPENDIUM": "stypendium.png", "PROGRAMOWANIE SKRYPTOWE": "programowanie_skryptowe.png",
-    "BHP": "bhp.png", "FIZYKA": "fizyka.png", "EGZAMIN": "egzamin.png",
-    "MATEMATYKA DYSKRETNA": "matematyka_dyskretna.png", "PODSTAWY ELEKTROTECHNIKI": "podstawy_elektrotechniki.png",
-    "PODSTAWY PROGRAMOWANIA I": "podstawy_programowania_i.png", "POPRAWKA": "poprawka.png",
-    "PODSTAWY PROGRAMOWANIA II": "podstawy_programowania_ii.png", "SYSTEMY OPERACYJNE I": "systemy_operacyjne_i.png",
-    "ANALIZA MAT. II": "analiza_mat_ii.png", "PODSTAWY GRAFIKI KOMP.": "podstawy_grafiki_komp.png",
-    "SYSTEMY OPERACYJNE II": "systemy_operacyjne_ii.png", "ALGORYTMY I STRUKTURY DANYCH": "algorytmy_i_struktury_danych.png",
-    "METODY PROBABILISTYCZNE": "metody_probabilistyczne.png", "METODY NUMERYCZNE": "metody_numeryczne.png",
-    "TECHNIKA CYFROWA": "technika_cyfrowa.png", "PROGRAMOWANIE OBIEKTOWE I": "programowanie_obiektowe_i.png",
-    "ARCHITEKTURA KOMPUTERÓW": "architektura_komputerow.png", "DESIGN THINKING": "design_thinking.png",
-    "JĘZYK ANGIELSKI": "jezyk_angielski.png", "SIECI KOMPUTEROWE": "sieci_komputerowe.png",
-    "BAZY DANYCH": "bazy_danych.png"
-}
+SOUND_PATHS = { 'button_click': 'button_click.wav', 'dice_roll': 'dice_roll_loop.wav', 'pawn_move': 'pawn_move_step.wav', 'correct': 'answer_correct.wav', 'wrong': 'answer_wrong.wav', 'lose_life': 'lose_life.wav', 'gain_points': 'points_gain.wav', 'lose_points': 'points_lose.wav', 'typing': 'typing_key.wav', 'backspace': 'typing_backspace.wav', 'game_win': 'game_win.wav', 'game_lose': 'game_lose.wav' }
+FIELD_ICON_MAPPING = { "START": "start.png", "ANALIZA MAT. I": "analiza_mat_i.png", "ALGEBRA LINIOWA": "algebra_liniowa.png", "OPROGRAMOWANIE UŻYTKOWE": "oprogramowanie_uzytkowe.png", "STYPENDIUM": "stypendium.png", "PROGRAMOWANIE SKRYPTOWE": "programowanie_skryptowe.png", "BHP": "bhp.png", "FIZYKA": "fizyka.png", "EGZAMIN": "egzamin.png", "MATEMATYKA DYSKRETNA": "matematyka_dyskretna.png", "PODSTAWY ELEKTROTECHNIKI": "podstawy_elektrotechniki.png", "PODSTAWY PROGRAMOWANIA I": "podstawy_programowania_i.png", "POPRAWKA": "poprawka.png", "PODSTAWY PROGRAMOWANIA II": "podstawy_programowania_ii.png", "SYSTEMY OPERACYJNE I": "systemy_operacyjne_i.png", "ANALIZA MAT. II": "analiza_mat_ii.png", "PODSTAWY GRAFIKI KOMP.": "podstawy_grafiki_komp.png", "SYSTEMY OPERACYJNE II": "systemy_operacyjne_ii.png", "ALGORYTMY I STRUKTURY DANYCH": "algorytmy_i_struktury_danych.png", "METODY PROBABILISTYCZNE": "metody_probabilistyczne.png", "METODY NUMERYCZNE": "metody_numeryczne.png", "TECHNIKA CYFROWA": "technika_cyfrowa.png", "PROGRAMOWANIE OBIEKTOWE I": "programowanie_obiektowe_i.png", "ARCHITEKTURA KOMPUTERÓW": "architektura_komputerow.png", "DESIGN THINKING": "design_thinking.png", "JĘZYK ANGIELSKI": "jezyk_angielski.png", "SIECI KOMPUTEROWE": "sieci_komputerowe.png", "BAZY DANYCH": "bazy_danych.png" }
 MUSIC_PATH_MENU = BASE_ASSET_PATH + "sounds/music_menu.mp3"
-MUSIC_PATH_GAME_OVER = BASE_ASSET_PATH + "sounds/music_menu.mp3"
+MUSIC_PATH_GAME_OVER = BASE_ASSET_PATH + "sounds/music_menu.mp3" # Przykład, możesz zmienić
 MUSIC_PATH_GAMEPLAY = BASE_ASSET_PATH + "sounds/music_gameplay.wav"
 FONT_PATH_PT_SERIF_REGULAR = BASE_ASSET_PATH + "fonts/PTSerif-Regular.ttf"
 FONT_PATH_NOTO_SERIF_REGULAR = BASE_ASSET_PATH + "fonts/NotoSerif_Condensed-Black.ttf"
@@ -118,9 +90,7 @@ PLAYER_WIDGET_POINTS_FONT_SIZE = 30; NAME_INPUT_FONT_SIZE = 40; NAME_INPUT_LABEL
 NAME_ERROR_FONT_SIZE = 24; QUESTION_CARD_QUESTION_FONT_SIZE = 32; QUESTION_CARD_ANSWER_FONT_SIZE = 28
 QUESTION_CARD_ANSWER_LABEL_FONT_SIZE = 48; INSTRUCTIONS_TITLE_FONT_SIZE = 70
 INSTRUCTIONS_HEADER_FONT_SIZE = 30; INSTRUCTIONS_BODY_FONT_SIZE = 20
-GAME_OVER_TITLE_FONT_SIZE = 100
-GAME_OVER_SUBTITLE_FONT_SIZE = 40
-GAME_OVER_REASON_FONT_SIZE = 40
+GAME_OVER_TITLE_FONT_SIZE = 100; GAME_OVER_SUBTITLE_FONT_SIZE = 40; GAME_OVER_REASON_FONT_SIZE = 40
 
 # --- Ustawienia Punktacji i Żyć ---
 INITIAL_PLAYER_LIVES = 3; POINTS_FOR_CORRECT_ANSWER = 1; POINTS_FOR_SCHOLARSHIP = 2
@@ -134,22 +104,16 @@ MENU_BUTTON_START_Y_OFFSET_PERCENTAGE = 0.59; MENU_BUTTON_CENTER_X_OFFSET = -140
 # --- Ustawienia Przycisków Panelu Gameplay ---
 GAMEPLAY_PANEL_BUTTON_WIDTH = 220; GAMEPLAY_PANEL_BUTTON_HEIGHT = 70; GAMEPLAY_PANEL_BUTTON_SPACING = 20
 MAX_PLAYER_NAME_LENGTH = 20; FORFEIT_BUTTON_TEXT = "Zakończ Grę"
-GAMEPLAY_SETTINGS_ICON_SIZE = 80
-GAMEPLAY_SETTINGS_ICON_X = 20
-GAMEPLAY_SETTINGS_ICON_Y = 900
-GAMEPLAY_SETTINGS_ICON_HOVER_BG_COLOR = (255, 255, 255, 50)  # Taki sam jak w menu
-GAMEPLAY_SETTINGS_ICON_HOVER_OUTLINE_COLOR = (255, 255, 255, 180) # Taki sam jak w menu
-GAMEPLAY_SETTINGS_ICON_HOVER_OUTLINE_WIDTH = 2 # Taki sam jak w menu
-GAMEPLAY_SETTINGS_ICON_HOVER_BORDER_RADIUS = 10 # Taki sam jak w menu
-
+GAMEPLAY_SETTINGS_ICON_SIZE = 80; GAMEPLAY_SETTINGS_ICON_X = 20; GAMEPLAY_SETTINGS_ICON_Y = 900
+GAMEPLAY_SETTINGS_ICON_HOVER_BG_COLOR = (255, 255, 255, 50)
+GAMEPLAY_SETTINGS_ICON_HOVER_OUTLINE_COLOR = (255, 255, 255, 180)
+GAMEPLAY_SETTINGS_ICON_HOVER_OUTLINE_WIDTH = 2; GAMEPLAY_SETTINGS_ICON_HOVER_BORDER_RADIUS = 10
 
 # --- Ustawienia Ekranu Wprowadzania Imion ---
 NAME_INPUT_BOX_WIDTH = 450; NAME_INPUT_BOX_HEIGHT = 60; NAME_INPUT_LABEL_Y_OFFSET = -50
 NAME_INPUT_LABEL_X_OFFSET = 0; NAME_ERROR_COLOR = (200, 0, 0); NAME_ERROR_DURATION_SECONDS = 1.0
-NAME_ERROR_Y_OFFSET = 10
-NAME_INPUT_CURSOR_BLINK_INTERVAL_SECONDS = 0.5 # Co ile sekund kursor ma migać
-NAME_INPUT_CURSOR_WIDTH = 2
-NAME_INPUT_CURSOR_COLOR = WHITE # Możesz dostosować
+NAME_ERROR_Y_OFFSET = 10; NAME_INPUT_CURSOR_BLINK_INTERVAL_SECONDS = 0.5
+NAME_INPUT_CURSOR_WIDTH = 2; NAME_INPUT_CURSOR_COLOR = WHITE
 
 # --- Ustawienia Karty Pytania ---
 QUESTION_CARD_WIDTH = 614; QUESTION_CARD_HEIGHT = 921; QUESTION_CARD_BORDER_RADIUS = 25
@@ -179,6 +143,14 @@ PLAYER_WIDGET_HEART_ICON_SIZE = 35; PLAYER_WIDGET_HEARTS_START_X = 240; PLAYER_W
 PLAYER_WIDGET_HEARTS_SPACING = 5; WIDGET_SHAKE_DURATION_SECONDS = 0.4; WIDGET_SHAKE_INTENSITY = 4
 WIDGET_SHAKE_FREQUENCY = 0.05; WIDGET_PULSE_DURATION_SECONDS = 1.0; WIDGET_PULSE_SCALE_MAX = 1.4
 WIDGET_PULSE_SPEED = 5.0
+ACTIVE_TURN_PULSE_DURATION_SECONDS = 1.5
+ACTIVE_TURN_PULSE_MIN_ALPHA = 100
+ACTIVE_TURN_PULSE_MAX_ALPHA = 255
+ACTIVE_TURN_PULSE_BORDER_WIDTH_MIN = 2 # Minimalna grubość ramki
+ACTIVE_TURN_PULSE_BORDER_WIDTH_MAX = 7 # Maksymalna grubość ramki
+ACTIVE_TURN_PULSE_BORDER_RADIUS = 12
+ACTIVE_TURN_PULSE_COLOR = PANEL_BUTTON_HOVER_COLOR # Użyj koloru hover z panelu
+# =========================================================
 
 # --- Ustawienia Profesora ---
 PROFESSOR_BASE_MOVE_TURN_INTERVAL = 3
@@ -205,20 +177,13 @@ GAMEOVER_BUTTON_Y_OFFSET = 350
 GAME_OVER_DELAY_SECONDS = 0.7
 
 # --- Ustawienia dla Ekranu Ustawień ---
-SETTINGS_ICON_SIZE = 80
-SETTINGS_ICON_X_OFFSET = 20
-SETTINGS_ICON_Y_OFFSET = 900
-SETTINGS_ICON_HOVER_BG_COLOR = (255, 255, 255, 50)
-SETTINGS_ICON_HOVER_OUTLINE_COLOR = (255, 255, 255, 180)
-SETTINGS_ICON_HOVER_OUTLINE_WIDTH = 2
-SETTINGS_ICON_HOVER_BORDER_RADIUS = 10
-SLIDER_WIDTH = 500
-SLIDER_HEIGHT = 31
-SLIDER_START_Y = 300
-SLIDER_Y_SPACING = 120
+SETTINGS_ICON_SIZE = 80; SETTINGS_ICON_X_OFFSET = 20; SETTINGS_ICON_Y_OFFSET = 900
+SETTINGS_ICON_HOVER_BG_COLOR = (255, 255, 255, 50); SETTINGS_ICON_HOVER_OUTLINE_COLOR = (255, 255, 255, 180)
+SETTINGS_ICON_HOVER_OUTLINE_WIDTH = 2; SETTINGS_ICON_HOVER_BORDER_RADIUS = 10
+SLIDER_WIDTH = 500; SLIDER_HEIGHT = 31; SLIDER_START_Y = 300; SLIDER_Y_SPACING = 120
 MUTE_ICON_OVERLAY_SCALE_FACTOR = 0.8
 
-# --- Ustawienia Nakładki Potwierdzenia Poddania Gry (NOWA SEKCJA) ---
+# --- Ustawienia Nakładki Potwierdzenia Poddania Gry ---
 CONFIRM_OVERLAY_BG_COLOR = (0, 0, 0, 200)
 CONFIRM_TEXT_COLOR = WHITE
 CONFIRM_BUTTON_WIDTH = 250
