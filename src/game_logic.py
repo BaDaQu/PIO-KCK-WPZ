@@ -5,23 +5,25 @@ import gameplay_screen
 import menu_screen
 import instructions_screen
 import game_over_screen
-import settings_screen  # Ważne, aby zaimportować
+import settings_screen  # Dla close_settings_overlay
+import forfeit_confirm_screen  # Dla nowej nakładki
 from pawn import PlayerPawn, ProfessorPawn
 import question_manager
 from question_screen import QuestionCard
 import sound_manager
 
-# --- Stałe ---
+# --- Stałe dla Logiki Gry ---
 SPECIAL_FIELDS = ["START", "STYPENDIUM", "EGZAMIN", "POPRAWKA"]
 
-# --- Zmienne Stanu ---
+# --- Zmienne Stanu Aplikacji (zarządzane centralnie) ---
 game_state = "MENU_GLOWNE"
-overlay_state = None
-previous_game_state = None  # Przechowuje stan gry sprzed otwarcia nakładki
 current_screen_width = settings.INITIAL_SCREEN_WIDTH
 current_screen_height = settings.INITIAL_SCREEN_HEIGHT
 screen = None
+overlay_state = None  # Możliwe wartości: "SETTINGS", "CONFIRM_FORFEIT", None
+previous_game_state = None  # Przechowuje stan gry sprzed otwarcia nakładki
 
+# --- Zmienne Logiki Gry ---
 all_sprites_group = pygame.sprite.Group()
 pawns_on_fields_map = {}
 all_pawn_objects = []
@@ -44,38 +46,43 @@ winner_data = None
 
 
 def set_main_screen(main_screen_surface):
+    """Pozwala głównemu plikowi przekazać instancję ekranu do tego modułu."""
     global screen
     screen = main_screen_surface
 
 
 def reset_to_main_menu():
+    """
+    Resetuje wszystkie kluczowe zmienne logiki gry do stanu początkowego,
+    przygotowując do powrotu do menu głównego.
+    """
     global game_state, overlay_state, previous_game_state, turn_phase, active_question_card, pawn_that_was_moving, professor_that_was_moving
     global final_player_names, player_points, player_lives, exam_mode_active, professor_move_pending, global_turn_counter, points_to_animate
+
     print("Resetowanie stanu gry do menu głównego...")
-    current_main_state = game_state  # Zapamiętaj aktualny stan główny
+
+    is_already_in_menu_context = game_state in ["MENU_GLOWNE", "INSTRUCTIONS", "GETTING_PLAYER_NAMES", "SETTINGS"]
+
     game_state = "MENU_GLOWNE"
-    overlay_state = None  # Zawsze czyść nakładkę
-    previous_game_state = None  # Zresetuj stan poprzedni
-
-    if current_main_state != "MENU_GLOWNE" and current_main_state != "SETTINGS":
-        sound_manager.play_music('menu')
-
-    settings_screen.hide_sliders()  # Upewnij się, że suwaki są ukryte
-
+    overlay_state = None
+    previous_game_state = None
     turn_phase = 'WAITING_FOR_ROLL';
     active_question_card = None;
     pawn_that_was_moving = None;
     professor_that_was_moving = None
     final_player_names = [];
     player_points = {};
-    player_lives = {};
-    exam_mode_active = False
+    player_lives = {}
+    exam_mode_active = False;
     professor_move_pending = 0;
     global_turn_counter = 0;
     points_to_animate = 0
     all_sprites_group.empty();
     pawns_on_fields_map.clear();
     all_pawn_objects.clear()
+
+    if not is_already_in_menu_context or not sound_manager.is_music_playing():
+        sound_manager.play_music('menu')
 
     if current_screen_width != settings.INITIAL_SCREEN_WIDTH or current_screen_height != settings.INITIAL_SCREEN_HEIGHT:
         set_screen_mode(settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT)
@@ -85,48 +92,46 @@ def reset_to_main_menu():
 
 
 def change_game_state(new_state, data=None):
-    global game_state, winner_data
-    if game_state == new_state and new_state != "GAME_OVER": return  # Unikaj niepotrzebnych zmian
-    print(f"Zmiana stanu gry z '{game_state}' na '{new_state}'")
+    """Centralna funkcja do zmiany stanu gry."""
+    global game_state, winner_data, previous_game_state  # Dodano previous_game_state
+    if game_state == new_state and new_state != "GAME_OVER": return
+
     previous_state_local = game_state
+    print(f"Zmiana stanu gry z '{previous_state_local}' na '{new_state}'")
     game_state = new_state
 
-    # Zarządzanie muzyką
-    if new_state in ["MENU_GLOWNE", "INSTRUCTIONS", "GETTING_PLAYER_NAMES"] and \
-            previous_state_local not in ["MENU_GLOWNE", "INSTRUCTIONS", "GETTING_PLAYER_NAMES", "SETTINGS"]:
-        sound_manager.play_music('menu')
+    if new_state in ["MENU_GLOWNE", "INSTRUCTIONS", "GETTING_PLAYER_NAMES"]:
+        if previous_state_local not in ["MENU_GLOWNE", "INSTRUCTIONS", "GETTING_PLAYER_NAMES",
+                                        "SETTINGS"] or not sound_manager.is_music_playing():
+            sound_manager.play_music('menu')
     elif new_state == "GAMEPLAY" and previous_state_local != "GAMEPLAY":
         sound_manager.play_music('gameplay')
     elif new_state == "GAME_OVER":
         sound_manager.play_music('game_over', loops=0)
         sound_manager.play_sound('game_win')
 
-    # Ustawienia dla nowego stanu
     if new_state == "GAME_OVER":
         winner_data = data
         game_over_screen.setup_game_over_screen(current_screen_width, current_screen_height, winner_data)
-    elif new_state == "GAMEPLAY":
-        if current_screen_width != settings.GAMEPLAY_SCREEN_WIDTH or current_screen_height != settings.GAMEPLAY_SCREEN_HEIGHT:
-            set_screen_mode(settings.GAMEPLAY_SCREEN_WIDTH, settings.GAMEPLAY_SCREEN_HEIGHT)
-        else:
+    elif new_state == "GAMEPLAY" and (
+            current_screen_width != settings.GAMEPLAY_SCREEN_WIDTH or current_screen_height != settings.GAMEPLAY_SCREEN_HEIGHT):
+        set_screen_mode(settings.GAMEPLAY_SCREEN_WIDTH, settings.GAMEPLAY_SCREEN_HEIGHT)
+    elif new_state in ["MENU_GLOWNE", "INSTRUCTIONS", "GETTING_PLAYER_NAMES", "GAME_OVER"] and (
+            current_screen_width != settings.INITIAL_SCREEN_WIDTH or current_screen_height != settings.INITIAL_SCREEN_HEIGHT):
+        set_screen_mode(settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT)
+    else:
+        if new_state == "GETTING_PLAYER_NAMES":
+            import name_input_screen;
+            name_input_screen.setup_name_input_screen(current_screen_width, current_screen_height)
+        elif new_state == "GAMEPLAY":
             initialize_gameplay()
-    elif new_state in ["MENU_GLOWNE", "INSTRUCTIONS", "GETTING_PLAYER_NAMES",
-                       "GAME_OVER"]:  # GAME_OVER jest też INITIAL_SCREEN_WIDTH/HEIGHT
-        if current_screen_width != settings.INITIAL_SCREEN_WIDTH or current_screen_height != settings.INITIAL_SCREEN_HEIGHT:
-            set_screen_mode(settings.INITIAL_SCREEN_WIDTH, settings.INITIAL_SCREEN_HEIGHT)
-        else:  # Jeśli rozmiar jest poprawny, tylko załaduj/ustaw UI
-            if new_state == "GETTING_PLAYER_NAMES":
-                import name_input_screen; name_input_screen.setup_name_input_screen(current_screen_width,
-                                                                                    current_screen_height)
-            elif new_state == "INSTRUCTIONS":
-                instructions_screen.load_instructions_resources(current_screen_width,
-                                                                current_screen_height); instructions_screen.setup_instructions_ui(
-                    current_screen_width, current_screen_height, menu_screen.BUTTON_FONT_MENU)
-            elif new_state == "MENU_GLOWNE":
-                menu_screen.load_menu_resources(current_screen_width,
-                                                current_screen_height); menu_screen.setup_menu_ui_elements(
-                    current_screen_width, current_screen_height)
-            # GAME_OVER setup jest już wyżej
+        elif new_state == "INSTRUCTIONS":
+            instructions_screen.load_instructions_resources(current_screen_width, current_screen_height)
+            instructions_screen.setup_instructions_ui(current_screen_width, current_screen_height,
+                                                      menu_screen.BUTTON_FONT_MENU)
+        elif new_state == "MENU_GLOWNE":
+            menu_screen.load_menu_resources(current_screen_width, current_screen_height)
+            menu_screen.setup_menu_ui_elements(current_screen_width, current_screen_height)
 
 
 def open_settings_overlay():
@@ -135,19 +140,16 @@ def open_settings_overlay():
         print("Otwieram nakładkę ustawień...")
         previous_game_state = game_state
         overlay_state = "SETTINGS"
-        # Upewnij się, że ustawienia są skonfigurowane dla aktualnego rozmiaru ekranu
-        # i że suwaki są widoczne
         settings_screen.setup_settings_screen(screen, current_screen_width, current_screen_height)
         settings_screen.show_sliders()
 
 
 def close_settings_overlay():
-    global overlay_state, previous_game_state
+    global overlay_state  # previous_game_state nie jest resetowany, main.py go użyje
     if overlay_state == "SETTINGS":
         print("Zamykam nakładkę ustawień.")
         settings_screen.hide_sliders()
         overlay_state = None
-        # previous_game_state zostaje, aby main.py wiedział co rysować w tle
 
 
 def set_screen_mode(width, height):
@@ -156,21 +158,18 @@ def set_screen_mode(width, height):
     current_screen_height = height
     screen = pygame.display.set_mode((current_screen_width, current_screen_height))
     print(f"Tryb ekranu zmieniony na: {width}x{height}")
-
-    # Przeładowanie zasobów dla aktualnego STANU GŁÓWNEGO po zmianie trybu
     if game_state == "MENU_GLOWNE":
         menu_screen.load_menu_resources(current_screen_width,
                                         current_screen_height); menu_screen.setup_menu_ui_elements(current_screen_width,
                                                                                                    current_screen_height)
     elif game_state == "GAMEPLAY":
-        initialize_gameplay()  # To załaduje zasoby gameplay
+        initialize_gameplay()
     elif game_state == "INSTRUCTIONS":
         instructions_screen.load_instructions_resources(current_screen_width,
                                                         current_screen_height); instructions_screen.setup_instructions_ui(
             current_screen_width, current_screen_height, menu_screen.BUTTON_FONT_MENU)
     elif game_state == "GETTING_PLAYER_NAMES":
         import name_input_screen; name_input_screen.setup_name_input_screen(current_screen_width, current_screen_height)
-    # Jeśli jesteśmy w GAME_OVER lub SETTINGS, set_screen_mode wywoła odpowiednie setupy po zmianie game_state
 
 
 def initialize_gameplay():
@@ -346,27 +345,26 @@ def check_for_game_over():
     for i, name in enumerate(final_player_names):
         player_id = f"player_{i + 1}"
         if player_points.get(player_id, 0) >= settings.POINTS_TO_WIN:
-            winner_data = {"id": player_id, "name": name,
-                           "reason": f"Zdobył(a) {settings.POINTS_TO_WIN} punktów ECTS."};
+            winner_data = {"id": player_id, "name": name, "reason": f"Zdobył(a) {settings.POINTS_TO_WIN} punktów ECTS."}
             turn_phase = 'GAME_ENDING_DELAY';
             delay_timer = 0.0
             return True
     loser_id = None
     for player_id, lives in player_lives.items():
         if lives <= settings.LIVES_TO_LOSE:
-            loser_id = player_id
+            loser_id = player_id;
             break
     if loser_id:
         try:
             winner_id = "player_2" if loser_id == "player_1" else "player_1"
             winner_name = final_player_names[int(winner_id.split('_')[1]) - 1]
-            winner_data = {"id": winner_id, "name": winner_name, "reason": "Przeciwnik stracił wszystkie życia."};
+            winner_data = {"id": winner_id, "name": winner_name, "reason": "Przeciwnik stracił wszystkie życia."}
             turn_phase = 'GAME_ENDING_DELAY';
             delay_timer = 0.0
             return True
         except (IndexError, ValueError) as e:
             print(f"Błąd przy ustalaniu zwycięzcy po porażce: {e}")
-            winner_data = {"id": None, "name": "Błąd", "reason": "Jeden z graczy stracił wszystkie życia."};
+            winner_data = {"id": None, "name": "Błąd", "reason": "Jeden z graczy stracił wszystkie życia."}
             turn_phase = 'GAME_ENDING_DELAY';
             delay_timer = 0.0
             return True
@@ -374,18 +372,37 @@ def check_for_game_over():
 
 
 def forfeit_game():
-    global winner_data;
-    loser_id = current_player_id
-    try:
-        winner_id = "player_2" if loser_id == "player_1" else "player_1"
-        winner_name = final_player_names[int(winner_id.split('_')[1]) - 1]
-        print(
-            f"!!! PODDANIE GRY! Gracz {final_player_names[int(loser_id.split('_')[1]) - 1]} poddaje grę! Zwycięża {winner_name}! !!!")
-        winner_data = {"id": winner_id, "name": winner_name, "reason": "Przeciwnik poddał grę."}
-        change_game_state("GAME_OVER", winner_data)
-    except (IndexError, ValueError) as e:
-        print(f"Błąd podczas poddawania gry: {e}")
-        change_game_state("GAME_OVER", {"id": None, "name": "Błąd", "reason": "Jeden z graczy poddał grę."})
+    """Rozpoczyna proces poddania gry przez wyświetlenie nakładki potwierdzenia."""
+    global overlay_state, previous_game_state
+    print("Gracz próbuje poddać grę. Pokazuję potwierdzenie...")
+    if overlay_state != "CONFIRM_FORFEIT":  # Zapobiegaj wielokrotnemu otwieraniu
+        previous_game_state = game_state
+        overlay_state = "CONFIRM_FORFEIT"
+        forfeit_confirm_screen.setup_forfeit_confirm_screen(current_screen_width, current_screen_height)
+
+
+def confirm_forfeit_action(confirmed: bool):
+    """Wykonuje akcję po decyzji gracza na ekranie potwierdzenia."""
+    global overlay_state, previous_game_state
+
+    overlay_state = None  # Zamknij nakładkę
+    # previous_game_state NIE jest resetowany, aby main.py wiedział co rysować w tle
+
+    if confirmed:
+        print("Gracz potwierdził poddanie gry.")
+        loser_id = current_player_id
+        try:
+            winner_id = "player_2" if loser_id == "player_1" else "player_1"
+            loser_name = final_player_names[int(loser_id.split('_')[1]) - 1]
+            winner_name = final_player_names[int(winner_id.split('_')[1]) - 1]
+            print(f"!!! PODDANIE GRY! Gracz {loser_name} poddaje grę! Zwycięża {winner_name}! !!!")
+            change_game_state("GAME_OVER", {"id": winner_id, "name": winner_name, "reason": "Przeciwnik poddał grę."})
+        except (IndexError, ValueError) as e:
+            print(f"Błąd podczas poddawania gry po potwierdzeniu: {e}")
+            change_game_state("GAME_OVER", {"id": None, "name": "Błąd", "reason": "Jeden z graczy poddał grę."})
+    else:
+        print("Gracz anulował poddanie gry.")
+        # Nic więcej nie rób, gra toczy się dalej
 
 
 def switch_turn():
@@ -416,7 +433,7 @@ def process_player_answer(chosen_answer_index):
         if exam_mode_active: exam_correct_answers_count += 1
     else:
         sound_manager.play_sound('wrong');
-        print("ODPOWIEDŹ BŁĘDNA!");
+        print("ODPOWIEDŹ BŁĘDNA!")
         professor_move_pending += 1
         if exam_mode_active: points_to_animate = settings.POINTS_FOR_EXAM_INCORRECT
     turn_phase = 'SHOWING_RESULT_ON_CARD'
@@ -552,3 +569,4 @@ def update_game_logic(dt_seconds, dice_instance):
         delay_timer += dt_seconds
         if delay_timer >= settings.GAME_OVER_DELAY_SECONDS:
             change_game_state("GAME_OVER", winner_data)
+            turn_phase = 'IDLE_AFTER_GAME_OVER'
