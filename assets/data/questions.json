@@ -1423,7 +1423,7 @@
       "correct_answer_index": 1
     },
     {
-      "question_text": "Który z poniższych zbiorów w \\( \\mathbb{R}^2 \\) jest zbiorem otwartym?",
+      "question_text": "Który z poniższych zbiorów w R^2 jest zbiorem otwartym?",
       "answers": [
         "{ (x, y) ∈ ℝ² : x² + y² = 4 }",
         "{ (x, y) ∈ ℝ² : x² + y² < 4 }",
@@ -2293,16 +2293,6 @@
         "Sposób konfiguracji FPGA"
       ],
       "correct_answer_index": 2
-    },
-    {
-      "question_text": "Które z poniższych wyrażeń reprezentuje funkcję NOR?",
-      "answers": [
-        "¬(A ∨ B)",
-        "¬(A ∧ B)",
-        "A ⊕ B",
-        "¬A ∨ ¬B"
-      ],
-      "correct_answer_index": 0
     }
   ],
   "PROGRAMOWANIE OBIEKTOWE I": [
