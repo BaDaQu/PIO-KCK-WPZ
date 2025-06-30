@@ -95,9 +95,9 @@ Lista zaimplementowanych i planowanych funkcjonalności.
 *   [x] **System Żyć:** Zliczanie żyć, wizualizacja utraty/zdobycia.
 *   [x] **Logika Pól Specjalnych:** Działanie pól "Stypendium", "Poprawka", "Egzamin".
 *   [x] **Logika Ruchu Profesora:** Dynamiczny ruch oparty na turach i błędach graczy.
-*   [ ] **Warunki Zwycięstwa/Porażki:** Implementacja logiki końca gry (dotarcie do mety, utrata wszystkich żyć).
-*   [ ] **Ekran Końca Gry:** Wyświetlanie wyników i opcji po zakończeniu rozgrywki.
-*   [ ] **Efekty Dźwiękowe i Muzyka:** Dodanie oprawy audio.
+*   [x] **Warunki Zwycięstwa/Porażki:** Implementacja logiki końca gry (dotarcie do mety, utrata wszystkich żyć).
+*   [x] **Ekran Końca Gry:** Wyświetlanie wyników i opcji po zakończeniu rozgrywki.
+*   [x] **Efekty Dźwiękowe i Muzyka:** Dodanie oprawy audio.
 
 *(Legenda: [x] - Zaimplementowane, [ ] - Do zaimplementowania)*
 
